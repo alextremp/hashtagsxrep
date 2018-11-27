@@ -1,39 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+<#include "common/enable-security.ftl">
 <head>
-    <meta charset="UTF-8"/>
-    <title>proof of concept ... twitter oauth</title>
-    <link rel="stylesheet" type="text/css" href="/ui/theme.css" />
-    <link rel="stylesheet" type="text/css" href="/ui/font-awesome.min.css" />
-    <link rel="stylesheet" type="text/css" href="/ui/jquery-ui.min.css" />
-    <link rel="stylesheet" type="text/css" href="/ui/primeui.min.css" />
-    <script type="text/javascript" src="/ui/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="/ui/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="/ui/primeui.min.js"></script>
+    <#assign pageTitle = "Inici | Hashtags per la República">
+    <#include "common/head.ftl">
 </head>
-<body>
-<script>
-$('#sticky').puisticky()
-$('#menu').puimenubar({
-    autoDisplay: false
-})
-</script>
-<div id="sticky">
-    <ul id="menu" >
-        <li >
-            <ul >
-                <li />
-                <li />
-            </ul >
-        </li >
-        <li />
-        <li />
-    </ul >
-</div>
-<h2 class="hello-title">proof of concept ... twitter oauth</h2>
-<div>
-    <a href="/login/twitter">Login with twitter</a>
-</div>
-<script src="/js/main.js"></script>
+
+<body class="bg03">
+    <div class="container">
+        <#include "component/nav-menu.ftl">
+        <@security.authorize access="! isAuthenticated()">
+            <#include "component/login-with-twitter.ftl">
+        </@security.authorize>
+        <@security.authorize access="isAuthenticated()">
+            <#include "component/user-details.ftl">
+        </@security.authorize>
+        <#include "component/footer.ftl">
+    </div>
 </body>
 </html>
