@@ -15,8 +15,22 @@ public class TwitterConfig {
   @Value("${twitter.apiSecret}")
   private String apiSecret;
 
+  @Value("${twitter.appKey}")
+  private String appKey;
+
+  @Value("${twitter.appSecret}")
+  private String appSecret;
+
   @Value("${twitter.oauthCallback}")
   private String oauthCallback;
+
+  public TwitterConfig(String apiKey, String apiSecret, String appKey, String appSecret, String oauthCallback) {
+    this.apiKey = apiKey;
+    this.apiSecret = apiSecret;
+    this.appKey = appKey;
+    this.appSecret = appSecret;
+    this.oauthCallback = oauthCallback;
+  }
 
   @Bean
   public OAuth10aService oAuth10aService() {
@@ -28,6 +42,6 @@ public class TwitterConfig {
 
   @Bean
   public TwitterClient twitterClient(OAuth10aService oAuth10aService) {
-    return new TwitterClient(oAuth10aService);
+    return new TwitterClient(oAuth10aService, appKey, appSecret);
   }
 }
