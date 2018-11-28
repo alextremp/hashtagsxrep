@@ -21,10 +21,14 @@ public class TwitterClient {
   private ObjectMapper objectMapper = new ObjectMapper();
 
   private final OAuth10aService service;
+  private final String appKey;
+  private final String appSecret;
 
-  public TwitterClient(OAuth10aService oAuth10aService) {
+  public TwitterClient(OAuth10aService oAuth10aService, String appKey, String appSecret) {
     LOG.info(">> oAuth10aService.getApiKey(): " + oAuth10aService.getApiKey());
     this.service = oAuth10aService;
+    this.appKey = appKey;
+    this.appSecret = appSecret;
   }
 
   public String authTokenUrl() throws Exception {
