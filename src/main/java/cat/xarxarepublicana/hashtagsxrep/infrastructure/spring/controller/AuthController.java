@@ -1,10 +1,8 @@
 package cat.xarxarepublicana.hashtagsxrep.infrastructure.spring.controller;
 
-import cat.xarxarepublicana.hashtagsxrep.domain.User;
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.spring.security.InMemoryUserRepository;
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.spring.security.SecurityContext;
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.spring.security.UserAuth;
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.twitter.TwitterClient;
+import cat.xarxarepublicana.hashtagsxrep.application.Views;
+import cat.xarxarepublicana.hashtagsxrep.application.signin.ConnectTwitterCallbackUseCase;
+import cat.xarxarepublicana.hashtagsxrep.application.signin.SignInWithTwitterUse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Controller
@@ -20,54 +17,33 @@ public class AuthController {
 
     private static final Logger LOG = Logger.getLogger(AuthController.class.getName());
 
-    private final TwitterClient twitterClient;
-    private final InMemoryUserRepository userRepository;
-    private final SecurityContext securityContext;
+    private final SignInWithTwitterUse signInWithTwitterUse;
+    private final ConnectTwitterCallbackUseCase connectTwitterCallbackUseCase;
 
     @Autowired
-    public AuthController(
-            SecurityContext securityContext,
-            InMemoryUserRepository userRepository,
-            TwitterClient twitterClient
-    ) {
-        this.twitterClient = twitterClient;
-        this.securityContext = securityContext;
-        this.userRepository = userRepository;
+    public AuthController(SignInWithTwitterUse signInWithTwitterUse, ConnectTwitterCallbackUseCase connectTwitterCallbackUseCase) {
+        this.signInWithTwitterUse = signInWithTwitterUse;
+        this.connectTwitterCallbackUseCase = connectTwitterCallbackUseCase;
     }
 
-    @GetMapping("/connect/twitter")
+    @GetMapping(Views.SIGNIN_TWITTER)
+    public RedirectView loginTwitter() throws Exception {
+        SignInWithTwitterUse.SignInWithTwitterResponse signInWithTwitterResponse = signInWithTwitterUse.signInWithTwitter();
+        return new RedirectView(signInWithTwitterResponse.getRedirectTo());
+    }
+
+    @GetMapping(Views.CONNECT_TWITTER)
     public RedirectView connectTwitter(
             HttpServletResponse response,
             @RequestParam(value = "oauth_token", required = false) String oauthToken,
             @RequestParam(value = "oauth_verifier", required = false) String oauthVerifier,
-            @RequestParam(value = "denied", required = false) String denied) throws Exception {
-
-        if (denied != null) {
-            LOG.info(">> /login/twitter: DENIED");
-            return new RedirectView("/login");
-        } else {
-            LOG.info(">> /login/twitter: ACCEPTED: " + oauthToken);
-            try {
-                User user = twitterClient.getUser(oauthToken, oauthVerifier);
-                UserAuth userAuth = new UserAuth(user);
-                userRepository.save(userAuth);
-                securityContext.put(userAuth, response);
-            } catch (Exception e) {
-                LOG.log(Level.SEVERE, "Error getting user", e);
-                throw e;
-            }
-            return new RedirectView("/");
-        }
+            @RequestParam(value = "denied", required = false) String denied) {
+        connectTwitterCallbackUseCase.connect(response, oauthToken, oauthVerifier, denied);
+        ConnectTwitterCallbackUseCase.ConnectResponse connectResponse = connectTwitterCallbackUseCase.connect(response, oauthToken, oauthVerifier, denied);
+        return new RedirectView(connectResponse.getRedirectTo());
     }
 
-    @GetMapping("/login/twitter")
-    public RedirectView signInWithTwitter() throws Exception {
-        String url = twitterClient.authTokenUrl();
-        LOG.info(">> /login/twitter: " + url);
-        return new RedirectView(url);
-    }
-
-    @GetMapping("/login")
+    @GetMapping(Views.LOGIN)
     public String login() throws Exception {
         return "login";
     }

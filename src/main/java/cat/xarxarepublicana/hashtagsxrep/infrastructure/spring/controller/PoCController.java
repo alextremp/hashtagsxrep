@@ -1,6 +1,6 @@
 package cat.xarxarepublicana.hashtagsxrep.infrastructure.spring.controller;
 
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.spring.security.UserAuth;
+import cat.xarxarepublicana.hashtagsxrep.infrastructure.spring.security.AuthenticationUser;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,18 +17,18 @@ public class PoCController {
     }
 
     @GetMapping("/")
-    public String index(Model model, @AuthenticationPrincipal UserAuth userAuth) {
-        if (userAuth != null) {
-            model.addAttribute("user", userAuth.getUser());
+    public String index(Model model, @AuthenticationPrincipal AuthenticationUser authenticationUser) {
+        if (authenticationUser != null) {
+            model.addAttribute("user", authenticationUser.getUser());
         }
         return "index";
     }
 
     @GetMapping("/hello")
-    public String hello(Model model, @AuthenticationPrincipal UserAuth userAuth) {
-        model.addAttribute("name", userAuth.getUser().getName());
-        model.addAttribute("profileImage", userAuth.getUser().getProfileImageUrl());
-        model.addAttribute("nickname", userAuth.getUser().getNickname());
+    public String hello(Model model, @AuthenticationPrincipal AuthenticationUser authenticationUser) {
+        model.addAttribute("name", authenticationUser.getUser().getName());
+        model.addAttribute("profileImage", authenticationUser.getUser().getProfileImageUrl());
+        model.addAttribute("nickname", authenticationUser.getUser().getNickname());
         return "hello";
     }
 

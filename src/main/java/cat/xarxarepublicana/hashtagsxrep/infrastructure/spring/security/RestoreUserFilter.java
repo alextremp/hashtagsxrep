@@ -13,11 +13,11 @@ import java.io.IOException;
 public class RestoreUserFilter extends UsernamePasswordAuthenticationFilter {
 
     @Autowired
-    private SecurityContext securityContext;
+    private AuthenticationContext authenticationContext;
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        securityContext.restoreSecurityContext((HttpServletRequest) request);
+        authenticationContext.restoreSecurityContext((HttpServletRequest) request);
         chain.doFilter(request, response);
     }
 }

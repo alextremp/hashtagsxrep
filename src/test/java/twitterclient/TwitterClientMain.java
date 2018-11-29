@@ -1,7 +1,10 @@
 package twitterclient;
 
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.twitter.TwitterClient;
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.twitter.TwitterConfig;
+import cat.xarxarepublicana.hashtagsxrep.domain.twitter.TwitterRepository;
+import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.twitter.TwitterApi;
+import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.twitter.TwitterRepositoryImpl;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.OAuth1AccessToken;
 import com.github.scribejava.core.oauth.OAuth10aService;
 
@@ -11,10 +14,10 @@ import java.util.Properties;
 public class TwitterClientMain {
 
     protected final Properties env;
-    protected final TwitterConfig twitterConfig;
-    protected final TwitterClient twitterClient;
-    protected final OAuth10aService oAuth10aService;
-    protected final OAuth1AccessToken appAccessToken;
+    protected final TwitterRepository twitterRepository;
+
+    protected String appToken;
+    protected String appSecret;
 
     public TwitterClientMain() {
         this.env = new Properties();
@@ -26,21 +29,14 @@ public class TwitterClientMain {
             throw new RuntimeException("Twitter Client Main error", e);
         }
 
-        this.twitterConfig = new TwitterConfig(
-                env.getProperty("OAUTH_TWITTER_CONSUMER_API_KEY"),
-                env.getProperty("OAUTH_TWITTER_CONSUMER_API_SECRET"),
-                env.getProperty("OAUTH_TWITTER_ACCESS_TOKEN_KEY"),
-                env.getProperty("OAUTH_TWITTER_ACCESS_TOKEN_SECRET"),
-                env.getProperty("OAUTH_CALLBACK")
-        );
+        appToken = env.getProperty("OAUTH_TWITTER_ACCESS_TOKEN_KEY");
+        appSecret = env.getProperty("OAUTH_TWITTER_ACCESS_TOKEN_SECRET");
 
-        this.oAuth10aService = twitterConfig.oAuth10aService();
-
-        this.twitterClient = this.twitterConfig.twitterClient(this.oAuth10aService);
-
-        this.appAccessToken = new OAuth1AccessToken(
-                env.getProperty("OAUTH_TWITTER_ACCESS_TOKEN_KEY"),
-                env.getProperty("OAUTH_TWITTER_ACCESS_TOKEN_SECRET")
-        );
+        OAuth10aService oAuth10aService = new ServiceBuilder(env.getProperty("OAUTH_TWITTER_CONSUMER_API_KEY"))
+                .apiSecret(env.getProperty("OAUTH_TWITTER_CONSUMER_API_SECRET"))
+                .callback(env.getProperty("OAUTH_CALLBACK"))
+                .build(TwitterApi.instance());
+        OAuth1AccessToken oAuth1AccessToken = new OAuth1AccessToken(appToken, appSecret);
+        this.twitterRepository = new TwitterRepositoryImpl(oAuth10aService, oAuth1AccessToken, new ObjectMapper());
     }
 }

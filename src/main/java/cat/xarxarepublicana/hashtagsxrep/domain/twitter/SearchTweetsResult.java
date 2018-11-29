@@ -1,5 +1,7 @@
-package twitterclient;
+package cat.xarxarepublicana.hashtagsxrep.domain.twitter;
 
+import cat.xarxarepublicana.hashtagsxrep.domain.twitter.SearchMetadata;
+import cat.xarxarepublicana.hashtagsxrep.domain.twitter.Tweet;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
