@@ -1,13 +1,10 @@
 package cat.xarxarepublicana.hashtagsxrep.domain.twitter;
 
-import cat.xarxarepublicana.hashtagsxrep.domain.user.User;
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import java.util.Date;
-
-import static cat.xarxarepublicana.hashtagsxrep.domain.service.TimeConverter.toLocalDateTime;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
@@ -120,20 +117,4 @@ public class TwitterUser {
         this.name = name;
     }
 
-    public User toUser() {
-        return new User(
-                getIdStr(),
-                getScreenName(),
-                getName(),
-                null,
-                toLocalDateTime(getCreatedAt()),
-                getFollowersCount(),
-                getFriendsCount(),
-                getLang(),
-                getLocation(),
-                getProfileImageUrlHttps(),
-                isVerified(),
-                isProtected()
-        );
-    }
 }

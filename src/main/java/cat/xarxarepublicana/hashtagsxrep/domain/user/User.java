@@ -14,7 +14,8 @@ public class User {
     private String secret;
     private ACCESS access;
     private LocalDateTime signInDate;
-    private LocalDateTime creationDate;
+    private LocalDateTime systemCreationDate;
+    private LocalDateTime twitterCreationDate;
     private Long followers;
     private Long following;
     private String language;
@@ -23,17 +24,16 @@ public class User {
     private boolean verified;
     private boolean locked;
 
-    public User(String id, String nickname, String name, LocalDateTime signedInDate,
-                LocalDateTime creationDate, Long followers, Long following,
+    public User(String id, String nickname, String name, LocalDateTime twitterCreationDate, Long followers, Long following,
                 String language, String location, String profileImageUrl,
                 boolean verified, boolean locked) {
-        this(id, nickname, name, null, null, ACCESS.VIEWER, signedInDate,
-                creationDate, followers, following, language,
+        this(id, nickname, name, null, null, ACCESS.VIEWER, null,
+                null, twitterCreationDate, followers, following, language,
                 location, profileImageUrl, verified, locked);
     }
 
     public User(String id, String nickname, String name, String token, String secret,
-                ACCESS access, LocalDateTime signedInDate, LocalDateTime creationDate,
+                ACCESS access, LocalDateTime signedInDate, LocalDateTime systemCreationDate, LocalDateTime twitterCreationDate,
                 Long followers, Long following, String language, String location,
                 String profileImageUrl, boolean verified, boolean locked) {
         this.id = id;
@@ -43,7 +43,8 @@ public class User {
         this.secret = secret;
         this.access = access;
         this.signInDate = signedInDate;
-        this.creationDate = creationDate;
+        this.systemCreationDate = systemCreationDate;
+        this.twitterCreationDate = twitterCreationDate;
         this.followers = followers;
         this.following = following;
         this.language = language;
@@ -56,7 +57,7 @@ public class User {
     public void updateFromTwitter(TwitterUser twitterUser) {
         this.nickname = twitterUser.getScreenName();
         this.name = twitterUser.getName();
-        this.creationDate = toLocalDateTime(twitterUser.getCreatedAt());
+        this.twitterCreationDate = toLocalDateTime(twitterUser.getCreatedAt());
         this.followers = twitterUser.getFollowersCount();
         this.following = twitterUser.getFriendsCount();
         this.language = twitterUser.getLang();
@@ -90,8 +91,12 @@ public class User {
         return access;
     }
 
-    public LocalDateTime getCreationDate() {
-        return creationDate;
+    public LocalDateTime getSystemCreationDate() {
+        return systemCreationDate;
+    }
+
+    public LocalDateTime getTwitterCreationDate() {
+        return twitterCreationDate;
     }
 
     public Long getFollowers() {

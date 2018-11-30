@@ -1,6 +1,9 @@
 package cat.xarxarepublicana.hashtagsxrep.infrastructure.repository;
 
 import cat.xarxarepublicana.hashtagsxrep.domain.twitter.TwitterRepository;
+import cat.xarxarepublicana.hashtagsxrep.domain.user.UserFactory;
+import cat.xarxarepublicana.hashtagsxrep.domain.user.UserRepository;
+import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.local.InMemoryUserRepository;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.twitter.TwitterApi;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.twitter.TwitterRepositoryImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -46,5 +49,15 @@ public class RepositoryConfiguration {
     @Bean
     public OAuth1AccessToken applicationToken() {
         return new OAuth1AccessToken(appKey, appSecret);
+    }
+
+    @Bean
+    public UserRepository inMemoryUserRepository(UserFactory userFactory) {
+        return new InMemoryUserRepository(userFactory);
+    }
+
+    @Bean
+    public UserFactory defaultUserFactory() {
+        return new UserFactory();
     }
 }

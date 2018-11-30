@@ -38,13 +38,12 @@ public class AuthController {
             @RequestParam(value = "oauth_token", required = false) String oauthToken,
             @RequestParam(value = "oauth_verifier", required = false) String oauthVerifier,
             @RequestParam(value = "denied", required = false) String denied) {
-        connectTwitterCallbackUseCase.connect(response, oauthToken, oauthVerifier, denied);
         ConnectTwitterCallbackUseCase.ConnectResponse connectResponse = connectTwitterCallbackUseCase.connect(response, oauthToken, oauthVerifier, denied);
         return new RedirectView(connectResponse.getRedirectTo());
     }
 
     @GetMapping(Views.LOGIN)
-    public String login() throws Exception {
+    public String login() {
         return "login";
     }
 }

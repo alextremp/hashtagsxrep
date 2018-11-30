@@ -6,6 +6,6 @@ public interface UserRepository {
 
     User findById(String id);
 
-    User save(TwitterUser user);
+    User save(TwitterUser user, String userToken, String userSecret);
 
 }

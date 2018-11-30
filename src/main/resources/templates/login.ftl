@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <#assign pageTitle = "Login | Hashtags per la República">
-    <#include "head.ftl">
+    <#include "common/head.ftl">
 </head>
 
 <body class="bg03">
 <div class="container">
-    <#include "nav.ftl">
-    <#include "sign-in-twitter.ftl">
-    <#include "footer.ftl">
+    <#include "component/nav-menu.ftl">
+    <#include "component/login-with-twitter.ftl">
+    <#include "component/footer.ftl">
 </div>
 </body>
 </html>

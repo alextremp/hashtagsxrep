@@ -10,8 +10,11 @@ import com.github.scribejava.core.oauth.OAuth10aService;
 
 import java.io.FileInputStream;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 public class TwitterClientMain {
+
+    private static final Logger LOG = Logger.getLogger(TwitterClientMain.class.getName());
 
     protected final Properties env;
     protected final TwitterRepository twitterRepository;

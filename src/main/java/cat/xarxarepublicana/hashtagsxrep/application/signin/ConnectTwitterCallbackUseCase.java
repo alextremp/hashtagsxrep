@@ -27,7 +27,7 @@ public class ConnectTwitterCallbackUseCase {
             return new ConnectResponse(Views.LOGIN);
         }
         TwitterUser twitterUser = twitterRepository.verifyCredentials(oauthToken, oauthVerifier);
-        User user = userRepository.save(twitterUser);
+        User user = userRepository.save(twitterUser, oauthToken, oauthVerifier);
         AuthenticationUser authenticationUser = new AuthenticationUser(user);
         authenticationContext.put(authenticationUser, response);
         return new ConnectResponse(Views.INDEX);

@@ -10,7 +10,6 @@ public class SignInWithTwitterUse {
         this.twitterRepository = twitterRepository;
     }
 
-
     public SignInWithTwitterResponse signInWithTwitter() {
         String redirectTo = twitterRepository.getAuthorizationUrl();
         return new SignInWithTwitterResponse(redirectTo);

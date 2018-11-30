@@ -1,5 +1,6 @@
 package cat.xarxarepublicana.hashtagsxrep.infrastructure.spring.security;
 
+import cat.xarxarepublicana.hashtagsxrep.application.Views;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -50,11 +51,11 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("/", "/ui/**", "/signin", "/signin/**", "/connect/**", "/error").permitAll()
+                .antMatchers("/ui/**", Views.INDEX, Views.LOGIN, Views.LOGIN + "/**", "/connect/**", "/error").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .authenticationProvider(authenticationProvider)
-                .formLogin().loginPage("/signin").successHandler(authenticationSuccessHandler).permitAll()
+                .formLogin().loginPage(Views.LOGIN).successHandler(authenticationSuccessHandler).permitAll()
                 .and()
                 .logout().permitAll()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
