@@ -1,4 +1,4 @@
-package twitterclient;
+package cat.xarxarepublicana.hashtagsxrep.domain.twitter;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -19,9 +19,9 @@ import java.util.Date;
 )
 public class Tweet {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "EEE MMM dd HH:mm:ss Z yyyy", locale = "en")
-    private String idStr;
-    private User user;
     private Date createdAt;
+    private String idStr;
+    private TwitterUser user;
     private String inReplyToStatusIdStr;
     private String inReplyToUserIdStr;
     private Tweet retweetedStatus;
@@ -102,11 +102,11 @@ public class Tweet {
         this.lang = lang;
     }
 
-    public User getUser() {
+    public TwitterUser getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(TwitterUser user) {
         this.user = user;
     }
 }

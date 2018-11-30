@@ -1,26 +1,26 @@
 package cat.xarxarepublicana.hashtagsxrep.infrastructure.spring.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import cat.xarxarepublicana.hashtagsxrep.domain.user.User;
+import cat.xarxarepublicana.hashtagsxrep.domain.user.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-public class SecurityUserDetailsService implements UserDetailsService {
+public class AuthenticationUserService implements UserDetailsService {
 
-    @Autowired
-    private InMemoryUserRepository userRepository;
+    private UserRepository userRepository;
 
-    public SecurityUserDetailsService() {
-
+    public AuthenticationUserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        UserAuth user = userRepository.findById(id);
+        User user = userRepository.findById(id);
         if (user == null) {
             throw new UsernameNotFoundException("Not found: " + id);
         }
-        return user;
+        return new AuthenticationUser(user);
     }
 
 }

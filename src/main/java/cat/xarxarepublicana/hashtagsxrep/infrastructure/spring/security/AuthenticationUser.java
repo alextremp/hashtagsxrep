@@ -1,21 +1,20 @@
 package cat.xarxarepublicana.hashtagsxrep.infrastructure.spring.security;
 
-import cat.xarxarepublicana.hashtagsxrep.domain.Role;
-import cat.xarxarepublicana.hashtagsxrep.domain.User;
+import cat.xarxarepublicana.hashtagsxrep.domain.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
 
-public class UserAuth implements UserDetails {
+public class AuthenticationUser implements UserDetails {
 
-    private List<Role> authorities;
+    private List<AuthenticationRole> authorities;
     private User user;
 
-    public UserAuth(User user) {
+    public AuthenticationUser(User user) {
         this.user = user;
-        this.authorities = Role.ACCESS.get(user.getRole());
+        this.authorities = AuthenticationRole.fromAccess(user.getAccess());
     }
 
     public User getUser() {

@@ -3,9 +3,6 @@ package cat.xarxarepublicana.hashtagsxrep.infrastructure.spring.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,9 +11,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 
-public class SecurityContext {
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-    private static final Logger LOG = LoggerFactory.getLogger(SecurityContext.class);
+public class AuthenticationContext {
+
+    private static final Logger LOG = LoggerFactory.getLogger(AuthenticationContext.class);
 
     private static final int COOKIE_MAX_AGE = 2 * 30 * 24 * 3600; //two months
     private static final String COOKIE_LOGOUT = "_"; //support for browser versions not deleting the cookie
@@ -27,7 +28,7 @@ public class SecurityContext {
     private String cookieName;
     private String secret;
 
-    public SecurityContext(UserDetailsService userDetailsService, String cookieName, String secret) {
+    public AuthenticationContext(UserDetailsService userDetailsService, String cookieName, String secret) {
         this.userDetailsService = userDetailsService;
         this.cookieName = cookieName;
         this.secret = secret;
@@ -41,17 +42,17 @@ public class SecurityContext {
                 String username = tokenClaims.getSubject();
                 if (username != null) {
                     String userId = tokenClaims.get(USER_ID_CLAIM, String.class);
-                    UserAuth userAuth = null;
+                    AuthenticationUser authenticationUser = null;
 
                     try {
-                        userAuth = (UserAuth) userDetailsService.loadUserByUsername(userId);
+                        authenticationUser = (AuthenticationUser) userDetailsService.loadUserByUsername(userId);
                     } catch (UsernameNotFoundException e) {
                         LOG.warn(String.format(">>> bad user token, username [%s] not found. id [%s]", username, userId));
                     }
 
-                    if (userAuth != null) {
-                        if (username.equals(userAuth.getUsername())) {
-                            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userAuth, null, userAuth.getAuthorities());
+                    if (authenticationUser != null) {
+                        if (username.equals(authenticationUser.getUsername())) {
+                            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(authenticationUser, null, authenticationUser.getAuthorities());
                             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
                             SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -66,9 +67,8 @@ public class SecurityContext {
     }
 
 
-
-    public void put(UserAuth userAuth, HttpServletResponse response) {
-        String token = generateToken(userAuth);
+    public void put(AuthenticationUser authenticationUser, HttpServletResponse response) {
+        String token = generateToken(authenticationUser);
         Cookie apiCookie = new Cookie(cookieName, token);
         apiCookie.setHttpOnly(true);
         apiCookie.setMaxAge(COOKIE_MAX_AGE);
@@ -97,9 +97,9 @@ public class SecurityContext {
                 .getBody();
     }
 
-    private String generateToken(UserAuth userAuth) {
-        Claims claims = Jwts.claims().setSubject(userAuth.getUsername());
-        claims.put(USER_ID_CLAIM, userAuth.getId());
+    private String generateToken(AuthenticationUser authenticationUser) {
+        Claims claims = Jwts.claims().setSubject(authenticationUser.getUsername());
+        claims.put(USER_ID_CLAIM, authenticationUser.getId());
 
         return Jwts.builder()
                 .setClaims(claims)

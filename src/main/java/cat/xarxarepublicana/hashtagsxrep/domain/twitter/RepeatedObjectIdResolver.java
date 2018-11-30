@@ -1,4 +1,4 @@
-package twitterclient;
+package cat.xarxarepublicana.hashtagsxrep.domain.twitter;
 
 import com.fasterxml.jackson.annotation.ObjectIdGenerator;
 import com.fasterxml.jackson.annotation.ObjectIdResolver;
@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.ObjectIdResolver;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RepeatedObjectIdResolver implements ObjectIdResolver {
+class RepeatedObjectIdResolver implements ObjectIdResolver {
     protected Map<ObjectIdGenerator.IdKey, Object> items;
 
     public RepeatedObjectIdResolver() {
