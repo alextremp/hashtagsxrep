@@ -15,7 +15,7 @@ public class UserFactory {
                 twitterUser.getName(),
                 token,
                 secret,
-                ACCESS.VIEWER,
+                Role.VIEWER,
                 null,
                 LocalDateTime.now(),
                 toLocalDateTime(twitterUser.getCreatedAt()),

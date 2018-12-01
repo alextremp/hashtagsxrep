@@ -12,7 +12,7 @@ public class User {
     private String name;
     private String token;
     private String secret;
-    private ACCESS access;
+    private String role;
     private LocalDateTime signInDate;
     private LocalDateTime systemCreationDate;
     private LocalDateTime twitterCreationDate;
@@ -27,13 +27,13 @@ public class User {
     public User(String id, String nickname, String name, LocalDateTime twitterCreationDate, Long followers, Long following,
                 String language, String location, String profileImageUrl,
                 boolean verified, boolean locked) {
-        this(id, nickname, name, null, null, ACCESS.VIEWER, null,
+        this(id, nickname, name, null, null, Role.VIEWER, null,
                 null, twitterCreationDate, followers, following, language,
                 location, profileImageUrl, verified, locked);
     }
 
     public User(String id, String nickname, String name, String token, String secret,
-                ACCESS access, LocalDateTime signedInDate, LocalDateTime systemCreationDate, LocalDateTime twitterCreationDate,
+                String role, LocalDateTime signedInDate, LocalDateTime systemCreationDate, LocalDateTime twitterCreationDate,
                 Long followers, Long following, String language, String location,
                 String profileImageUrl, boolean verified, boolean locked) {
         this.id = id;
@@ -41,7 +41,7 @@ public class User {
         this.name = name;
         this.token = token;
         this.secret = secret;
-        this.access = access;
+        this.role = role;
         this.signInDate = signedInDate;
         this.systemCreationDate = systemCreationDate;
         this.twitterCreationDate = twitterCreationDate;
@@ -87,8 +87,8 @@ public class User {
         return secret;
     }
 
-    public ACCESS getAccess() {
-        return access;
+    public String getRole() {
+        return role;
     }
 
     public LocalDateTime getSystemCreationDate() {

@@ -14,7 +14,7 @@ public class AuthenticationUser implements UserDetails {
 
     public AuthenticationUser(User user) {
         this.user = user;
-        this.authorities = AuthenticationRole.fromAccess(user.getAccess());
+        this.authorities = AuthenticationRole.fromRole(user.getRole());
     }
 
     public User getUser() {
