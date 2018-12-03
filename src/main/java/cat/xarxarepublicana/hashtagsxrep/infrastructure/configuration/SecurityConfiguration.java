@@ -3,7 +3,6 @@ package cat.xarxarepublicana.hashtagsxrep.infrastructure.configuration;
 import cat.xarxarepublicana.hashtagsxrep.application.Views;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserRepository;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.security.AuthenticationContext;
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.security.AuthenticationUser;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.security.AuthenticationUserService;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.security.RestoreUserFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +18,11 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.Filter;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 @Configuration
 @EnableWebSecurity
@@ -56,7 +48,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         UserDetailsService userDetailsService = userDetailsService();
         AuthenticationProvider authenticationProvider = authenticationProvider(userDetailsService);
         AuthenticationContext authenticationContext = authenticationContext(userDetailsService);
-        AuthenticationSuccessHandler authenticationSuccessHandler = authenticationSuccessHandler(authenticationContext);
         AuthenticationManager authenticationManager = authenticationManager();
         Filter restoreUserFilter = restoreUserFilter(authenticationManager);
 
@@ -66,24 +57,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .authenticationProvider(authenticationProvider)
-                .formLogin().loginPage(Views.LOGIN).successHandler(authenticationSuccessHandler).permitAll()
+                .formLogin().loginPage(Views.LOGIN).permitAll()
                 .and()
                 .logout().permitAll()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().csrf().disable();
 
         http.addFilterBefore(restoreUserFilter, UsernamePasswordAuthenticationFilter.class);
-    }
-
-    @Bean
-    public AuthenticationSuccessHandler authenticationSuccessHandler(AuthenticationContext authenticationContext) {
-        return new SavedRequestAwareAuthenticationSuccessHandler() {
-            @Override
-            public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-                AuthenticationUser authenticationUser = (AuthenticationUser) authentication.getPrincipal();
-                authenticationContext.put(authenticationUser, response);
-            }
-        };
     }
 
     @Bean

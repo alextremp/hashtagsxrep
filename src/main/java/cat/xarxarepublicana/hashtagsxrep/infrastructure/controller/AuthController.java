@@ -26,7 +26,7 @@ public class AuthController {
         this.connectTwitterCallbackUseCase = connectTwitterCallbackUseCase;
     }
 
-    @GetMapping(Views.SIGNIN_TWITTER)
+    @GetMapping(Views.LOGIN_TWITTER)
     public RedirectView loginTwitter() throws Exception {
         SignInWithTwitterUse.SignInWithTwitterResponse signInWithTwitterResponse = signInWithTwitterUse.signInWithTwitter();
         return new RedirectView(signInWithTwitterResponse.getRedirectTo());
