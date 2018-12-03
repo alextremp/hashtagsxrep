@@ -1,4 +1,4 @@
-package cat.xarxarepublicana.hashtagsxrep.infrastructure.spring.security;
+package cat.xarxarepublicana.hashtagsxrep.infrastructure.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

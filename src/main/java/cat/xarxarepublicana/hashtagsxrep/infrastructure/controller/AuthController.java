@@ -1,4 +1,4 @@
-package cat.xarxarepublicana.hashtagsxrep.infrastructure.spring.controller;
+package cat.xarxarepublicana.hashtagsxrep.infrastructure.controller;
 
 import cat.xarxarepublicana.hashtagsxrep.application.Views;
 import cat.xarxarepublicana.hashtagsxrep.application.signin.ConnectTwitterCallbackUseCase;

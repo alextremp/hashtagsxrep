@@ -1,10 +1,10 @@
-package cat.xarxarepublicana.hashtagsxrep.infrastructure.application;
+package cat.xarxarepublicana.hashtagsxrep.infrastructure.configuration;
 
 import cat.xarxarepublicana.hashtagsxrep.application.signin.ConnectTwitterCallbackUseCase;
 import cat.xarxarepublicana.hashtagsxrep.application.signin.SignInWithTwitterUse;
 import cat.xarxarepublicana.hashtagsxrep.domain.twitter.TwitterRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserRepository;
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.spring.security.AuthenticationContext;
+import cat.xarxarepublicana.hashtagsxrep.infrastructure.security.AuthenticationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

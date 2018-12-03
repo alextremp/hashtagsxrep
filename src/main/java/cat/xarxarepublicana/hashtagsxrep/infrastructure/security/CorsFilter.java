@@ -1,4 +1,4 @@
-package cat.xarxarepublicana.hashtagsxrep.infrastructure.spring.security;
+package cat.xarxarepublicana.hashtagsxrep.infrastructure.security;
 
 import java.io.IOException;
 import javax.servlet.Filter;

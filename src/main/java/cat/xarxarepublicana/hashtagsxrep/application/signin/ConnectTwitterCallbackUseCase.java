@@ -5,8 +5,8 @@ import cat.xarxarepublicana.hashtagsxrep.domain.twitter.TwitterRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.twitter.TwitterUser;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.User;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserRepository;
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.spring.security.AuthenticationContext;
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.spring.security.AuthenticationUser;
+import cat.xarxarepublicana.hashtagsxrep.infrastructure.security.AuthenticationContext;
+import cat.xarxarepublicana.hashtagsxrep.infrastructure.security.AuthenticationUser;
 
 import javax.servlet.http.HttpServletResponse;
 

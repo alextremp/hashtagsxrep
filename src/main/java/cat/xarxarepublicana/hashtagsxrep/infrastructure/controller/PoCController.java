@@ -1,6 +1,8 @@
-package cat.xarxarepublicana.hashtagsxrep.infrastructure.spring.controller;
+package cat.xarxarepublicana.hashtagsxrep.infrastructure.controller;
 
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.spring.security.AuthenticationUser;
+import cat.xarxarepublicana.hashtagsxrep.domain.user.Role;
+import cat.xarxarepublicana.hashtagsxrep.infrastructure.security.AuthenticationUser;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +26,7 @@ public class PoCController {
         return "index";
     }
 
+    @Secured(Role.ADMIN)
     @GetMapping("/hello")
     public String hello(Model model, @AuthenticationPrincipal AuthenticationUser authenticationUser) {
         model.addAttribute("name", authenticationUser.getUser().getName());
