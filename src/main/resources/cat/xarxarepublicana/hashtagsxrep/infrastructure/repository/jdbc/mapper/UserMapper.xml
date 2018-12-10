@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org//DTD Mapper 3.0//EN'
+        'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+
+
+<mapper namespace='cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.UserMapper'>
+
+    <resultMap id='UserResultMap' type="cat.xarxarepublicana.hashtagsxrep.domain.user.User">
+        <constructor>
+            <idArg column="id" javaType="string" />
+            <arg column="nickname" javaType="string" />
+            <arg column="name" javaType="string" />
+            <arg column="token" javaType="string" />
+            <arg column="secret" javaType="string" />
+            <arg column="role" javaType="string" />
+            <arg column="signInDate" javaType="java.time.LocalDateTime" />
+            <arg column="systemCreationDate" javaType="java.time.LocalDateTime" />
+            <arg column="twitterCreationDate" javaType="java.time.LocalDateTime" />
+            <arg column="followers" javaType="long" />
+            <arg column="following" javaType="long" />
+            <arg column="language" javaType="string" />
+            <arg column="location" javaType="string" />
+            <arg column="profileImageUrl" javaType="string" />
+            <arg column="verified" javaType="boolean" />
+            <arg column="locked" javaType="boolean" />
+        </constructor>
+    </resultMap>
+
+    <select id='selectOneById' resultType='cat.xarxarepublicana.hashtagsxrep.domain.user.User'>
+        SELECT * FROM USER WHERE id = #{id}
+    </select>
+
+    <select id="exists" resultType="boolean">
+        SELECT exists (
+            SELECT 1 FROM USER WHERE id = ${id}
+        )
+    </select>
+
+    <insert id='insert'>
+        INSERT INTO USER (id, nickname, name, token, secret, role,
+            sign_in_date, system_creation_date, twitter_creation_date,
+            followers, following, language, location, profile_image_url,
+            verified, locked)
+        VALUES (#{user.id}, #{user.nickname}, #{user.name}, #{user.token}, #{user.secret}, #{user.role},
+            #{user.signInDate}, #{user.systemCreationDate}, #{user.twitterCreationDate},
+            #{user.followers}, #{user.following}, #{user.language}, #{user.location}, #{user.profileImageUrl},
+            #{user.verified}, #{user.locked})
+    </insert>
+
+    <update id='updateSignedIn'>
+        UPDATE USER SET
+            signed_in_date= #{user.signInDate},
+            token = #{user.token},
+            secret = #{user.secret}
+        WHERE id = #{user.id}
+    </update>
+
+</mapper>

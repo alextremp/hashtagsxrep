@@ -3,6 +3,8 @@ package cat.xarxarepublicana.hashtagsxrep.infrastructure.configuration;
 import cat.xarxarepublicana.hashtagsxrep.domain.twitter.TwitterRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserFactory;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserRepository;
+import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.JdbcUserRepository;
+import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.UserMapper;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.local.InMemoryUserRepository;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.twitter.TwitterApi;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.twitter.TwitterRepositoryImpl;
@@ -10,9 +12,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.OAuth1AccessToken;
 import com.github.scribejava.core.oauth.OAuth10aService;
+import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.jdbc.datasource.SimpleDriverDataSource;
+
+import javax.sql.DataSource;
+import java.sql.Driver;
 
 @Configuration
 public class RepositoryConfiguration {
@@ -33,9 +42,9 @@ public class RepositoryConfiguration {
     private String oauthCallback;
 
     @Bean
-    public TwitterRepository twitterRepository(OAuth10aService oAuth10aService, OAuth1AccessToken applicationToken) {
+    public TwitterRepository twitterRepository(UserFactory userFactory, OAuth10aService oAuth10aService, OAuth1AccessToken applicationToken) {
         ObjectMapper objectMapper = new ObjectMapper();
-        return new TwitterRepositoryImpl(oAuth10aService, applicationToken, objectMapper);
+        return new TwitterRepositoryImpl(userFactory, oAuth10aService, applicationToken, objectMapper);
     }
 
     @Bean
@@ -52,12 +61,46 @@ public class RepositoryConfiguration {
     }
 
     @Bean
+    @Profile("test")
     public UserRepository inMemoryUserRepository(UserFactory userFactory) {
         return new InMemoryUserRepository(userFactory);
+    }
+
+    @Bean
+    public UserRepository jdbcUserRepository(UserMapper userMapper) {
+        return new JdbcUserRepository(userMapper);
     }
 
     @Bean
     public UserFactory defaultUserFactory() {
         return new UserFactory();
     }
+
+    @Bean
+    public DataSource dataSource(
+            @Value("${app.db.driver}") Class<Driver> driver,
+            @Value("${app.db.user}") String user,
+            @Value("${app.db.password}") String password,
+            @Value("${app.db.url}") String url) {
+        SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
+        dataSource.setDriverClass(driver);
+        dataSource.setUsername(user);
+        dataSource.setPassword(password);
+        dataSource.setUrl(url);
+        return dataSource;
+    }
+
+    @Bean
+    public DataSourceTransactionManager transactionManager(DataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
+    }
+
+    @Bean
+    public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) throws Exception {
+        SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
+        sessionFactory.setDataSource(dataSource);
+        return sessionFactory;
+    }
+
+
 }

@@ -1,8 +1,11 @@
 package cat.xarxarepublicana.hashtagsxrep.domain.twitter;
 
+import cat.xarxarepublicana.hashtagsxrep.domain.user.User;
+
 public interface TwitterRepository {
 
     String getAuthorizationUrl();
-    TwitterUser verifyCredentials(String oauthToken, String oauthVerifier);
+
+    User verifyCredentials(String oauthToken, String oauthVerifier);
 
 }

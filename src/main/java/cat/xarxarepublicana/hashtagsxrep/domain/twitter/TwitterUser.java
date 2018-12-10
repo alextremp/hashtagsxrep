@@ -20,8 +20,8 @@ public class TwitterUser {
     private String idStr;
     private String screenName;
     private String name;
-    private Long followersCount;
-    private Long friendsCount;
+    private Integer followersCount;
+    private Integer friendsCount;
     private String lang;
     private String location;
     private String profileImageUrlHttps;
@@ -53,19 +53,19 @@ public class TwitterUser {
         this.screenName = screenName;
     }
 
-    public Long getFollowersCount() {
+    public Integer getFollowersCount() {
         return followersCount;
     }
 
-    public void setFollowersCount(Long followersCount) {
+    public void setFollowersCount(Integer followersCount) {
         this.followersCount = followersCount;
     }
 
-    public Long getFriendsCount() {
+    public Integer getFriendsCount() {
         return friendsCount;
     }
 
-    public void setFriendsCount(Long friendsCount) {
+    public void setFriendsCount(Integer friendsCount) {
         this.friendsCount = friendsCount;
     }
 
