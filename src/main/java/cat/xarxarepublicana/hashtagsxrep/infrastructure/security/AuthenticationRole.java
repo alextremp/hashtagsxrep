@@ -10,10 +10,11 @@ import java.util.Map;
 
 public class AuthenticationRole implements GrantedAuthority {
 
-    private static final AuthenticationRole ROLE_CREATOR = new AuthenticationRole(Role.CREATOR);
-    private static final AuthenticationRole ROLE_ADMIN = new AuthenticationRole(Role.ADMIN);
-    private static final AuthenticationRole ROLE_TAGGER = new AuthenticationRole(Role.TAGGER);
-    private static final AuthenticationRole ROLE_VIEWER = new AuthenticationRole(Role.VIEWER);
+    private static final String ROLE_PREFIX = "ROLE_";
+    private static final AuthenticationRole ROLE_CREATOR = new AuthenticationRole(ROLE_PREFIX + Role.CREATOR);
+    private static final AuthenticationRole ROLE_ADMIN = new AuthenticationRole(ROLE_PREFIX + Role.ADMIN);
+    private static final AuthenticationRole ROLE_TAGGER = new AuthenticationRole(ROLE_PREFIX + Role.TAGGER);
+    private static final AuthenticationRole ROLE_VIEWER = new AuthenticationRole(ROLE_PREFIX + Role.VIEWER);
 
     private static Map<String, List<AuthenticationRole>> ROLE_ACCESS_MAP = new HashMap<String, List<AuthenticationRole>>() {{
         put(Role.CREATOR, Arrays.asList(ROLE_CREATOR, ROLE_ADMIN, ROLE_TAGGER, ROLE_VIEWER));

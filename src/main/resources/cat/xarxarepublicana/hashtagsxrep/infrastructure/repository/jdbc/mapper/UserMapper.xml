@@ -49,7 +49,7 @@
 
     <update id='updateSignedIn'>
         UPDATE USER SET
-            signed_in_date= #{user.signInDate},
+            sign_in_date= #{user.signInDate},
             token = #{user.token},
             secret = #{user.secret}
         WHERE id = #{user.id}

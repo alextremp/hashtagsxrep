@@ -1,9 +1,13 @@
 package cat.xarxarepublicana.hashtagsxrep.infrastructure.configuration;
 
+import cat.xarxarepublicana.hashtagsxrep.domain.monitor.MonitorFactory;
+import cat.xarxarepublicana.hashtagsxrep.domain.monitor.MonitorRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.twitter.TwitterRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserFactory;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserRepository;
+import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.JdbcMonitorRepository;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.JdbcUserRepository;
+import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.MonitorMapper;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.UserMapper;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.local.InMemoryUserRepository;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.twitter.TwitterApi;
@@ -77,6 +81,16 @@ public class RepositoryConfiguration {
     }
 
     @Bean
+    public MonitorRepository jdbcMonitorRepository(MonitorMapper monitorMapper) {
+        return new JdbcMonitorRepository(monitorMapper);
+    }
+
+    @Bean
+    public MonitorFactory defaultMonitorFactory() {
+        return new MonitorFactory();
+    }
+
+    @Bean
     public DataSource dataSource(
             @Value("${app.db.driver}") Class<Driver> driver,
             @Value("${app.db.user}") String user,
@@ -101,6 +115,5 @@ public class RepositoryConfiguration {
         sessionFactory.setDataSource(dataSource);
         return sessionFactory;
     }
-
 
 }

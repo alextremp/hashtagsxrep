@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org//DTD Mapper 3.0//EN'
+        'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+
+
+<mapper namespace='cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.MonitorMapper'>
+
+    <resultMap id='UserResultMap' type="cat.xarxarepublicana.hashtagsxrep.domain.monitor.Monitor">
+        <constructor>
+            <idArg column="id" javaType="string" />
+            <arg column="author_id" javaType="string" />
+            <arg column="nickname" javaType="string" />
+            <arg column="active" javaType="boolean" />
+            <arg column="twitter_query" javaType="string" />
+            <arg column="creation_date" javaType="java.time.LocalDateTime" />
+            <arg column="start_date" javaType="java.time.LocalDateTime" />
+            <arg column="last_update_date" javaType="java.time.LocalDateTime" />
+            <arg column="last_update_cursor" javaType="string" />
+        </constructor>
+    </resultMap>
+
+    <sql id="sqlMonitorUserJoin">
+        SELECT m.id, m.author_id, u.nickname, m.active,
+            m.twitter_query, m.creation_date, m.start_date,
+            m.last_update_date, m.last_update_cursor
+        FROM MONITOR m, USER u
+        WHERE m.author_id = u.id
+    </sql>
+
+    <select id='selectOneById' resultType='cat.xarxarepublicana.hashtagsxrep.domain.monitor.Monitor'>
+        <include refid="sqlMonitorUserJoin"/>
+        AND m.id = #{id}
+    </select>
+
+    <select id='selectActive' resultType='cat.xarxarepublicana.hashtagsxrep.domain.monitor.Monitor'>
+        <include refid="sqlMonitorUserJoin"/>
+        AND m.active = TRUE
+        AND m.start_date &lt;= NOW()
+        ORDER BY m.start_date DESC
+        LIMIT 100
+    </select>
+
+    <insert id='insert'>
+        INSERT INTO MONITOR (id, author_id, active, twitter_query,
+            creation_date, start_date, last_update_date, last_update_cursor)
+        VALUES (#{monitor.id}, #{monitor.authorId}, #{monitor.active}, #{monitor.twitterQuery},
+            #{monitor.creationDate}, #{monitor.startDate}, #{monitor.lastUpdateDate}, #{monitor.lastUpdateCursor})
+    </insert>
+
+</mapper>

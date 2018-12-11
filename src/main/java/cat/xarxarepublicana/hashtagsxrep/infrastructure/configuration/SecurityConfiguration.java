@@ -26,7 +26,7 @@ import javax.servlet.Filter;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
+@EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Value("${app.usertoken.cookiename}")
@@ -53,11 +53,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers(Views.INDEX, Views.LOGIN, Views.LOGIN + "/**", "/connect/**").permitAll()
+                .antMatchers(Views.URL_INDEX, Views.URL_LOGIN, Views.URL_LOGIN + "/**", "/connect/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .authenticationProvider(authenticationProvider)
-                .formLogin().loginPage(Views.LOGIN).permitAll()
+                .formLogin().loginPage(Views.URL_LOGIN).permitAll()
                 .and()
                 .logout().permitAll()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

@@ -24,14 +24,14 @@ public class ConnectTwitterCallbackUseCase {
 
     public ConnectResponse connect(HttpServletResponse response, String oauthToken, String oauthVerifier, String denied) {
         if (denied != null) {
-            return new ConnectResponse(Views.LOGIN);
+            return new ConnectResponse(Views.URL_LOGIN);
         }
         User user = twitterRepository.verifyCredentials(oauthToken, oauthVerifier);
         user.updateSignedInDate(LocalDateTime.now());
         userRepository.save(user);
         AuthenticationUser authenticationUser = new AuthenticationUser(user);
         authenticationContext.put(authenticationUser, response);
-        return new ConnectResponse(Views.INDEX);
+        return new ConnectResponse(Views.URL_INDEX);
     }
 
     public static class ConnectResponse {
