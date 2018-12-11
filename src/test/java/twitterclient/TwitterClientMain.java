@@ -1,6 +1,7 @@
 package twitterclient;
 
 import cat.xarxarepublicana.hashtagsxrep.domain.twitter.TwitterRepository;
+import cat.xarxarepublicana.hashtagsxrep.domain.user.UserFactory;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.twitter.TwitterApi;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.twitter.TwitterRepositoryImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -40,6 +41,7 @@ public class TwitterClientMain {
                 .callback(env.getProperty("OAUTH_CALLBACK"))
                 .build(TwitterApi.instance());
         OAuth1AccessToken oAuth1AccessToken = new OAuth1AccessToken(appToken, appSecret);
-        this.twitterRepository = new TwitterRepositoryImpl(oAuth10aService, oAuth1AccessToken, new ObjectMapper());
+        UserFactory userFactory = new UserFactory();
+        this.twitterRepository = new TwitterRepositoryImpl(userFactory, oAuth10aService, oAuth1AccessToken, new ObjectMapper());
     }
 }

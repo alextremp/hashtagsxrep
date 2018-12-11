@@ -1,4 +1,4 @@
-package cat.xarxarepublicana.hashtagsxrep.infrastructure.spring.controller;
+package cat.xarxarepublicana.hashtagsxrep.infrastructure.controller;
 
 import cat.xarxarepublicana.hashtagsxrep.application.Views;
 import cat.xarxarepublicana.hashtagsxrep.application.signin.ConnectTwitterCallbackUseCase;
@@ -26,13 +26,13 @@ public class AuthController {
         this.connectTwitterCallbackUseCase = connectTwitterCallbackUseCase;
     }
 
-    @GetMapping(Views.SIGNIN_TWITTER)
+    @GetMapping(Views.URL_LOGIN_TWITTER)
     public RedirectView loginTwitter() throws Exception {
         SignInWithTwitterUse.SignInWithTwitterResponse signInWithTwitterResponse = signInWithTwitterUse.signInWithTwitter();
         return new RedirectView(signInWithTwitterResponse.getRedirectTo());
     }
 
-    @GetMapping(Views.CONNECT_TWITTER)
+    @GetMapping(Views.URL_CONNECT_TWITTER)
     public RedirectView connectTwitter(
             HttpServletResponse response,
             @RequestParam(value = "oauth_token", required = false) String oauthToken,
@@ -42,7 +42,7 @@ public class AuthController {
         return new RedirectView(connectResponse.getRedirectTo());
     }
 
-    @GetMapping(Views.LOGIN)
+    @GetMapping(Views.URL_LOGIN)
     public String login() {
         return "login";
     }

@@ -11,11 +11,13 @@
                 <div class="col-12 text-center">
                     <div class="mt-3">
                         <a href="/login/twitter" class="btn btn-primary btn-lg" role="button">
-                            <i class="fab fa-3x fa-twitter tm-site-icon"></i> Identifica't :)
+                            <i class="fab fa-3x fa-twitter tm-site-icon"></i> #Accedeix
                         </a>
                     </div>
                     <div class="mt-3 tm-tip">
-                        Aquesta web només utilitzarà la teva sessió de Twitter per a registrar-te com a usuari. No se't demanarà que autoritzis l'aplicació per més que llegir dades bàsiques, ja que no es pubicarà cap Tweet en nom teu.
+                        Aquesta web només utilitzarà la teva sessió de Twitter per a registrar-te com a usuari. No se't
+                        demanarà que autoritzis l'aplicació per més que llegir dades bàsiques, ja que no es pubicarà cap
+                        Tweet en nom teu.
                     </div>
                 </div>
             </div>

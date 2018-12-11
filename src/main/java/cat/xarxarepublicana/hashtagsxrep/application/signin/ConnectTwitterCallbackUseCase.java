@@ -2,13 +2,13 @@ package cat.xarxarepublicana.hashtagsxrep.application.signin;
 
 import cat.xarxarepublicana.hashtagsxrep.application.Views;
 import cat.xarxarepublicana.hashtagsxrep.domain.twitter.TwitterRepository;
-import cat.xarxarepublicana.hashtagsxrep.domain.twitter.TwitterUser;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.User;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserRepository;
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.spring.security.AuthenticationContext;
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.spring.security.AuthenticationUser;
+import cat.xarxarepublicana.hashtagsxrep.infrastructure.security.AuthenticationContext;
+import cat.xarxarepublicana.hashtagsxrep.infrastructure.security.AuthenticationUser;
 
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDateTime;
 
 public class ConnectTwitterCallbackUseCase {
 
@@ -24,13 +24,14 @@ public class ConnectTwitterCallbackUseCase {
 
     public ConnectResponse connect(HttpServletResponse response, String oauthToken, String oauthVerifier, String denied) {
         if (denied != null) {
-            return new ConnectResponse(Views.LOGIN);
+            return new ConnectResponse(Views.URL_LOGIN);
         }
-        TwitterUser twitterUser = twitterRepository.verifyCredentials(oauthToken, oauthVerifier);
-        User user = userRepository.save(twitterUser, oauthToken, oauthVerifier);
+        User user = twitterRepository.verifyCredentials(oauthToken, oauthVerifier);
+        user.updateSignedInDate(LocalDateTime.now());
+        userRepository.save(user);
         AuthenticationUser authenticationUser = new AuthenticationUser(user);
         authenticationContext.put(authenticationUser, response);
-        return new ConnectResponse(Views.INDEX);
+        return new ConnectResponse(Views.URL_INDEX);
     }
 
     public static class ConnectResponse {

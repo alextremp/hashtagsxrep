@@ -1,4 +1,4 @@
-package cat.xarxarepublicana.hashtagsxrep.infrastructure.spring.security;
+package cat.xarxarepublicana.hashtagsxrep.infrastructure.security;
 
 import cat.xarxarepublicana.hashtagsxrep.domain.user.User;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserRepository;

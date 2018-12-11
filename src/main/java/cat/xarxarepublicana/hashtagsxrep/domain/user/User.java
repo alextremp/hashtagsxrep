@@ -1,10 +1,7 @@
 package cat.xarxarepublicana.hashtagsxrep.domain.user;
 
-import cat.xarxarepublicana.hashtagsxrep.domain.twitter.TwitterUser;
-
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
-
-import static cat.xarxarepublicana.hashtagsxrep.domain.service.TimeConverter.toLocalDateTime;
 
 public class User {
     private String id;
@@ -12,36 +9,28 @@ public class User {
     private String name;
     private String token;
     private String secret;
-    private ACCESS access;
+    private String role;
     private LocalDateTime signInDate;
     private LocalDateTime systemCreationDate;
     private LocalDateTime twitterCreationDate;
-    private Long followers;
-    private Long following;
+    private Integer followers;
+    private Integer following;
     private String language;
     private String location;
     private String profileImageUrl;
     private boolean verified;
     private boolean locked;
 
-    public User(String id, String nickname, String name, LocalDateTime twitterCreationDate, Long followers, Long following,
-                String language, String location, String profileImageUrl,
-                boolean verified, boolean locked) {
-        this(id, nickname, name, null, null, ACCESS.VIEWER, null,
-                null, twitterCreationDate, followers, following, language,
-                location, profileImageUrl, verified, locked);
-    }
-
     public User(String id, String nickname, String name, String token, String secret,
-                ACCESS access, LocalDateTime signedInDate, LocalDateTime systemCreationDate, LocalDateTime twitterCreationDate,
-                Long followers, Long following, String language, String location,
+                String role, LocalDateTime signedInDate, LocalDateTime systemCreationDate, LocalDateTime twitterCreationDate,
+                Integer followers, Integer following, String language, String location,
                 String profileImageUrl, boolean verified, boolean locked) {
         this.id = id;
         this.nickname = nickname;
         this.name = name;
         this.token = token;
         this.secret = secret;
-        this.access = access;
+        this.role = role;
         this.signInDate = signedInDate;
         this.systemCreationDate = systemCreationDate;
         this.twitterCreationDate = twitterCreationDate;
@@ -54,17 +43,16 @@ public class User {
         this.locked = locked;
     }
 
-    public void updateFromTwitter(TwitterUser twitterUser) {
-        this.nickname = twitterUser.getScreenName();
-        this.name = twitterUser.getName();
-        this.twitterCreationDate = toLocalDateTime(twitterUser.getCreatedAt());
-        this.followers = twitterUser.getFollowersCount();
-        this.following = twitterUser.getFriendsCount();
-        this.language = twitterUser.getLang();
-        this.location = twitterUser.getLocation();
-        this.profileImageUrl = twitterUser.getProfileImageUrlHttps();
-        this.verified = twitterUser.isVerified();
-        this.locked = twitterUser.isProtected();
+    public User(String id, String nickname, String name, String token, String secret,
+                String role, Timestamp signedInDate, Timestamp systemCreationDate, Timestamp twitterCreationDate,
+                Integer followers, Integer following, String language, String location,
+                String profileImageUrl, boolean verified, boolean locked) {
+        this(id, nickname, name, token, secret, role,
+                signedInDate != null ? signedInDate.toLocalDateTime() : null,
+                systemCreationDate != null ? signedInDate.toLocalDateTime() : null,
+                twitterCreationDate != null ? twitterCreationDate.toLocalDateTime() : null,
+                followers, following, language, location,
+                profileImageUrl, verified, locked);
     }
 
     public String getId() {
@@ -87,8 +75,8 @@ public class User {
         return secret;
     }
 
-    public ACCESS getAccess() {
-        return access;
+    public String getRole() {
+        return role;
     }
 
     public LocalDateTime getSystemCreationDate() {
@@ -99,11 +87,11 @@ public class User {
         return twitterCreationDate;
     }
 
-    public Long getFollowers() {
+    public Integer getFollowers() {
         return followers;
     }
 
-    public Long getFollowing() {
+    public Integer getFollowing() {
         return following;
     }
 
@@ -129,5 +117,9 @@ public class User {
 
     public LocalDateTime getSignInDate() {
         return signInDate;
+    }
+
+    public void updateSignedInDate(LocalDateTime signInDate) {
+        this.signInDate = signInDate;
     }
 }

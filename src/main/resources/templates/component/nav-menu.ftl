@@ -5,7 +5,8 @@
                 <i class="fab fa-slack-hash fa-3x tm-site-icon"></i>
                 <h1 class="tm-site-title mb-0">HashtagsXRep</h1>
             </a>
-            <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
