@@ -3,6 +3,7 @@ package cat.xarxarepublicana.hashtagsxrep.domain.twitter;
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import org.apache.commons.text.StringEscapeUtils;
 
 import java.util.Date;
 
@@ -114,7 +115,7 @@ public class TwitterUser {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = StringEscapeUtils.escapeJava(name);
     }
 
 }
