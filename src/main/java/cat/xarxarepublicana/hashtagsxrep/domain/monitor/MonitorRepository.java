@@ -12,4 +12,6 @@ public interface MonitorRepository {
     List<Monitor> getActiveMonitors();
 
     String getMaxTweetId(String monitorId);
+
+    List<Monitor> getLastMonitors();
 }

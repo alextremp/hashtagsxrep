@@ -12,11 +12,8 @@ import cat.xarxarepublicana.hashtagsxrep.domain.user.User;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserFactory;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserRepository;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.TwitterExtractionMapper;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.dao.DuplicateKeyException;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
@@ -59,7 +56,7 @@ public class JdbcTwitterExtractionRepository implements TwitterExtractionReposit
             } catch (Exception e) {
                 if (DuplicateKeyException.class.isAssignableFrom(e.getClass())) {
                     if (LOG.isLoggable(Level.FINE)) {
-                        LOG.info("Existing data reached: " + ExceptionUtils.getStackTrace(e));
+                        LOG.log(Level.FINE, "Existing data reached: " + e.getMessage());
                     }
                     existingDataReached = true;
                     break;
@@ -69,7 +66,7 @@ public class JdbcTwitterExtractionRepository implements TwitterExtractionReposit
             }
         }
         String nextQueryString = searchTweetsResult.getSearchMetadata().getNextResults();
-        monitorRepository.updateCursor(monitor, nextQueryString);
+        monitorRepository.updateCursor(monitor, existingDataReached ? null : nextQueryString);
         return existingDataReached;
     }
 }

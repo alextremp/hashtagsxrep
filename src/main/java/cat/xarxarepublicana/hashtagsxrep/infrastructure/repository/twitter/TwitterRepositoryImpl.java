@@ -59,7 +59,7 @@ public class TwitterRepositoryImpl implements TwitterRepository {
 
 
         if (LOG.isLoggable(Level.FINE)) {
-            LOG.info(">> QUERY: " + request.getQueryStringParams().asFormUrlEncodedString());
+            LOG.log(Level.FINE, ">> QUERY: " + request.getQueryStringParams().asFormUrlEncodedString());
         }
         service.signRequest(applicationToken, request);
         Response response;

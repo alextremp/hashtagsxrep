@@ -41,4 +41,9 @@ public class JdbcMonitorRepository implements MonitorRepository {
     public String getMaxTweetId(String monitorId) {
         return monitorMapper.selectMaxTweetId(monitorId);
     }
+
+    @Override
+    public List<Monitor> getLastMonitors() {
+        return monitorMapper.selectLast(100);
+    }
 }

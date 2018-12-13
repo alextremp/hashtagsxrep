@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import sun.rmi.runtime.Log;
 
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MonitorDataExtractionUseCase {
@@ -55,11 +56,13 @@ public class MonitorDataExtractionUseCase {
                 }
                 searchTweetsResult = twitterRepository.searchTweets(queryString.toString());
 
-                LOG.info(">> RESULT: " + searchTweetsResult.getStatuses().length + " statuses >> NEXT: " + searchTweetsResult.getSearchMetadata().getNextResults());
+                if (LOG.isLoggable(Level.FINE)) {
+                    LOG.log(Level.FINE, ">> RESULT: " + searchTweetsResult.getStatuses().length + " statuses >> NEXT: " + searchTweetsResult.getSearchMetadata().getNextResults());
+                }
                 existingDataReached = twitterExtractionRepository.save(monitor, searchTweetsResult);
                 stopByBlockSize = searchTweetsResult.getStatuses().length < TwitterRepository.MAX_STATUSES_PER_REQUEST;
                 if (stopByBlockSize) {
-                    LOG.info(">> STOP as there are no more statuses yet");
+                    LOG.info(">> STOP :: There are no more statuses yet");
                 }
                 extractionRequestsCounter++;
                 stopByWindowRequests = extractionRequestsCounter >= maxExtractionRequests;

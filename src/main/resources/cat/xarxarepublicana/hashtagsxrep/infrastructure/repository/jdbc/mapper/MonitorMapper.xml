@@ -37,7 +37,12 @@
         AND m.active = TRUE
         AND m.start_date &lt;= NOW()
         ORDER BY m.start_date DESC
-        LIMIT 100
+    </select>
+
+    <select id="selectLast" resultMap="MonitorResultMap">
+        <include refid="sqlMonitorUserJoin"/>
+        ORDER BY m.creation_date DESC
+        LIMIT #{quantity}
     </select>
 
     <insert id='insert'>
@@ -55,7 +60,7 @@
     </update>
 
     <select id="selectMaxTweetId" resultType="string">
-        select max(tweet_id) from TWITTER_EXTRACTION WHERE monitor_id = #{monitorId}
+        select max(cast(tweet_id as unsigned)) from TWITTER_EXTRACTION WHERE monitor_id = #{monitorId}
     </select>
 
 </mapper>
