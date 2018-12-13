@@ -107,12 +107,10 @@ public class RepositoryConfiguration {
 
     @Bean
     public DataSource dataSource(
-            @Value("${app.db.driver}") Class<Driver> driver,
             @Value("${app.db.user}") String user,
             @Value("${app.db.password}") String password,
             @Value("${app.db.url}") String url) {
         HikariConfig config = new HikariConfig();
-        config.setDriverClassName(driver.getName());
         config.setJdbcUrl(url);
         config.setUsername(user);
         config.setPassword(password);
