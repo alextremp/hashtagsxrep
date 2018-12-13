@@ -2,7 +2,9 @@ package cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc;
 
 import cat.xarxarepublicana.hashtagsxrep.domain.monitor.Monitor;
 import cat.xarxarepublicana.hashtagsxrep.domain.monitor.MonitorRepository;
+import cat.xarxarepublicana.hashtagsxrep.domain.twitter.SearchTweetsResult;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.MonitorMapper;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
@@ -20,8 +22,8 @@ public class JdbcMonitorRepository implements MonitorRepository {
     }
 
     @Override
-    public void updateCursor(Monitor monitor, String newCursor) {
-        monitor.updateCursor(newCursor);
+    public void updateCursor(Monitor monitor, String nextQueryString) {
+        monitor.updateCursor(nextQueryString);
         monitorMapper.updateCursor(monitor);
     }
 
@@ -33,5 +35,10 @@ public class JdbcMonitorRepository implements MonitorRepository {
     @Override
     public List<Monitor> getActiveMonitors() {
         return monitorMapper.selectActive();
+    }
+
+    @Override
+    public String getMaxTweetId(String monitorId) {
+        return monitorMapper.selectMaxTweetId(monitorId);
     }
 }

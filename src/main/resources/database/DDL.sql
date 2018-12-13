@@ -12,7 +12,7 @@ CREATE TABLE USER
     followers INTEGER,
     following INTEGER,
     language VARCHAR(10),
-    location VARCHAR(100),
+    location VARCHAR(500),
     profile_image_url VARCHAR(500),
     verified BOOLEAN,
     locked BOOLEAN
@@ -27,13 +27,12 @@ CREATE TABLE MONITOR
 (
     id VARCHAR(40) PRIMARY KEY NOT NULL,
     author_id VARCHAR(50) NOT NULL,
-    author_nickname VARCHAR(20) NOT NULL,
     active BOOLEAN DEFAULT TRUE  NOT NULL,
     twitter_query VARCHAR(200) NOT NULL,
     creation_date TIMESTAMP NOT NULL,
     start_date TIMESTAMP NOT NULL,
     last_update_date TIMESTAMP NULL,
-    last_update_cursor VARCHAR(50) NULL,
+    next_query_string VARCHAR(1000) NULL,
     CONSTRAINT MONITOR_USER_id_fk FOREIGN KEY (author_id) REFERENCES USER (id)
 );
 CREATE UNIQUE INDEX MONITOR_id_uindex ON MONITOR (id);
@@ -48,7 +47,7 @@ CREATE TABLE TWITTER_EXTRACTION
     tweet_id VARCHAR(50) NOT NULL,
     user_id VARCHAR(50) NOT NULL,
     type VARCHAR(2) NOT NULL,
-    created_date TIMESTAMP NOT NULL,
+    creation_date TIMESTAMP NOT NULL,
     interacted_status_id VARCHAR(50),
     interacted_user_id VARCHAR(50),
     language VARCHAR(5),

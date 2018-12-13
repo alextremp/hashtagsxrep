@@ -58,7 +58,7 @@
             following = #{user.following},
             language = #{user.language},
             location = #{user.location},
-            profileImageUrl = #{user.profileImageUrl},
+            profile_image_url = #{user.profileImageUrl},
             verified = #{user.verified},
             locked = #{user.locked}
         WHERE id = #{user.id}
@@ -72,7 +72,7 @@
             following = #{user.following},
             language = #{user.language},
             location = #{user.location},
-            profileImageUrl = #{user.profileImageUrl},
+            profile_image_url = #{user.profileImageUrl},
             verified = #{user.verified},
             locked = #{user.locked}
         WHERE id = #{user.id}

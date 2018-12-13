@@ -1,8 +1,9 @@
 package cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc;
 
-import cat.xarxarepublicana.hashtagsxrep.domain.extraction.TwitterExtractionRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.extraction.TwitterExtraction;
 import cat.xarxarepublicana.hashtagsxrep.domain.extraction.TwitterExtractionFactory;
+import cat.xarxarepublicana.hashtagsxrep.domain.extraction.TwitterExtractionRepository;
+import cat.xarxarepublicana.hashtagsxrep.domain.extraction.TwitterExtractionSaveException;
 import cat.xarxarepublicana.hashtagsxrep.domain.monitor.Monitor;
 import cat.xarxarepublicana.hashtagsxrep.domain.monitor.MonitorRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.twitter.SearchTweetsResult;
@@ -11,11 +12,19 @@ import cat.xarxarepublicana.hashtagsxrep.domain.user.User;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserFactory;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserRepository;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.TwitterExtractionMapper;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.springframework.dao.DuplicateKeyException;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class JdbcTwitterExtractionRepository implements TwitterExtractionRepository {
+
+    private static final Logger LOG = Logger.getLogger(JdbcTwitterExtractionRepository.class.getName());
 
     private final MonitorRepository monitorRepository;
     private final UserRepository userRepository;
@@ -33,19 +42,34 @@ public class JdbcTwitterExtractionRepository implements TwitterExtractionReposit
     }
 
     @Override
-    public void save(Monitor monitor, SearchTweetsResult searchTweetsResult) {
+    public boolean save(Monitor monitor, SearchTweetsResult searchTweetsResult) {
         Set<String> updatedUserIds = new HashSet<>();
         User user;
         TwitterExtraction twitterExtraction;
-        monitorRepository.updateCursor(monitor, searchTweetsResult.getSearchMetadata().getMaxIdStr());
-        for (Tweet tweet: searchTweetsResult.getStatuses()) {
+        boolean existingDataReached = false;
+        for (Tweet tweet : searchTweetsResult.getStatuses()) {
             if (!updatedUserIds.contains(tweet.getUser().getIdStr())) {
                 user = userFactory.createFromTwitterExtractedUser(tweet.getUser());
                 userRepository.saveExtractedUser(user);
                 updatedUserIds.add(user.getId());
             }
             twitterExtraction = twitterExtractionFactory.createFromMonitorExtractedTweet(monitor, tweet);
-            twitterExtractionMapper.insert(twitterExtraction);
+            try {
+                twitterExtractionMapper.insert(twitterExtraction);
+            } catch (Exception e) {
+                if (DuplicateKeyException.class.isAssignableFrom(e.getClass())) {
+                    if (LOG.isLoggable(Level.FINE)) {
+                        LOG.info("Existing data reached: " + ExceptionUtils.getStackTrace(e));
+                    }
+                    existingDataReached = true;
+                    break;
+                } else {
+                    throw new TwitterExtractionSaveException("Error grabant extracció", e);
+                }
+            }
         }
+        String nextQueryString = searchTweetsResult.getSearchMetadata().getNextResults();
+        monitorRepository.updateCursor(monitor, nextQueryString);
+        return existingDataReached;
     }
 }
