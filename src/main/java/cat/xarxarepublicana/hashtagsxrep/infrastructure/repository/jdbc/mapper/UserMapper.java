@@ -13,5 +13,7 @@ public interface UserMapper {
 
     boolean exists(@Param("id") String id);
 
-    void updateSignedIn(@Param("user") User user);
+    void updateCredentialsData(@Param("user") User user);
+
+    void updateTwitterData(@Param("user") User user);
 }

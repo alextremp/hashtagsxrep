@@ -25,7 +25,6 @@
             </div>
         </div>
         </@security.authorize>
-
         <#include "component/footer.ftl">
     </div>
 </div>

@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org//DTD Mapper 3.0//EN'
+        'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+
+
+<mapper namespace='cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.TwitterExtractionMapper'>
+
+    <resultMap id='TwitterExtractionResultMap' type="cat.xarxarepublicana.hashtagsxrep.domain.extraction.TwitterExtraction">
+        <constructor>
+            <idArg column="monitor_id" javaType="string" />
+            <arg column="tweet_id" javaType="string" />
+            <arg column="user_id" javaType="string" />
+            <arg column="type" javaType="string" />
+            <arg column="creation_date" javaType="java.time.LocalDateTime" />
+            <arg column="interacted_status_id" javaType="string" />
+            <arg column="interacted_user_id" javaType="string" />
+            <arg column="language" javaType="string" />
+            <arg column="text" javaType="string" />
+        </constructor>
+    </resultMap>
+
+    <insert id='insert'>
+        INSERT INTO TWITTER_EXTRACTION
+            (monitor_id, tweet_id, user_id, type, creation_date,
+            interacted_status_id, interacted_user_id, language, text)
+        VALUES
+            (#{extraction.monitorId}, #{extraction.tweetId}, #{extraction.userId}, #{extraction.type}, #{extraction.creationDate},
+            #{extraction.interactedStatusId}, #{extraction.interactedUserId}, #{extraction.language}, #{extraction.text})
+    </insert>
+
+    <select id="selectByMonitorId" resultMap="TwitterExtractionResultMap">
+        SELECT * FROM TWITTER_EXTRACTION WHERE monitorId = #{monitorId}
+    </select>
+
+</mapper>

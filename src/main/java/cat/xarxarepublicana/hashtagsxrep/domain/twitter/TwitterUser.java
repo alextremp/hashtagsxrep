@@ -107,7 +107,7 @@ public class TwitterUser {
     }
 
     public void setLocation(String location) {
-        this.location = location;
+        this.location = StringEscapeUtils.escapeJava(location);
     }
 
     public String getName() {

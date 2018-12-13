@@ -5,7 +5,7 @@
 
 <mapper namespace='cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.MonitorMapper'>
 
-    <resultMap id='UserResultMap' type="cat.xarxarepublicana.hashtagsxrep.domain.monitor.Monitor">
+    <resultMap id='MonitorResultMap' type="cat.xarxarepublicana.hashtagsxrep.domain.monitor.Monitor">
         <constructor>
             <idArg column="id" javaType="string" />
             <arg column="author_id" javaType="string" />
@@ -15,36 +15,52 @@
             <arg column="creation_date" javaType="java.time.LocalDateTime" />
             <arg column="start_date" javaType="java.time.LocalDateTime" />
             <arg column="last_update_date" javaType="java.time.LocalDateTime" />
-            <arg column="last_update_cursor" javaType="string" />
+            <arg column="next_query_string" javaType="string" />
         </constructor>
     </resultMap>
 
     <sql id="sqlMonitorUserJoin">
         SELECT m.id, m.author_id, u.nickname, m.active,
             m.twitter_query, m.creation_date, m.start_date,
-            m.last_update_date, m.last_update_cursor
+            m.last_update_date, m.next_query_string
         FROM MONITOR m, USER u
         WHERE m.author_id = u.id
     </sql>
 
-    <select id='selectOneById' resultType='cat.xarxarepublicana.hashtagsxrep.domain.monitor.Monitor'>
+    <select id='selectOneById' resultMap="MonitorResultMap">
         <include refid="sqlMonitorUserJoin"/>
         AND m.id = #{id}
     </select>
 
-    <select id='selectActive' resultType='cat.xarxarepublicana.hashtagsxrep.domain.monitor.Monitor'>
+    <select id='selectActive' resultMap="MonitorResultMap">
         <include refid="sqlMonitorUserJoin"/>
         AND m.active = TRUE
         AND m.start_date &lt;= NOW()
         ORDER BY m.start_date DESC
-        LIMIT 100
+    </select>
+
+    <select id="selectLast" resultMap="MonitorResultMap">
+        <include refid="sqlMonitorUserJoin"/>
+        ORDER BY m.creation_date DESC
+        LIMIT #{quantity}
     </select>
 
     <insert id='insert'>
         INSERT INTO MONITOR (id, author_id, active, twitter_query,
-            creation_date, start_date, last_update_date, last_update_cursor)
+            creation_date, start_date, last_update_date, next_query_string)
         VALUES (#{monitor.id}, #{monitor.authorId}, #{monitor.active}, #{monitor.twitterQuery},
-            #{monitor.creationDate}, #{monitor.startDate}, #{monitor.lastUpdateDate}, #{monitor.lastUpdateCursor})
+            #{monitor.creationDate}, #{monitor.startDate}, #{monitor.lastUpdateDate}, #{monitor.nextQueryString})
     </insert>
+
+    <update id="updateCursor">
+        UPDATE MONITOR SET
+            last_update_date = #{monitor.lastUpdateDate},
+            next_query_string = #{monitor.nextQueryString}
+        WHERE id = #{monitor.id}
+    </update>
+
+    <select id="selectMaxTweetId" resultType="string">
+        select max(cast(tweet_id as unsigned)) from TWITTER_EXTRACTION WHERE monitor_id = #{monitorId}
+    </select>
 
 </mapper>

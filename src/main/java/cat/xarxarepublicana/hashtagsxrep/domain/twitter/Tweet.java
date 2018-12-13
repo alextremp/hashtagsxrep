@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import org.apache.commons.text.StringEscapeUtils;
 
 import java.util.Date;
 
@@ -26,9 +27,8 @@ public class Tweet {
     private String inReplyToUserIdStr;
     private Tweet retweetedStatus;
     private Tweet quotedStatus;
-    private Long retweetCount;
-    private Long favoriteCount;
     private String lang;
+    private String text;
 
     public Date getCreatedAt() {
         return createdAt;
@@ -52,22 +52,6 @@ public class Tweet {
 
     public void setRetweetedStatus(Tweet retweetedStatus) {
         this.retweetedStatus = retweetedStatus;
-    }
-
-    public Long getRetweetCount() {
-        return retweetCount;
-    }
-
-    public void setRetweetCount(Long retweetCount) {
-        this.retweetCount = retweetCount;
-    }
-
-    public Long getFavoriteCount() {
-        return favoriteCount;
-    }
-
-    public void setFavoriteCount(Long favoriteCount) {
-        this.favoriteCount = favoriteCount;
     }
 
     public String getInReplyToStatusIdStr() {
@@ -108,5 +92,13 @@ public class Tweet {
 
     public void setUser(TwitterUser user) {
         this.user = user;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = StringEscapeUtils.escapeJava(text);
     }
 }

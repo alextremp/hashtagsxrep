@@ -4,6 +4,7 @@ public interface UserRepository {
 
     User findById(String id);
 
-    void save(User user);
+    void saveLoggedUser(User user);
 
+    void saveExtractedUser(User user);
 }

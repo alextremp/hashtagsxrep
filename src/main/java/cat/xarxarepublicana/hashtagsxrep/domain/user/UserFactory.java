@@ -8,7 +8,7 @@ import static cat.xarxarepublicana.hashtagsxrep.domain.service.TimeConverter.toL
 
 public class UserFactory {
 
-    public User createFromTwitter(TwitterUser twitterUser, String token, String secret) {
+    public User createFromTwitterLoggedUser(TwitterUser twitterUser, String token, String secret) {
         User user = new User(
                 twitterUser.getIdStr(),
                 twitterUser.getScreenName(),
@@ -28,5 +28,9 @@ public class UserFactory {
                 twitterUser.isProtected()
         );
         return user;
+    }
+
+    public User createFromTwitterExtractedUser(TwitterUser twitterUser) {
+        return createFromTwitterLoggedUser(twitterUser, null, null);
     }
 }

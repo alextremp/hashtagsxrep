@@ -1,5 +1,8 @@
 package cat.xarxarepublicana.hashtagsxrep.domain.monitor;
 
+import cat.xarxarepublicana.hashtagsxrep.domain.twitter.SearchMetadata;
+import org.apache.commons.lang3.StringUtils;
+
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
@@ -12,10 +15,10 @@ public class Monitor {
     private final String twitterQuery;
     private final LocalDateTime creationDate;
     private final LocalDateTime startDate;
-    private final LocalDateTime lastUpdateDate;
-    private final String lastUpdateCursor;
+    private LocalDateTime lastUpdateDate;
+    private String nextQueryString;
 
-    public Monitor(String id, String authorId, String authorNickname, Boolean active, String twitterQuery, LocalDateTime creationDate, LocalDateTime startDate, LocalDateTime lastUpdateDate, String lastUpdateCursor) {
+    public Monitor(String id, String authorId, String authorNickname, Boolean active, String twitterQuery, LocalDateTime creationDate, LocalDateTime startDate, LocalDateTime lastUpdateDate, String nextQueryString) {
         this.id = id;
         this.authorId = authorId;
         this.authorNickname = authorNickname;
@@ -24,15 +27,15 @@ public class Monitor {
         this.creationDate = creationDate;
         this.startDate = startDate;
         this.lastUpdateDate = lastUpdateDate;
-        this.lastUpdateCursor = lastUpdateCursor;
+        this.nextQueryString = nextQueryString;
     }
 
-    public Monitor(String id, String authorId, String authorNickname, Boolean active, String twitterQuery, Timestamp creationDate, Timestamp startDate, Timestamp lastUpdateDate, String lastUpdateCursor) {
+    public Monitor(String id, String authorId, String authorNickname, Boolean active, String twitterQuery, Timestamp creationDate, Timestamp startDate, Timestamp lastUpdateDate, String nextQueryString) {
         this(id, authorId, authorNickname, active, twitterQuery,
                 creationDate != null ? creationDate.toLocalDateTime() : null,
                 startDate != null ? startDate.toLocalDateTime() : null,
                 lastUpdateDate != null ? lastUpdateDate.toLocalDateTime() : null,
-                lastUpdateCursor);
+                nextQueryString);
     }
 
     public String getId() {
@@ -48,7 +51,7 @@ public class Monitor {
     }
 
     public String getTwitterQuery() {
-        return twitterQuery;
+        return StringUtils.isNotBlank(nextQueryString) ? nextQueryString : twitterQuery;
     }
 
     public LocalDateTime getCreationDate() {
@@ -63,11 +66,16 @@ public class Monitor {
         return lastUpdateDate;
     }
 
-    public String getLastUpdateCursor() {
-        return lastUpdateCursor;
+    public String getNextQueryString() {
+        return nextQueryString;
     }
 
     public LocalDateTime getStartDate() {
         return startDate;
+    }
+
+    public void updateCursor(String nextQueryString) {
+        this.nextQueryString = nextQueryString;
+        this.lastUpdateDate = LocalDateTime.now();
     }
 }

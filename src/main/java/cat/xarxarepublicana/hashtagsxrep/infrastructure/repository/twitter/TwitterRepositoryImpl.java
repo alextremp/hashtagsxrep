@@ -1,5 +1,6 @@
 package cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.twitter;
 
+import cat.xarxarepublicana.hashtagsxrep.domain.twitter.SearchTweetsResult;
 import cat.xarxarepublicana.hashtagsxrep.domain.twitter.TwitterException;
 import cat.xarxarepublicana.hashtagsxrep.domain.twitter.TwitterRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.twitter.TwitterUser;
@@ -8,13 +9,20 @@ import cat.xarxarepublicana.hashtagsxrep.domain.user.UserFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.scribejava.core.model.*;
 import com.github.scribejava.core.oauth.OAuth10aService;
+import com.github.scribejava.core.utils.OAuthEncoder;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class TwitterRepositoryImpl implements TwitterRepository {
 
+    private static final Logger LOG = Logger.getLogger(TwitterRepositoryImpl.class.getName());
+
     private static final String VERIFY_CREDENTIALS = "https://api.twitter.com/1.1/account/verify_credentials.json";
+    private static final String SEARCH_TWEETS = "https://api.twitter.com/1.1/search/tweets.json";
 
     private final UserFactory userFactory;
     private final OAuth10aService service;
@@ -37,11 +45,36 @@ public class TwitterRepositoryImpl implements TwitterRepository {
             service.signRequest(accessToken, request);
             Response response = service.execute(request);
             TwitterUser twitterUser = objectMapper.readValue(response.getStream(), TwitterUser.class);
-            User user = userFactory.createFromTwitter(twitterUser, oauthToken, oauthVerifier);
+            User user = userFactory.createFromTwitterLoggedUser(twitterUser, oauthToken, oauthVerifier);
             return user;
         } catch (Exception e) {
             throw new TwitterException("Error verifying user", e);
         }
+    }
+
+    @Override
+    public SearchTweetsResult searchTweets(String queryString) {
+        OAuthRequest request = new OAuthRequest(Verb.GET, SEARCH_TWEETS);
+        setQueryString(request, queryString);
+
+
+        if (LOG.isLoggable(Level.FINE)) {
+            LOG.log(Level.FINE, ">> QUERY: " + request.getQueryStringParams().asFormUrlEncodedString());
+        }
+        service.signRequest(applicationToken, request);
+        Response response;
+        SearchTweetsResult searchTweetsResult;
+        try {
+            response = service.execute(request);
+        } catch (Exception e) {
+            throw new TwitterException("Error realitzant la cerca: " + queryString, e);
+        }
+        try {
+            searchTweetsResult = objectMapper.readValue(response.getStream(), SearchTweetsResult.class);
+        } catch (Exception e) {
+            throw new TwitterException("Error llegint la resposta de Twitter: " + queryString, e);
+        }
+        return searchTweetsResult;
     }
 
     @Override
@@ -51,6 +84,14 @@ public class TwitterRepositoryImpl implements TwitterRepository {
             return service.getAuthorizationUrl(requestToken);
         } catch (IOException | InterruptedException | ExecutionException e) {
             throw new TwitterException("Error requesting token", e);
+        }
+    }
+
+    private void setQueryString(OAuthRequest request, String queryString) {
+        String[] pair;
+        for (String part : StringUtils.split(StringUtils.removeStart(queryString, "?"), '&')) {
+            pair = part.split("=");
+            request.addQuerystringParameter(OAuthEncoder.decode(pair[0]), pair.length > 1 ? OAuthEncoder.decode(pair[1]) : "");
         }
     }
 }

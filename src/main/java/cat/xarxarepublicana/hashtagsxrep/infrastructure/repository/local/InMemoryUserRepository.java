@@ -27,7 +27,12 @@ public class InMemoryUserRepository implements UserRepository {
     }
 
     @Override
-    public void save(User user) {
+    public void saveLoggedUser(User user) {
         repository.put(user.getId(), user);
+    }
+
+    @Override
+    public void saveExtractedUser(User user) {
+
     }
 }

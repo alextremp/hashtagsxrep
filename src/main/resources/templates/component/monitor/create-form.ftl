@@ -1,3 +1,4 @@
+<@security.authorize access="hasRole('ROLE_CREATOR')">
 <div class="row mt-2">
     <div class="col-12 text-center">
         <div class="mt-3">
@@ -30,3 +31,4 @@
         </div>
     </div>
 </div>
+</@security.authorize>

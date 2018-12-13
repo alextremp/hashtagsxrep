@@ -14,4 +14,10 @@ public interface MonitorMapper {
     void insert(@Param("monitor") Monitor monitor);
 
     List<Monitor> selectActive();
+
+    void updateCursor(@Param("monitor") Monitor monitor);
+
+    String selectMaxTweetId(@Param("monitorId") String monitorId);
+
+    List<Monitor> selectLast(@Param("quantity") Integer qtt);
 }

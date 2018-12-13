@@ -14,7 +14,7 @@ public class ListMonitorUseCase {
     }
 
     public ListMonitorResponse listMonitor() {
-        List<Monitor> monitorList = monitorRepository.getActiveMonitors();
+        List<Monitor> monitorList = monitorRepository.getLastMonitors();
         return new ListMonitorResponse(monitorList);
     }
 
