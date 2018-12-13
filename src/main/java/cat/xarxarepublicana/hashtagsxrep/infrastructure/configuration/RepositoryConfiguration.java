@@ -106,10 +106,12 @@ public class RepositoryConfiguration {
 
     @Bean
     public DataSource dataSource(
+            @Value("${app.db.driver}") Class<Driver> driver,
             @Value("${app.db.user}") String user,
             @Value("${app.db.password}") String password,
             @Value("${app.db.url}") String url) {
         SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
+        dataSource.setDriverClass(driver);
         dataSource.setUsername(user);
         dataSource.setPassword(password);
         dataSource.setUrl(url);
