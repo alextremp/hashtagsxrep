@@ -13,7 +13,6 @@ import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.JdbcUser
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.MonitorMapper;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.TwitterExtractionMapper;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.UserMapper;
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.local.InMemoryUserRepository;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.twitter.TwitterApi;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.twitter.TwitterRepositoryImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,9 +27,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
-import java.sql.Driver;
 
 @Configuration
 public class RepositoryConfiguration {
@@ -70,12 +69,6 @@ public class RepositoryConfiguration {
     }
 
     @Bean
-    @Profile("test")
-    public UserRepository inMemoryUserRepository(UserFactory userFactory) {
-        return new InMemoryUserRepository(userFactory);
-    }
-
-    @Bean
     public UserRepository jdbcUserRepository(UserMapper userMapper) {
         return new JdbcUserRepository(userMapper);
     }
@@ -107,12 +100,10 @@ public class RepositoryConfiguration {
 
     @Bean
     public DataSource dataSource(
-            @Value("${app.db.driver}") Class<Driver> driver,
             @Value("${app.db.user}") String user,
             @Value("${app.db.password}") String password,
             @Value("${app.db.url}") String url) {
         HikariConfig config = new HikariConfig();
-        config.setDriverClassName(driver.getName());
         config.setJdbcUrl(url);
         config.setUsername(user);
         config.setPassword(password);
@@ -142,5 +133,4 @@ public class RepositoryConfiguration {
         sessionFactory.setDataSource(dataSource);
         return sessionFactory;
     }
-
 }
