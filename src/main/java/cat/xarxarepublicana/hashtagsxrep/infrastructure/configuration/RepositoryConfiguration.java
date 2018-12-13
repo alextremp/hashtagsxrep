@@ -13,7 +13,6 @@ import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.JdbcUser
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.MonitorMapper;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.TwitterExtractionMapper;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.UserMapper;
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.local.InMemoryUserRepository;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.twitter.TwitterApi;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.twitter.TwitterRepositoryImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,9 +27,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
-import java.sql.Driver;
 
 @Configuration
 public class RepositoryConfiguration {
@@ -67,12 +66,6 @@ public class RepositoryConfiguration {
     @Bean
     public OAuth1AccessToken applicationToken() {
         return new OAuth1AccessToken(appKey, appSecret);
-    }
-
-    @Bean
-    @Profile("test")
-    public UserRepository inMemoryUserRepository(UserFactory userFactory) {
-        return new InMemoryUserRepository(userFactory);
     }
 
     @Bean
@@ -140,5 +133,4 @@ public class RepositoryConfiguration {
         sessionFactory.setDataSource(dataSource);
         return sessionFactory;
     }
-
 }
