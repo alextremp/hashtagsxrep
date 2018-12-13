@@ -14,3 +14,6 @@ heroku logs --tail
 
 mvn clean install
 heroku local web
+
+heroku config:add TZ="Europe/Madrid"
+heroku config:get TZ
