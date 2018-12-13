@@ -12,8 +12,8 @@ public class Monitor {
     private final String twitterQuery;
     private final LocalDateTime creationDate;
     private final LocalDateTime startDate;
-    private final LocalDateTime lastUpdateDate;
-    private final String lastUpdateCursor;
+    private LocalDateTime lastUpdateDate;
+    private String lastUpdateCursor;
 
     public Monitor(String id, String authorId, String authorNickname, Boolean active, String twitterQuery, LocalDateTime creationDate, LocalDateTime startDate, LocalDateTime lastUpdateDate, String lastUpdateCursor) {
         this.id = id;
@@ -69,5 +69,10 @@ public class Monitor {
 
     public LocalDateTime getStartDate() {
         return startDate;
+    }
+
+    public void updateCursor(String cursor) {
+        this.lastUpdateCursor = cursor;
+        this.lastUpdateDate = LocalDateTime.now();
     }
 }

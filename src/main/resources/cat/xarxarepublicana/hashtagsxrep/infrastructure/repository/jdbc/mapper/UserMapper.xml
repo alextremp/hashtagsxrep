@@ -47,11 +47,34 @@
             #{user.verified}, #{user.locked})
     </insert>
 
-    <update id='updateSignedIn'>
+    <update id='updateCredentialsData'>
         UPDATE USER SET
             sign_in_date= #{user.signInDate},
             token = #{user.token},
-            secret = #{user.secret}
+            secret = #{user.secret},
+            nickname = #{user.nickname},
+            name = #{user.name},
+            followers = #{user.followers},
+            following = #{user.following},
+            language = #{user.language},
+            location = #{user.location},
+            profileImageUrl = #{user.profileImageUrl},
+            verified = #{user.verified},
+            locked = #{user.locked}
+        WHERE id = #{user.id}
+    </update>
+
+    <update id='updateTwitterData'>
+        UPDATE USER SET
+            nickname = #{user.nickname},
+            name = #{user.name},
+            followers = #{user.followers},
+            following = #{user.following},
+            language = #{user.language},
+            location = #{user.location},
+            profileImageUrl = #{user.profileImageUrl},
+            verified = #{user.verified},
+            locked = #{user.locked}
         WHERE id = #{user.id}
     </update>
 

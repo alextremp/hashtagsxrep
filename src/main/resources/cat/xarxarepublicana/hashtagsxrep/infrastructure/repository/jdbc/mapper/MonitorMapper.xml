@@ -47,4 +47,12 @@
             #{monitor.creationDate}, #{monitor.startDate}, #{monitor.lastUpdateDate}, #{monitor.lastUpdateCursor})
     </insert>
 
+    <update id="updateCursor">
+        UPDATE MONITOR SET
+            last_update_date = #{monitor.lastUpdateDate},
+            last_update_cursor = #{monitor.lastUpdateCursor}
+        WHERE id = #{monitor.id}
+
+    </update>
+
 </mapper>

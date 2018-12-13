@@ -18,9 +18,18 @@ public class JdbcUserRepository implements UserRepository {
     }
 
     @Override
-    public void save(User user) {
+    public void saveLoggedUser(User user) {
         if (userMapper.exists(user.getId())) {
-            userMapper.updateSignedIn(user);
+            userMapper.updateCredentialsData(user);
+        } else {
+            userMapper.insert(user);
+        }
+    }
+
+    @Override
+    public void saveExtractedUser(User user) {
+        if (userMapper.exists(user.getId())) {
+            userMapper.updateTwitterData(user);
         } else {
             userMapper.insert(user);
         }

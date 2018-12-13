@@ -14,4 +14,6 @@ public interface MonitorMapper {
     void insert(@Param("monitor") Monitor monitor);
 
     List<Monitor> selectActive();
+
+    void updateCursor(@Param("monitor") Monitor monitor);
 }

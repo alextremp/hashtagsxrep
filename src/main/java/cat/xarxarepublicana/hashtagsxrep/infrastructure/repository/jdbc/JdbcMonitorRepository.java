@@ -20,6 +20,12 @@ public class JdbcMonitorRepository implements MonitorRepository {
     }
 
     @Override
+    public void updateCursor(Monitor monitor, String newCursor) {
+        monitor.updateCursor(newCursor);
+        monitorMapper.updateCursor(monitor);
+    }
+
+    @Override
     public Monitor findById(String id) {
         return monitorMapper.selectOneById(id);
     }
