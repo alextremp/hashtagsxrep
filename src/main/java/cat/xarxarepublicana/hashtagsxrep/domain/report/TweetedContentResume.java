@@ -29,4 +29,8 @@ public class TweetedContentResume {
     public Integer getRetweets() {
         return retweets;
     }
+
+    public Integer getContentCount() {
+        return tweets + quotes + comments;
+    }
 }
