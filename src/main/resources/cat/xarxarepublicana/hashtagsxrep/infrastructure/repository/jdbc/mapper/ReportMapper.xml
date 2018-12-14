@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org//DTD Mapper 3.0//EN'
+        'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+
+
+<mapper namespace='cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.ReportMapper'>
+
+    <select id="selectTaggersCount" resultType="integer">
+        select count(DISTINCT user_id) from TWITTER_EXTRACTION WHERE monitor_id = #{monitorId};
+    </select>
+
+    <resultMap id='InteractorResumeResultMap' type="cat.xarxarepublicana.hashtagsxrep.domain.report.InteractorResume">
+        <constructor>
+            <arg column="interactorCount" javaType="integer" />
+            <arg column="interactedCount" javaType="integer" />
+        </constructor>
+    </resultMap>
+
+    <select id="selectInteractorResume" resultMap="InteractorResumeResultMap">
+        SELECT count(DISTINCT user_id) as interactorCount, count(DISTINCT interacted_user_id) as interactedCount
+        FROM TWITTER_EXTRACTION
+        WHERE monitor_id = #{monitorId}
+            AND interacted_user_id IS NOT NULL AND type not in ('T','R');
+    </select>
+
+    <resultMap id="TweetedContentResumeResultMap" type="cat.xarxarepublicana.hashtagsxrep.domain.report.TweetedContentResume">
+        <constructor>
+            <arg column="tweets" javaType="integer" />
+            <arg column="quotes" javaType="integer" />
+            <arg column="comments" javaType="integer" />
+            <arg column="retweets" javaType="integer" />
+        </constructor>
+    </resultMap>
+
+    <select id="selectTweetedContentResume" resultMap="TweetedContentResumeResultMap">
+        select
+            SUM(CASE WHEN type='T' THEN 1 ELSE 0 END) AS tweets,
+            SUM(CASE WHEN type='Q' THEN 1 ELSE 0 END) AS quotes,
+            SUM(CASE WHEN type='C' THEN 1 ELSE 0 END) AS comments,
+            SUM(CASE WHEN type='R' THEN 1 ELSE 0 END) AS retweets
+        FROM TWITTER_EXTRACTION
+        WHERE monitor_id = #{monitorId}
+    </select>
+
+    <resultMap id="UserContentResumeResultMap" type="cat.xarxarepublicana.hashtagsxrep.domain.report.UserContentResume">
+        <constructor>
+            <arg column="tweets" javaType="integer" />
+            <arg column="quotes" javaType="integer" />
+            <arg column="comments" javaType="integer" />
+            <arg column="retweets" javaType="integer" />
+        </constructor>
+    </resultMap>
+
+    <select id="selectUserContentResume" resultMap="UserContentResumeResultMap">
+        select tweets.qtt as tweets, quotes.qtt as quotes, comments.qtt as comments, retweets.qtt as retweets
+        from (
+            select count(DISTINCT user_id) as qtt from TWITTER_EXTRACTION WHERE monitor_id = #{monitorId} AND type = 'T'
+        ) as tweets,
+        (
+            select count(DISTINCT user_id) as qtt from TWITTER_EXTRACTION WHERE monitor_id = #{monitorId} AND type = 'Q'
+        ) as quotes,
+        (
+            select count(DISTINCT user_id) as qtt from TWITTER_EXTRACTION WHERE monitor_id = #{monitorId} AND type = 'C'
+        ) as comments,
+        (
+            select count(DISTINCT user_id) as qtt from TWITTER_EXTRACTION WHERE monitor_id = #{monitorId} AND type = 'R'
+        ) as retweets
+    </select>
+
+</mapper>

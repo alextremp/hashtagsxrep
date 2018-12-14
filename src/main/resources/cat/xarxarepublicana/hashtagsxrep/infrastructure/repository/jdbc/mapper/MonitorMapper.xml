@@ -32,6 +32,13 @@
         AND m.id = #{id}
     </select>
 
+    <select id="selectOneByTwitterQuery" resultMap="MonitorResultMap">
+        <include refid="sqlMonitorUserJoin"/>
+        AND m.twitter_query = #{twitterQuery}
+        ORDER BY creation_date DESC
+        LIMIT 1
+    </select>
+
     <select id='selectActive' resultMap="MonitorResultMap">
         <include refid="sqlMonitorUserJoin"/>
         AND m.active = TRUE

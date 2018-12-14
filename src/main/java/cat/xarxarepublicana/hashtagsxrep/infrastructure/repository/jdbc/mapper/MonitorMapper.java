@@ -20,4 +20,6 @@ public interface MonitorMapper {
     String selectMaxTweetId(@Param("monitorId") String monitorId);
 
     List<Monitor> selectLast(@Param("quantity") Integer qtt);
+
+    Monitor selectOneByTwitterQuery(@Param("twitterQuery") String twitterQuery);
 }
