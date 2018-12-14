@@ -4,13 +4,16 @@ import cat.xarxarepublicana.hashtagsxrep.domain.extraction.TwitterExtractionFact
 import cat.xarxarepublicana.hashtagsxrep.domain.extraction.TwitterExtractionRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.monitor.MonitorFactory;
 import cat.xarxarepublicana.hashtagsxrep.domain.monitor.MonitorRepository;
+import cat.xarxarepublicana.hashtagsxrep.domain.report.ReportRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.twitter.TwitterRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserFactory;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserRepository;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.JdbcMonitorRepository;
+import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.JdbcReportRepository;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.JdbcTwitterExtractionRepository;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.JdbcUserRepository;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.MonitorMapper;
+import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.ReportMapper;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.TwitterExtractionMapper;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.UserMapper;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.twitter.TwitterApi;
@@ -96,6 +99,11 @@ public class RepositoryConfiguration {
     @Bean
     public TwitterExtractionFactory twitterExtractionFactory() {
         return new TwitterExtractionFactory();
+    }
+
+    @Bean
+    public ReportRepository jdbcReportRepository(ReportMapper reportMapper) {
+        return new JdbcReportRepository(reportMapper);
     }
 
     @Bean

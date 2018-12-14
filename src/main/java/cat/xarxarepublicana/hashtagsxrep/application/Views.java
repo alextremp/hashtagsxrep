@@ -5,6 +5,7 @@ public interface Views {
     String VIEW_INDEX = "index";
     String VIEW_LOGIN = "login";
     String VIEW_MONITOR = "monitor";
+    String VIEW_REPORT = "report";
 
     String URL_INDEX = "/";
     String URL_LOGIN = "/login";

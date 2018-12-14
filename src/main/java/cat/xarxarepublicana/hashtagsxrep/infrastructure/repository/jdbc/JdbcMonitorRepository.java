@@ -46,4 +46,9 @@ public class JdbcMonitorRepository implements MonitorRepository {
     public List<Monitor> getLastMonitors() {
         return monitorMapper.selectLast(100);
     }
+
+    @Override
+    public Monitor findByTwitterQuery(String twitterQuery) {
+        return monitorMapper.selectOneByTwitterQuery(twitterQuery);
+    }
 }

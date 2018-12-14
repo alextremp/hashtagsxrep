@@ -14,4 +14,6 @@ public interface MonitorRepository {
     String getMaxTweetId(String monitorId);
 
     List<Monitor> getLastMonitors();
+
+    Monitor findByTwitterQuery(String twitterQuery);
 }
