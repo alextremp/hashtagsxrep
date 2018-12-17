@@ -23,6 +23,9 @@
         <@security.authorize access="hasRole('ROLE_ADMIN')">
             <#include "component/monitor/page-link.ftl">
         </@security.authorize>
+        <@security.authorize access="hasRole('ROLE_CREATOR')">
+            <#include "component/poll/page-link.ftl">
+        </@security.authorize>
 
             </div>
         </div>

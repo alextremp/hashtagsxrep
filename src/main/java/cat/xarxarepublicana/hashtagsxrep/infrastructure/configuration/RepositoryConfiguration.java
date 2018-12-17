@@ -4,18 +4,14 @@ import cat.xarxarepublicana.hashtagsxrep.domain.extraction.TwitterExtractionFact
 import cat.xarxarepublicana.hashtagsxrep.domain.extraction.TwitterExtractionRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.monitor.MonitorFactory;
 import cat.xarxarepublicana.hashtagsxrep.domain.monitor.MonitorRepository;
+import cat.xarxarepublicana.hashtagsxrep.domain.poll.PollFactory;
+import cat.xarxarepublicana.hashtagsxrep.domain.poll.PollRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.report.ReportRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.twitter.TwitterRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserFactory;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserRepository;
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.JdbcMonitorRepository;
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.JdbcReportRepository;
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.JdbcTwitterExtractionRepository;
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.JdbcUserRepository;
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.MonitorMapper;
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.ReportMapper;
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.TwitterExtractionMapper;
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.UserMapper;
+import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.*;
+import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.*;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.twitter.TwitterApi;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.twitter.TwitterRepositoryImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,9 +24,7 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
 
@@ -104,6 +98,16 @@ public class RepositoryConfiguration {
     @Bean
     public ReportRepository jdbcReportRepository(ReportMapper reportMapper) {
         return new JdbcReportRepository(reportMapper);
+    }
+
+    @Bean
+    public PollFactory pollFactory() {
+        return new PollFactory();
+    }
+
+    @Bean
+    public PollRepository jdbcPollRepository(PollMapper pollMapper) {
+        return new JdbcPollRepository(pollMapper);
     }
 
     @Bean

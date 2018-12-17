@@ -3,12 +3,15 @@ package cat.xarxarepublicana.hashtagsxrep.infrastructure.configuration;
 import cat.xarxarepublicana.hashtagsxrep.application.monitor.CreateMonitorUseCase;
 import cat.xarxarepublicana.hashtagsxrep.application.monitor.ListMonitorUseCase;
 import cat.xarxarepublicana.hashtagsxrep.application.monitor.MonitorDataExtractionUseCase;
+import cat.xarxarepublicana.hashtagsxrep.application.poll.CreatePollUseCase;
 import cat.xarxarepublicana.hashtagsxrep.application.report.GetTwitterQueryReportUseCase;
 import cat.xarxarepublicana.hashtagsxrep.application.signin.ConnectTwitterCallbackUseCase;
 import cat.xarxarepublicana.hashtagsxrep.application.signin.SignInWithTwitterUse;
 import cat.xarxarepublicana.hashtagsxrep.domain.extraction.TwitterExtractionRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.monitor.MonitorFactory;
 import cat.xarxarepublicana.hashtagsxrep.domain.monitor.MonitorRepository;
+import cat.xarxarepublicana.hashtagsxrep.domain.poll.PollFactory;
+import cat.xarxarepublicana.hashtagsxrep.domain.poll.PollRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.report.ReportRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.twitter.TwitterRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserRepository;
@@ -48,5 +51,10 @@ public class UseCaseConfiguration {
     @Bean
     public GetTwitterQueryReportUseCase getTwitterQueryReportUseCase(ReportRepository reportRepository, MonitorRepository monitorRepository) {
         return new GetTwitterQueryReportUseCase(reportRepository, monitorRepository);
+    }
+
+    @Bean
+    public CreatePollUseCase createPollUseCase(PollFactory pollFactory, PollRepository pollRepository) {
+        return new CreatePollUseCase(pollFactory, pollRepository);
     }
 }

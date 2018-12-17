@@ -10,15 +10,17 @@
 <div class="container">
     <#include "component/nav-menu.ftl">
 
-        <@security.authorize access="! isAuthenticated()">
+    <@security.authorize access="! isAuthenticated()">
         <#include "component/user/login-with-twitter.ftl">
     </@security.authorize>
 
-    <@security.authorize access="hasRole('ROLE_ADMIN')">
+    <@security.authorize access="isAuthenticated()">
     <div class="row tm-mt-big">
         <div class="col-12 mx-auto tm-login-col">
             <div class="bg-white tm-block">
-                <#include "component/monitor/create-form.ftl">
+                <@security.authorize access="hasRole('ROLE_ADMIN')">
+                    <#include "component/monitor/create-form.ftl">
+                </@security.authorize>
                 <#include "component/monitor/list.ftl">
             </div>
         </div>
