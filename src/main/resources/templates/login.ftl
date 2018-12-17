@@ -6,7 +6,7 @@
     <#include "common/head.ftl">
 </head>
 
-<body class="bg03">
+<body>
 <div class="container">
     <#include "component/nav-menu.ftl">
     <#include "component/user/login-with-twitter.ftl">
