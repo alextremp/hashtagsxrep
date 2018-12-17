@@ -115,7 +115,8 @@ public class RepositoryConfiguration {
         config.setJdbcUrl(url);
         config.setUsername(user);
         config.setPassword(password);
-        config.setMaximumPoolSize(10);
+        config.setMaximumPoolSize(5);
+
         config.addDataSourceProperty("cachePrepStmts", "true");
         config.addDataSourceProperty("prepStmtCacheSize", "250");
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");

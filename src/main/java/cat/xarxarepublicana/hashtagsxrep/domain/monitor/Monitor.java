@@ -1,8 +1,5 @@
 package cat.xarxarepublicana.hashtagsxrep.domain.monitor;
 
-import cat.xarxarepublicana.hashtagsxrep.domain.twitter.SearchMetadata;
-import org.apache.commons.lang3.StringUtils;
-
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
@@ -51,7 +48,7 @@ public class Monitor {
     }
 
     public String getTwitterQuery() {
-        return StringUtils.isNotBlank(nextQueryString) ? nextQueryString : twitterQuery;
+        return twitterQuery;
     }
 
     public LocalDateTime getCreationDate() {

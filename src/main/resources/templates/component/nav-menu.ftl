@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-12">
-        <nav class="navbar navbar-expand-xl navbar-light bg-light">
+        <nav class="navbar navbar-expand-xl navbar-light bg-white">
             <a class="navbar-brand" href="/">
                 <i class="fab fa-slack-hash fa-3x tm-site-icon"></i>
                 <h1 class="tm-site-title mb-0">HashtagsXRep</h1>
