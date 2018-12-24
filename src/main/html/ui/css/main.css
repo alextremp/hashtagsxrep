@@ -1,0 +1,211 @@
+html {
+    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #333333;
+    text-align: left;
+}
+body {
+    background-image: url(../image/background.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-color: #000;
+}
+header {
+    margin-top: 40px;
+}
+footer {
+    background-color: #00000055;
+    color: lightgray;
+    font-size: 70%;
+}
+a, a:visited {
+    text-decoration: none;
+    color: white;
+}
+a:focus, a:hover {
+    color: lightgray;
+}
+.flex-container {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.button.button-primary {
+    min-width: 220px;
+    background-color: black;
+    border-color: black;
+}
+.button.button-primary:focus, .button.button-primary:hover, button.button-primary:focus, button.button-primary:hover, input[type=button].button-primary:focus, input[type=button].button-primary:hover, input[type=reset].button-primary:focus, input[type=reset].button-primary:hover, input[type=submit].button-primary:focus, input[type=submit].button-primary:hover {
+    background-color: #555;
+    border-color: black;
+}
+.button svg {
+    font-size: 2rem;
+    position: relative;
+    top: .2rem;
+    left: -.2rem;
+    float: left;
+}
+.button.button-ht {
+    text-transform: none;
+    letter-spacing: unset;
+    background-color: black;
+    border-color: black;
+    color: white;
+}
+.button.button-ht:focus, .button.button-ht:hover, button.button-ht:focus {
+    background-color: #555;
+    border-color: black;
+}
+.button-ht {
+    font-size: .8rem;
+    background-color: black;
+    border-color: white;
+}
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.center { text-align: center; }
+.left { text-align: left; }
+.right { text-align: right; }
+.ml25 { margin-left: 25%; }
+.mr25 { margin-right: 25%; }
+
+.text-in {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 50%;
+    height: 45%;
+    margin-top: auto;
+    margin-bottom: auto;
+    line-height: 0;
+    white-space: nowrap;
+}
+.ht-box {
+    background-color: white;
+    border-radius: 20px;
+    padding-top: 15px;
+    margin-bottom: 15px;
+}
+.ht-form {
+    padding: 5px 20px 5px 20px;
+    margin-top: 10px;
+}
+.ht-form input {
+    border-color: #bbb;
+    background-color: #fbfbfb;
+}
+.ht-form input:focus {
+    border-color: black;
+    outline: black auto 0px;
+}
+.ht-form label {
+    text-align: left;
+    font-size: 70%;
+    margin-bottom: 0px;
+    font-style: italic;
+}
+.ht-tip {
+    font-size: 0.85rem;
+    font-style: italic;
+    color: gray;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.ht-header {
+    min-height: 50px;
+    position: relative;
+}
+.ht-block {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 40px;
+    padding: 5px 10px 5px 10px;
+    border-radius: 10px;
+}
+.ht-white-block {
+    background-color: #ffffffee;
+}
+.ht-entry-block {
+    max-width: 300px;
+}
+.ht-up {
+    width: 50px;
+    height: 50px;
+    border-radius: 20px;
+    position: absolute;
+}
+.ht-up-img {
+}
+.ht-up-img img {
+    border-radius: 25px;
+}
+.ht-title {
+    margin-left: 70px;
+}
+.ht-info {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.ht-txt-big {
+    font-size: 25px;
+}
+.ht-monitors {
+    padding-top: 15px;
+    padding-bottom: 10px;
+}
+.ht-monitor {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+.ht-footer {
+    text-align: center;
+}
+.ht-footer p {
+    margin: 2px;
+}
+/* Larger than mobile */
+@media (min-width: 400px) {}
+
+/* Larger than phablet */
+@media (min-width: 550px) {
+    .ht-footer-l p {
+        text-align: left;
+        margin-left: 25%;
+    }
+    .ht-footer-r p {
+        text-align: right;
+        margin-right: 25%;
+    }
+}
+
+/* Larger than tablet */
+@media (min-width: 750px) {}
+
+/* Larger than desktop */
+@media (min-width: 1000px) {}
+
+/* Larger than Desktop HD */
+@media (min-width: 1200px) {}
