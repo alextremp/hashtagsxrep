@@ -8,22 +8,17 @@
 
 <body>
 <div class="container">
-    <#include "component/nav-menu.ftl">
-
-    <@security.authorize access="! isAuthenticated()">
-        <#include "component/user/login-with-twitter.ftl">
-    </@security.authorize>
+    <#include "component/header.ftl">
 
     <@security.authorize access="isAuthenticated()">
-    <div class="row tm-mt-big">
-        <div class="col-12 mx-auto tm-login-col">
-            <div class="bg-white tm-block">
-                <@security.authorize access="hasRole('ROLE_ADMIN')">
-                    <#include "component/monitor/create-form.ftl">
-                </@security.authorize>
-                <#include "component/monitor/list.ftl">
-            </div>
+    <div class="ht-block ht-white-block center">
+        <div class="ht-info">
+            <i class="fas fa-robot"></i> #Monitoritza
         </div>
+        <@security.authorize access="hasRole('ROLE_ADMIN')">
+            <#include "component/monitor/create-form.ftl">
+        </@security.authorize>
+    <#include "component/monitor/list.ftl">
     </div>
     </@security.authorize>
     <#include "component/footer.ftl">

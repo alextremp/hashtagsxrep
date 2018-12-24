@@ -1,9 +1,14 @@
-<footer class="row tm-mt-big">
-    <div class="col-12 font-weight-light text-center">
-        <p class="d-inline-block tm-bg-black text-white py-2 px-4">
-            Copyright &copy; 2018. Creat per
-            <a href="https://twitter.com/HashtagsxRep" class="text-white tm-footer-link">@HashtagsxRep</a> | by <a
-                href="http://twitter.com/alextremp" class="text-white tm-footer-link">@alextremp</a>
-        </p>
+<footer class="ht-footer">
+    <div class="row">
+        <div class="six columns ht-footer-l">
+            <p>
+                Creat per <a href="https://twitter.com/alextremp">@alextremp</a>
+            </p>
+        </div>
+        <div class="six columns ht-footer-r">
+            <p>
+                GitHub <a href="https://github.com/HashtagsXRep">HashtagsXRep</a>
+            </p>
+        </div>
     </div>
 </footer>

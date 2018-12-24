@@ -8,7 +8,7 @@
 
 <body>
 <div class="container">
-    <#include "component/nav-menu.ftl">
+    <#include "component/header.ftl">
     <#include "component/user/login-with-twitter.ftl">
     <#include "component/footer.ftl">
 </div>

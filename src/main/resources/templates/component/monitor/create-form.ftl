@@ -1,32 +1,21 @@
-<div class="row mt-2">
-    <div class="col-12 text-center">
-        <div class="mt-3">
-            <form action="/monitor" method="post" class="tm-edit-product-form">
-                <div class="input-group mb-3">
-                    <label for="twitterQuery" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">
-                        Hashtag
-                    </label>
-                    <input placeholder="#hashtag" value="#" id="twitterQuery" name="twitterQuery" type="text"
-                           class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7"/>
-                </div>
-                <div class="input-group mb-3">
-                    <label for="startTime" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">
-                        Inici
-                    </label>
-                    <input id="startTime" name="startTime" type="datetime-local"
-                           class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7"/>
-                </div>
-                <div class="input-group mb-3">
-                    <div class="ml-auto col-xl-8 col-lg-8 col-md-8 col-sm-7 pl-0">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-4x fa-plus-circle tm-site-icon"></i> #Crea
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="mt-3 tm-tip">
-            Dóna d'alta un nou monitor per extreure resultats d'un hashtag.
-        </div>
+<div class="ht-box">
+    <div class="ht-tip">
+        Dóna d'alta un nou monitor de Hashtags per extreure resultats.
     </div>
+    <form action="/monitor" method="post" class="ht-form">
+        <div class="row">
+            <div class="six columns">
+                <label for="twitterQuery">Hashtag</label>
+                <input class="u-full-width" type="text" placeholder="#HashtagAConsultar" id="twitterQuery" name="twitterQuery" required/>
+            </div>
+            <div class="six columns">
+                <#assign startTime = .now>
+                <label for="startTime">Inici</label>
+                <input class="u-full-width" type="datetime-local" id="startTime" name="startTime" value="${startTime?string.iso_m_nz}" required/>
+            </div>
+        </div>
+        <button class="button button-primary" type="submit">
+            <i class="fas fa-plus-circle"></i> #Crea
+        </button>
+    </form>
 </div>
