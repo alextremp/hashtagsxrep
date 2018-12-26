@@ -16,9 +16,11 @@ public class JdbcReportRepository implements ReportRepository {
         TweetedContentResume tweetedContentResume = reportMapper.selectTweetedContentResume(monitorId);
         InteractorResume interactorResume = reportMapper.selectInteractorResume(monitorId);
         Integer taggersCount = reportMapper.selectTaggersCount(monitorId);
+        Integer maxImpressions = reportMapper.selectMaxImpressions(monitorId);
+        Integer maxAudience = reportMapper.selectMaxAudience(monitorId);
         UserContentResume userContentResume = reportMapper.selectUserContentResume(monitorId);
 
-        Report report = new Report(tweetedContentResume, interactorResume, taggersCount, userContentResume);
+        Report report = new Report(tweetedContentResume, interactorResume, taggersCount, maxImpressions, maxAudience, userContentResume);
         return report;
     }
 }

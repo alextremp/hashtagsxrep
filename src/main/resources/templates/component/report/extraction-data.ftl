@@ -1,23 +1,36 @@
-<div class="row mt-2">
-    <div class="col-12 text-center">
-        <div class="mt-3">
-            <div class="tp-report-resume">
-            Resum: ${monitor.twitterQuery}
-            <br/>
-            <br/>
-            - ${report.tweetedContentResume.contentCount} Missatges creats<br/>
-            - ${report.tweetedContentResume.tweets} Tweets<br/>
-            - ${report.tweetedContentResume.quotes} Cites<br/>
-            - ${report.tweetedContentResume.comments} Comentaris<br/>
-            - ${report.tweetedContentResume.retweets} Retweets<br/>
-            <br/>
-            - ${report.userContentResume.tweets} taggers han tuitejat<br/>
-            - ${report.userContentResume.quotes} taggers han citat tweets<br/>
-            - ${report.userContentResume.comments} taggers han comentat<br/>
-            - ${report.interactorResume.interactorCount} taggers han influït citant o comentant a ${report.interactorResume.interactedCount} usuaris<br/>
-            <br/>
-            - ${report.taggersCount} usuaris han participat<br/>
-            - ${report.userContentResume.retweets} usuaris han retuitejat<br/>
+<div class="ht-resume">
+    <div class="row">
+        <div class="six columns">
+            <div class="ht-result-box">
+                <header class="ht-result">Continguts</header>
+                <div class="ht-result">${report.tweetedContentResume.contentCount} Missatges</div>
+                <div class="ht-result">${report.tweetedContentResume.tweets} Tweets</div>
+                <div class="ht-result">${report.tweetedContentResume.quotes} Cites</div>
+                <div class="ht-result">${report.tweetedContentResume.comments} Comentaris</div>
+                <div class="ht-result">${report.tweetedContentResume.retweets} Retweets</div>
+            </div>
+        </div>
+        <div class="six columns">
+            <div class="ht-result-box">
+                <header class="ht-result">Usuaris</header>
+                <div class="ht-result">${report.taggersCount} usuaris han participat</div>
+                <div class="ht-result">${report.userContentResume.tweets} han tuitejat</div>
+                <div class="ht-result">${report.userContentResume.quotes} han citat tweets</div>
+                <div class="ht-result">${report.userContentResume.quotes} han citat tweets</div>
+                <div class="ht-result">${report.userContentResume.retweets} han retuitejat</div>
+                <div class="ht-result">${report.interactorResume.interactorCount} han influït a altres ${report.interactorResume.interactedCount}</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="six columns">
+            <div class="ht-result-box highlight">
+                <header class="ht-result"><i class="far fa-eye"></i> Visualitzacions: ${report.maxImpressions}</header>
+            </div>
+        </div>
+        <div class="six columns">
+            <div class="ht-result-box highlight">
+                <header class="ht-result"><i class="fas fa-bullhorn"></i> Audiència: ${report.maxAudience}</header>
             </div>
         </div>
     </div>

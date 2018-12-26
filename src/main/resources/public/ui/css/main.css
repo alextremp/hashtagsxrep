@@ -14,20 +14,19 @@ body {
     background-attachment: fixed;
     background-color: #000;
 }
-header {
-    margin-top: 40px;
-}
-footer {
-    background-color: #00000055;
-    color: lightgray;
-    font-size: 70%;
-}
 a, a:visited {
     text-decoration: none;
     color: white;
 }
 a:focus, a:hover {
     color: lightgray;
+}
+header {
+}
+footer {
+    background-color: #00000055;
+    color: lightgray;
+    font-size: 70%;
 }
 .flex-container {
     height: 100%;
@@ -113,6 +112,9 @@ a:focus, a:hover {
 .ht-form input {
     border-color: #bbb;
     background-color: #fbfbfb;
+    font-weight: 100;
+    font-size: medium;
+    min-height: 38px;
 }
 .ht-form input:focus {
     border-color: black;
@@ -133,6 +135,7 @@ a:focus, a:hover {
     margin-right: auto;
 }
 .ht-header {
+    margin-top: 40px;
     min-height: 50px;
     position: relative;
 }
@@ -163,6 +166,8 @@ a:focus, a:hover {
 }
 .ht-title {
     margin-left: 70px;
+    color: black;
+    font-weight: 600;
 }
 .ht-info {
     margin-top: 20px;
@@ -178,6 +183,40 @@ a:focus, a:hover {
 .ht-monitor {
     margin-left: 10px;
     margin-right: 10px;
+}
+.ht-resume {
+    font-size: 1.1rem;
+    padding-bottom: 10px;
+}
+.ht-result-box {
+    text-align: left;
+    background-color: white;
+    border-radius: 20px;
+    padding-bottom: 10px;
+}
+.ht-result-box:nth-child(even) div {
+    background-color: #eaeaea;
+}
+.ht-result-box.highlight {
+    padding-bottom: 0px;
+}
+header.ht-result-box.highlight {
+    margin-bottom: 0px;
+}
+header.ht-result {
+    font-weight: bold;
+    background-color: black;
+    border-radius: 20px;
+    color: white;
+    text-align: center;
+    margin-bottom: 10px;
+}
+.ht-result {
+    padding-left: 15px;
+    padding-right: 5px;
+}
+div.ht-result:nth-child(odd) {
+    background-color: #fbfbfb;
 }
 .ht-footer {
     text-align: center;
