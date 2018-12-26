@@ -45,11 +45,14 @@ public class PollController {
             @RequestParam("endVotingTime")
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
                     LocalDateTime endVotingTime,
+            @RequestParam("startEventTime")
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+                    LocalDateTime startEventTime,
             @AuthenticationPrincipal
                     AuthenticationUser authenticationUser,
             Model model
     ) {
-        CreatePollUseCase.CreatePollResponse poll = createPollUseCase.createPoll(authenticationUser.getUser(), description, startProposalsTime, endProposalsTime, endVotingTime);
+        CreatePollUseCase.CreatePollResponse poll = createPollUseCase.createPoll(authenticationUser.getUser(), description, startProposalsTime, endProposalsTime, endVotingTime, startEventTime);
         return Views.VIEW_POLL;
     }
 }

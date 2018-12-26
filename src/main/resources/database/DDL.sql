@@ -68,6 +68,7 @@ CREATE TABLE POLL
     start_proposals_time TIMESTAMP NOT NULL,
     end_proposals_time TIMESTAMP NOT NULL,
     end_voting_time TIMESTAMP NOT NULL,
+    start_event_time TIMESTAMP NOT NULL,
     CONSTRAINT POLL_USER_id_fk FOREIGN KEY (author_id) REFERENCES USER (id)
 );
 CREATE UNIQUE INDEX POLL_id_uindex ON POLL (id);

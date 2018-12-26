@@ -12,8 +12,9 @@ public class Poll {
     private final LocalDateTime startProposalsTime;
     private final LocalDateTime endProposalsTime;
     private final LocalDateTime endVotingTime;
+    private final LocalDateTime startEventTime;
 
-    public Poll(String id, String authorId, String authorNickname, String description, LocalDateTime creationDate, LocalDateTime startProposalsTime, LocalDateTime endProposalsTime, LocalDateTime endVotingTime) {
+    public Poll(String id, String authorId, String authorNickname, String description, LocalDateTime creationDate, LocalDateTime startProposalsTime, LocalDateTime endProposalsTime, LocalDateTime endVotingTime, LocalDateTime startEventTime) {
         this.id = id;
         this.authorId = authorId;
         this.authorNickname = authorNickname;
@@ -22,6 +23,7 @@ public class Poll {
         this.startProposalsTime = startProposalsTime;
         this.endProposalsTime = endProposalsTime;
         this.endVotingTime = endVotingTime;
+        this.startEventTime = startEventTime;
     }
 
     public String getId() {
@@ -54,5 +56,9 @@ public class Poll {
 
     public LocalDateTime getEndVotingTime() {
         return endVotingTime;
+    }
+
+    public LocalDateTime getStartEventTime() {
+        return startEventTime;
     }
 }

@@ -15,12 +15,13 @@
             <arg column="start_proposals_time" javaType="java.time.LocalDateTime" />
             <arg column="end_proposals_time" javaType="java.time.LocalDateTime" />
             <arg column="end_voting_time" javaType="java.time.LocalDateTime" />
+            <arg column="start_event_time" javaType="java.time.LocalDateTime" />
         </constructor>
     </resultMap>
 
     <sql id="sqlPollUserJoin">
         SELECT p.id, p.author_id, u.nickname, p.description,
-        p.creation_date, p.start_proposals_time, p.end_proposals_time, p.end_voting_time
+        p.creation_date, p.start_proposals_time, p.end_proposals_time, p.end_voting_time, p.start_event_time
         FROM POLL p, USER u
         WHERE p.author_id = u.id
     </sql>
@@ -38,9 +39,9 @@
 
     <insert id='insert'>
         INSERT INTO POLL (id, author_id, description, creation_date,
-        start_proposals_time, end_proposals_time, end_voting_time)
+        start_proposals_time, end_proposals_time, end_voting_time, start_event_time)
         VALUES (#{poll.id}, #{poll.authorId}, #{poll.description}, #{poll.creationDate},
-        #{poll.startProposalsTime}, #{poll.endProposalsTime}, #{poll.endVotingTime})
+        #{poll.startProposalsTime}, #{poll.endProposalsTime}, #{poll.endVotingTime}, #{poll.startEventTime})
     </insert>
 
 </mapper>
