@@ -5,30 +5,28 @@
     <#assign pageTitle = "Inici | Hashtags per la República">
     <#include "common/head.ftl">
 </head>
-
 <body>
 <div class="container">
-    <#include "component/nav-menu.ftl">
+    <#include "component/header.ftl">
 
     <@security.authorize access="! isAuthenticated()">
         <#include "component/user/login-with-twitter.ftl">
     </@security.authorize>
 
     <@security.authorize access="isAuthenticated()">
-    <div class="row tm-mt-big">
-        <div class="col-12 mx-auto tm-login-col">
-            <div class="bg-white tm-block">
-
-        <#include "component/user/user-details.ftl">
+    <div class="ht-block ht-white-block ht-entry-block center">
+        <div class="ht-info">
+            <i class="fas fa-user-circle"></i>
+            <@security.authentication property="principal.user.nickname"/>
+        </div>
         <@security.authorize access="hasRole('ROLE_ADMIN')">
             <#include "component/monitor/page-link.ftl">
         </@security.authorize>
-
-            </div>
-        </div>
+        <@security.authorize access="hasRole('ROLE_CREATOR')">
+            <#include "component/poll/page-link.ftl">
+        </@security.authorize>
     </div>
     </@security.authorize>
-
     <#include "component/footer.ftl">
 </div>
 </body>

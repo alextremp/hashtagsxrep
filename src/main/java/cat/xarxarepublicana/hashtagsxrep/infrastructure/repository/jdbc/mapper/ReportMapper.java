@@ -16,4 +16,8 @@ public interface ReportMapper {
     Integer selectTaggersCount(@Param("monitorId") String monitorId);
 
     UserContentResume selectUserContentResume(@Param("monitorId") String monitorId);
+
+    Integer selectMaxImpressions(@Param("monitorId") String monitorId);
+
+    Integer selectMaxAudience(@Param("monitorId") String monitorId);
 }

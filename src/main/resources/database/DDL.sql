@@ -57,3 +57,19 @@ CREATE TABLE TWITTER_EXTRACTION
 );
 CREATE UNIQUE INDEX TWITTER_EXTRACTION_monitor_id_tweet_id_uindex ON TWITTER_EXTRACTION (monitor_id, tweet_id);
 ALTER TABLE TWITTER_EXTRACTION COMMENT = 'Taula de dades volcades de Twitter des d''un monitor';
+
+
+CREATE TABLE POLL
+(
+    id VARCHAR(40) PRIMARY KEY NOT NULL,
+    author_id VARCHAR(50) NOT NULL,
+    description VARCHAR(200) NOT NULL,
+    creation_date TIMESTAMP NOT NULL,
+    start_proposals_time TIMESTAMP NOT NULL,
+    end_proposals_time TIMESTAMP NOT NULL,
+    end_voting_time TIMESTAMP NOT NULL,
+    start_event_time TIMESTAMP NOT NULL,
+    CONSTRAINT POLL_USER_id_fk FOREIGN KEY (author_id) REFERENCES USER (id)
+);
+CREATE UNIQUE INDEX POLL_id_uindex ON POLL (id);
+ALTER TABLE POLL COMMENT = 'Taula d''enquestes';

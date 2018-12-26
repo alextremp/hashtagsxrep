@@ -2,31 +2,21 @@
 <html lang="es">
 <#include "common/enable-security.ftl">
 <head>
-    <#assign pageTitle = "Monitoritza | Hashtags per la República">
+    <#assign pageTitle = "Resultats | Hashtags per la República">
     <#include "common/head.ftl">
 </head>
 
 <body>
-<div class="bg03">
-    <div class="container">
-        <#include "component/nav-menu.ftl">
+<div class="container">
+    <#include "component/header.ftl">
 
-            <@security.authorize access="! isAuthenticated()">
-            <#include "component/user/login-with-twitter.ftl">
-        </@security.authorize>
-
-        <@security.authorize access="hasRole('ROLE_ADMIN')">
-        <div class="row tm-mt-big">
-            <div class="col-12 mx-auto tm-login-col">
-                <div class="bg-white tm-block">
-                    <#include "component/report/monitor-data.ftl">
-                    <#include "component/report/extraction-data.ftl">
-                </div>
-            </div>
+    <div class="ht-block ht-white-block center">
+        <div class="ht-info">
+            <i class="fas fa-chart-line"></i> ${monitor.twitterQuery}
         </div>
-        </@security.authorize>
-        <#include "component/footer.ftl">
+        <#include "component/report/extraction-data.ftl">
     </div>
+    <#include "component/footer.ftl">
 </div>
 </body>
 </html>

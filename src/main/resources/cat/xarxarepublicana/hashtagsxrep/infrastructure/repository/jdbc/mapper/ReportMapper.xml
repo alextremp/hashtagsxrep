@@ -67,4 +67,17 @@
         ) as retweets
     </select>
 
+    <select id="selectMaxImpressions" resultType="integer">
+        SELECT sum(u.followers) as max_impressions from USER u, TWITTER_EXTRACTION te
+        WHERE te.monitor_id = #{monitorId} AND te.user_id=u.id
+    </select>
+
+    <select id="selectMaxAudience" resultType="integer">
+        SELECT sum(uf.ufollowers) as max_audience from (
+            SELECT u.id, u.followers AS ufollowers
+            FROM USER u, TWITTER_EXTRACTION te
+            WHERE te.monitor_id = #{monitorId} AND te.user_id = u.id
+            GROUP BY u.id
+        ) uf;
+    </select>
 </mapper>
