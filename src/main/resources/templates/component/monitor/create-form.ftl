@@ -14,8 +14,12 @@
                 <input class="u-full-width" type="datetime-local" id="startTime" name="startTime" value="${startTime?string.iso_m_nz}" required/>
             </div>
         </div>
-        <button class="button button-primary" type="submit">
-            <i class="fas fa-plus-circle"></i> #Crea
-        </button>
+        <div class="row">
+            <div class="twelve columns ht-submit-row">
+                <button class="button button-primary" type="submit">
+                    <i class="fas fa-plus-circle"></i> #Crea
+                </button>
+            </div>
+        </div>
     </form>
 </div>

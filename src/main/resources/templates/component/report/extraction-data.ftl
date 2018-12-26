@@ -2,7 +2,7 @@
     <div class="row">
         <div class="six columns">
             <div class="ht-result-box">
-                <header class="ht-result">Continguts</header>
+                <header class="ht-result"><i class="fas fa-user-edit"></i> Continguts</header>
                 <div class="ht-result">${report.tweetedContentResume.contentCount} Missatges</div>
                 <div class="ht-result">${report.tweetedContentResume.tweets} Tweets</div>
                 <div class="ht-result">${report.tweetedContentResume.quotes} Cites</div>
@@ -12,7 +12,7 @@
         </div>
         <div class="six columns">
             <div class="ht-result-box">
-                <header class="ht-result">Usuaris</header>
+                <header class="ht-result"><i class="fas fa-user-tag"></i> Usuaris</header>
                 <div class="ht-result">${report.taggersCount} usuaris han participat</div>
                 <div class="ht-result">${report.userContentResume.tweets} han tuitejat</div>
                 <div class="ht-result">${report.userContentResume.quotes} han citat tweets</div>

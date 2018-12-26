@@ -6,29 +6,23 @@
     <#include "common/head.ftl">
 </head>
 
-<body>
+<div>
 <div class="container">
-<#include "component/nav-menu.ftl">
+    <#include "component/header.ftl">
 
-<@security.authorize access="! isAuthenticated()">
-    <#include "component/user/login-with-twitter.ftl">
-</@security.authorize>
-
-<@security.authorize access="isAuthenticated()">
-<div class="row tm-mt-big">
-    <div class="col-12 mx-auto tm-login-col">
-        <div class="bg-white tm-block">
+    <div class="ht-block ht-white-block center">
+        <div class="ht-info">
+            <i class="fas fa-poll"></i> #Decideix
+        </div>
         <@security.authorize access="hasRole('ROLE_CREATOR')">
             <#include "component/poll/create-form.ftl">
         </@security.authorize>
         <@security.authorize access="hasRole('ROLE_TAGGER')">
             <#include "component/poll/list.ftl">
         </@security.authorize>
-        </div>
     </div>
-</div>
-</@security.authorize>
-<#include "component/footer.ftl">
+
+    <#include "component/footer.ftl">
 </div>
 </body>
 </html>

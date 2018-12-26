@@ -120,6 +120,9 @@ footer {
     border-color: black;
     outline: black auto 0px;
 }
+.ht-submit-row {
+    text-align: right;
+}
 .ht-form label {
     text-align: left;
     font-size: 70%;
