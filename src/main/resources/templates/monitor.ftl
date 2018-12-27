@@ -15,10 +15,15 @@
         <div class="ht-info">
             <i class="fas fa-robot"></i> #Monitoritza
         </div>
-        <@security.authorize access="hasRole('ROLE_ADMIN')">
-            <#include "component/monitor/create-form.ftl">
-        </@security.authorize>
-    <#include "component/monitor/list.ftl">
+
+        <#include "component/monitor/create-form.ftl">
+        <#include "component/monitor/list.ftl">
+
+        <div class="ht-box">
+            <#include "component/poll/page-link.ftl">
+            <#include "component/home/page-link.ftl">
+        </div>
+
     </div>
     </@security.authorize>
     <#include "component/footer.ftl">

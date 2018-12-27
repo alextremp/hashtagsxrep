@@ -1,3 +1,4 @@
+<@security.authorize access="hasRole('ROLE_CREATOR')">
 <#assign startProposalsTime = .now>
 <div class="ht-box">
 <div class="wrap-collabsible">
@@ -17,13 +18,13 @@
                 <div class="row">
                     <div class="six columns">
                         <label for="startProposalsTime">
-                            Inici propostes de hashtags
+                            Inici: Propostes de hashtags
                         </label>
                         <input id="startProposalsTime" name="startProposalsTime" type="datetime-local" required value="${startProposalsTime?string.iso_m_nz}" class="u-full-width"/>
                     </div>
                     <div class="six columns">
                         <label for="endProposalsTime">
-                            Inici de la votació de hashtags
+                            Inici: Votació de hashtags
                         </label>
                         <input id="endProposalsTime" name="endProposalsTime" type="datetime-local" required  value="${(startProposalsTime?long + 2 * 3600000)?number_to_datetime?string.iso_m_nz}" class="u-full-width"/>
                     </div>
@@ -31,13 +32,13 @@
                 <div class="row">
                     <div class="six columns">
                         <label for="endVotingTime">
-                            Fi la votació de hashtags
+                            Fi: Votació de hashtags
                         </label>
                         <input id="endVotingTime" name="endVotingTime" type="datetime-local" required value="${(startProposalsTime?long + 4 * 3600000)?number_to_datetime?string.iso_m_nz}" class="u-full-width"/>
                     </div>
                     <div class="six columns">
                         <label for="startEventTime">
-                            Inici de l'atac
+                            Inici: Atac
                         </label>
                         <input id="startEventTime" name="startEventTime" type="datetime-local" required value="${(startProposalsTime?long + 5 * 3600000)?number_to_datetime?string.iso_m_nz}" class="u-full-width"/>
                     </div>
@@ -61,3 +62,4 @@
     </div>
 </div>
 </div>
+</@security.authorize>

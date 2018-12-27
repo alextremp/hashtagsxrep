@@ -14,9 +14,14 @@
         <div class="ht-info">
             <i class="fas fa-poll"></i> ${poll.description}
         </div>
-        <@security.authorize access="hasRole('ROLE_TAGGER')">
-            <#include "component/poll/detail.ftl">
-        </@security.authorize>
+
+        <#include "component/poll/detail.ftl">
+
+        <div class="ht-box">
+            <#include "component/poll/page-link.ftl">
+            <#include "component/monitor/page-link.ftl">
+            <#include "component/home/page-link.ftl">
+        </div>
     </div>
 
     <#include "component/footer.ftl">

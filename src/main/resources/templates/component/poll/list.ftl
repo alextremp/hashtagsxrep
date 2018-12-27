@@ -1,9 +1,11 @@
 <div class="ht-box">
-    <#if !(pollList?size == 0) >
     <div class="ht-tip">
+    <#if !(pollList?size == 0)>
         Últimes enquestes creades.
-    </div>
+    <#else>
+        Cap enquesta activa.
     </#if>
+    </div>
     <div class="ht-polls">
         <div class="flex-container">
             <#list pollList as poll>
@@ -16,6 +18,3 @@
         </div>
     </div>
 </div>
-<@security.authorize access="hasRole('ROLE_ADMIN')">
-    <#include "../../component/monitor/page-link.ftl">
-</@security.authorize>
