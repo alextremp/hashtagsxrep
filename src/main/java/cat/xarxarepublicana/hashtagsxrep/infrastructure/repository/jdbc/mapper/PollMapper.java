@@ -13,5 +13,5 @@ public interface PollMapper {
 
     Poll selectOneById(@Param("id") String id);
 
-    List<Poll> selectLast(@Param("quantity") Integer quantity);
+    List<Poll> selectActive();
 }

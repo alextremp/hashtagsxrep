@@ -61,4 +61,12 @@ public class Poll {
     public LocalDateTime getStartEventTime() {
         return startEventTime;
     }
+
+    public boolean isProposalsTime() {
+        return LocalDateTime.now().isBefore(getEndProposalsTime());
+    }
+
+    public boolean isVotingTime() {
+        return !isProposalsTime() && LocalDateTime.now().isBefore(getEndVotingTime());
+    }
 }

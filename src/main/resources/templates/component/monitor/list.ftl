@@ -1,6 +1,8 @@
 <div class="ht-box">
     <div class="ht-tip">
-        Visualitza els resultats dels últims monitors creats.
+        <#if !(monitorList?size == 0) >
+        Últims monitors creats.
+        </#if>
     </div>
     <div class="ht-monitors">
         <div class="flex-container">
