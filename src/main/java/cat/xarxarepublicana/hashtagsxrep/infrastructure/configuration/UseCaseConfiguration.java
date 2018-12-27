@@ -4,6 +4,8 @@ import cat.xarxarepublicana.hashtagsxrep.application.monitor.CreateMonitorUseCas
 import cat.xarxarepublicana.hashtagsxrep.application.monitor.ListMonitorUseCase;
 import cat.xarxarepublicana.hashtagsxrep.application.monitor.MonitorDataExtractionUseCase;
 import cat.xarxarepublicana.hashtagsxrep.application.poll.CreatePollUseCase;
+import cat.xarxarepublicana.hashtagsxrep.application.poll.ListPollUseCase;
+import cat.xarxarepublicana.hashtagsxrep.application.poll.LoadPollUseCase;
 import cat.xarxarepublicana.hashtagsxrep.application.report.GetTwitterQueryReportUseCase;
 import cat.xarxarepublicana.hashtagsxrep.application.signin.ConnectTwitterCallbackUseCase;
 import cat.xarxarepublicana.hashtagsxrep.application.signin.SignInWithTwitterUse;
@@ -56,5 +58,15 @@ public class UseCaseConfiguration {
     @Bean
     public CreatePollUseCase createPollUseCase(PollFactory pollFactory, PollRepository pollRepository) {
         return new CreatePollUseCase(pollFactory, pollRepository);
+    }
+
+    @Bean
+    public ListPollUseCase listPollUseCase(PollRepository pollRepository) {
+        return new ListPollUseCase(pollRepository);
+    }
+
+    @Bean
+    public LoadPollUseCase loadPollUseCase(PollRepository pollRepository) {
+        return new LoadPollUseCase(pollRepository);
     }
 }

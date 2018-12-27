@@ -31,10 +31,10 @@
         AND p.id = #{id}
     </select>
 
-    <select id="selectLast" resultMap="PollResultMap">
+    <select id="selectActive" resultMap="PollResultMap">
         <include refid="sqlPollUserJoin"/>
+        AND p.start_event_time >= NOW()
         ORDER BY p.creation_date DESC
-        LIMIT #{quantity}
     </select>
 
     <insert id='insert'>
