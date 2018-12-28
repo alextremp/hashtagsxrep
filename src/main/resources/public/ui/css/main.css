@@ -156,7 +156,7 @@ input[type='checkbox'].toggle {
     margin-top: 10px;
     margin-bottom: 1rem;
 }
-.ht-form input {
+.ht-form input, textarea {
     border-color: #bbb;
     background-color: #fbfbfb;
     font-weight: 100;
@@ -169,7 +169,14 @@ input[type='checkbox'].toggle {
     box-shadow: none;
     box-sizing: border-box;
 }
+.ht-form textarea {
+    min-height: 80px;
+}
 .ht-form input:focus {
+    border-color: black;
+    outline: black auto 0px;
+}
+.ht-form textarea:focus {
     border-color: black;
     outline: black auto 0px;
 }
@@ -281,6 +288,36 @@ header.ht-result {
 }
 div.ht-result:nth-child(odd) {
     background-color: #fbfbfb;
+}
+.ht-proposal {
+    font-size: 60%;
+    margin: 10px;
+    padding-bottom: 10px;
+}
+.ht-proposal header {
+    font-weight: bold;
+    background-color: black;
+    color: white;
+    text-align: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.ht-proposal div {
+    line-height: 1.2;
+    background-color: #fafafa;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.ht-proposal footer {
+    text-align: right;
+    background-color: unset;
+    font-size: unset;
+    color: unset;
+    height: 38px;
 }
 .ht-footer {
     text-align: center;
