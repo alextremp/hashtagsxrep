@@ -24,8 +24,10 @@ public class LoadPollUseCase {
         Proposal userProposal = pollRepository.findProposal(pollId, user.getId());
 
         List<Proposal> proposalList = null;
+        Proposal userVote = null;
         if (poll.isVotingTime()) {
             proposalList = pollRepository.findPollProposals(pollId);
+            userVote = pollRepository.findUserVote(pollId, user.getId());
         }
         return new LoadPollResponse(poll, userProposal, proposalList);
     }

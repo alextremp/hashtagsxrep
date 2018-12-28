@@ -85,4 +85,19 @@
         ORDER BY creation_date ASC
     </select>
 
+    <insert id='insertVote'>
+        INSERT INTO POLL_VOTE (poll_id, proposal_author_id, proposal_voter_id)
+        VALUES (#{proposal.pollId}, #{proposal.authorId}, #{voter.id})
+    </insert>
+
+    <select id="selectVotedProposal" resultMap="ProposalResultMap">
+        SELECT p.poll_id, p.author_id, u.nickname,
+            p.hashtag, p.subject, p.creation_date
+        FROM POLL_PROPOSAL p, USER u, POLL_VOTE v
+        WHERE p.author_id = u.id
+            and v.poll_id=p.poll_id
+            and v.proposal_author_id=p.author_id
+            and v.proposal_voter_id=${voter.id}
+            and p.id={proposal.pollId}
+    </select>
 </mapper>

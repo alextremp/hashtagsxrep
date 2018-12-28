@@ -1,5 +1,7 @@
 package cat.xarxarepublicana.hashtagsxrep.domain.poll;
 
+import cat.xarxarepublicana.hashtagsxrep.domain.user.User;
+
 import java.util.List;
 
 public interface PollRepository {
@@ -17,4 +19,8 @@ public interface PollRepository {
     Proposal findProposal(String pollId, String authorId);
 
     List<Proposal> findPollProposals(String pollId);
+
+    void addVote(Proposal proposal, User voter);
+
+    Proposal findUserVote(String pollId, String voterId);
 }

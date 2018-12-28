@@ -1,10 +1,7 @@
 package cat.xarxarepublicana.hashtagsxrep.infrastructure.controller;
 
 import cat.xarxarepublicana.hashtagsxrep.application.Views;
-import cat.xarxarepublicana.hashtagsxrep.application.poll.CreatePollUseCase;
-import cat.xarxarepublicana.hashtagsxrep.application.poll.ListPollUseCase;
-import cat.xarxarepublicana.hashtagsxrep.application.poll.LoadPollUseCase;
-import cat.xarxarepublicana.hashtagsxrep.application.poll.PollProposalUseCase;
+import cat.xarxarepublicana.hashtagsxrep.application.poll.*;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.security.AuthenticationUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -27,13 +24,15 @@ public class PollController {
     private final ListPollUseCase listPollUseCase;
     private final LoadPollUseCase loadPollUseCase;
     private final PollProposalUseCase pollProposalUseCase;
+    private final PollVoteUseCase pollVoteUseCase;
 
     @Autowired
-    public PollController(CreatePollUseCase createPollUseCase, ListPollUseCase listPollUseCase, LoadPollUseCase loadPollUseCase, PollProposalUseCase pollProposalUseCase) {
+    public PollController(CreatePollUseCase createPollUseCase, ListPollUseCase listPollUseCase, LoadPollUseCase loadPollUseCase, PollProposalUseCase pollProposalUseCase, PollVoteUseCase pollVoteUseCase) {
         this.createPollUseCase = createPollUseCase;
         this.listPollUseCase = listPollUseCase;
         this.loadPollUseCase = loadPollUseCase;
         this.pollProposalUseCase = pollProposalUseCase;
+        this.pollVoteUseCase = pollVoteUseCase;
     }
 
     @GetMapping(Views.URL_POLL)
@@ -98,6 +97,22 @@ public class PollController {
         PollProposalUseCase.PollProposalResponse pollProposalResponse = pollProposalUseCase.pollProposal(pollId, authenticationUser.getUser(), hashtag, subject);
 
         model.addAttribute("pollProposalResponse", pollProposalResponse);
+        return new RedirectView("/poll/" + pollId);
+    }
+
+    @PostMapping("/poll/{pollId}/vote")
+    @Secured("ROLE_TAGGER")
+    public RedirectView pollVote(
+            @PathVariable("pollId") String pollId,
+            @RequestParam("proposalAuthorId")
+                    String proposalAuthorId,
+            @AuthenticationPrincipal
+                    AuthenticationUser authenticationUser,
+            Model model
+    ) {
+        PollVoteUseCase.PollVoteResponse pollVoteResponse = pollVoteUseCase.pollVote(pollId, proposalAuthorId, authenticationUser.getUser());
+
+        model.addAttribute("pollVoteResponse", pollVoteResponse);
         return new RedirectView("/poll/" + pollId);
     }
 
