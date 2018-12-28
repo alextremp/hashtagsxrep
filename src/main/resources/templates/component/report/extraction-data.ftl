@@ -14,7 +14,7 @@
                 <header class="ht-result"><i class="fas fa-user-tag"></i> ${report.taggersCount} Usuaris</header>
                 <div class="ht-result">${report.userContentResume.tweets} han tuitejat</div>
                 <div class="ht-result">${report.userContentResume.quotes} han citat tweets</div>
-                <div class="ht-result">${report.userContentResume.quotes} han citat tweets</div>
+                <div class="ht-result">${report.userContentResume.comments} han comentat</div>
                 <div class="ht-result">${report.userContentResume.retweets} han retuitejat</div>
                 <div class="ht-result">${report.interactorResume.interactorCount} han influït a altres ${report.interactorResume.interactedCount}</div>
             </div>

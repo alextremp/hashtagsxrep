@@ -43,15 +43,15 @@
         Llista de propostes. Només pots votar-ne una!
     </div>
     <form action="/poll/${loadPollResponse.poll.id}/vote" method="post" class="ht-form">
-        <input type="hidden" name="vote" id="vote" value=""/>
+        <input type="hidden" name="proposalAuthorId" id="proposalAuthorId" value=""/>
         <#list loadPollResponse.pollProposals as proposal>
         <div class="ht-proposal">
             <header>${proposal.hashtag}</header>
             <div>
                 ${proposal.subject}
                 <footer>
-                <#if !(user.id == proposal.authorId)>
-                    <button type="submit" onclick="document.getElementById('vote').value='${proposal.authorId}'"><i class="fas fa-thumbs-up"></i> #Vota</button>
+                <#if (user.id == proposal.authorId)>
+                    <button type="submit" onclick="document.getElementById('proposalAuthorId').value='${proposal.authorId}'"><i class="fas fa-thumbs-up"></i> #Vota</button>
                 <#else>
                     <div class="ht-tip">
                         És la teva proposta.

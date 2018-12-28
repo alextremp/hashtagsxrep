@@ -3,6 +3,7 @@ package cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc;
 import cat.xarxarepublicana.hashtagsxrep.domain.poll.Poll;
 import cat.xarxarepublicana.hashtagsxrep.domain.poll.PollRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.poll.Proposal;
+import cat.xarxarepublicana.hashtagsxrep.domain.user.User;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.PollMapper;
 
 import java.util.List;
@@ -48,5 +49,15 @@ public class JdbcPollRepository implements PollRepository {
     @Override
     public List<Proposal> findPollProposals(String pollId) {
         return pollMapper.selectProposalsList(pollId);
+    }
+
+    @Override
+    public void addVote(Proposal proposal, User voter) {
+        pollMapper.insertVote(proposal, voter);
+    }
+
+    @Override
+    public Proposal findUserVote(String pollId, String voterId) {
+        return pollMapper.selectVotedProposal(pollId, voterId);
     }
 }
