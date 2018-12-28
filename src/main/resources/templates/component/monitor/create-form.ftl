@@ -1,3 +1,4 @@
+<@security.authorize access="hasRole('ROLE_ADMIN')">
 <div class="ht-box">
     <div class="wrap-collabsible">
         <input id="monitor-form-collapser" class="toggle" type="checkbox"/>
@@ -31,3 +32,4 @@
         </div>
     </div>
 </div>
+</@security.authorize>

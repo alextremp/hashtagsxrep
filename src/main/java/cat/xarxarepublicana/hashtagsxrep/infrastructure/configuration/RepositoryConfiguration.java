@@ -6,6 +6,7 @@ import cat.xarxarepublicana.hashtagsxrep.domain.monitor.MonitorFactory;
 import cat.xarxarepublicana.hashtagsxrep.domain.monitor.MonitorRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.poll.PollFactory;
 import cat.xarxarepublicana.hashtagsxrep.domain.poll.PollRepository;
+import cat.xarxarepublicana.hashtagsxrep.domain.poll.ProposalFactory;
 import cat.xarxarepublicana.hashtagsxrep.domain.report.ReportRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.twitter.TwitterRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserFactory;
@@ -103,6 +104,11 @@ public class RepositoryConfiguration {
     @Bean
     public PollFactory pollFactory() {
         return new PollFactory();
+    }
+
+    @Bean
+    public ProposalFactory proposalFactory() {
+        return new ProposalFactory();
     }
 
     @Bean

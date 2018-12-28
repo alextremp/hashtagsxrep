@@ -31,6 +31,6 @@ public class TweetedContentResume {
     }
 
     public Integer getContentCount() {
-        return tweets + quotes + comments;
+        return getTweets() + getQuotes() + getComments() + getRetweets();
     }
 }

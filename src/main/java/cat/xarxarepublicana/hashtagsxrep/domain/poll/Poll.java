@@ -13,6 +13,7 @@ public class Poll {
     private final LocalDateTime endProposalsTime;
     private final LocalDateTime endVotingTime;
     private final LocalDateTime startEventTime;
+    private final LocalDateTime instanceTime;
 
     public Poll(String id, String authorId, String authorNickname, String description, LocalDateTime creationDate, LocalDateTime startProposalsTime, LocalDateTime endProposalsTime, LocalDateTime endVotingTime, LocalDateTime startEventTime) {
         this.id = id;
@@ -24,6 +25,7 @@ public class Poll {
         this.endProposalsTime = endProposalsTime;
         this.endVotingTime = endVotingTime;
         this.startEventTime = startEventTime;
+        this.instanceTime = LocalDateTime.now();
     }
 
     public String getId() {
@@ -63,10 +65,10 @@ public class Poll {
     }
 
     public boolean isProposalsTime() {
-        return LocalDateTime.now().isBefore(getEndProposalsTime());
+        return instanceTime.isBefore(getEndProposalsTime());
     }
 
     public boolean isVotingTime() {
-        return !isProposalsTime() && LocalDateTime.now().isBefore(getEndVotingTime());
+        return !isProposalsTime() && instanceTime.isBefore(getEndVotingTime());
     }
 }

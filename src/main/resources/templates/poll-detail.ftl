@@ -2,7 +2,7 @@
 <html lang="es">
 <#include "common/enable-security.ftl">
 <head>
-    <#assign pageTitle = "Enquesta ${poll.description} | Hashtags per la República">
+    <#assign pageTitle = "Enquesta ${loadPollResponse.poll.description} | Hashtags per la República">
     <#include "common/head.ftl">
 </head>
 
@@ -12,11 +12,16 @@
 
     <div class="ht-block ht-white-block center">
         <div class="ht-info">
-            <i class="fas fa-poll"></i> ${poll.description}
+            <i class="fas fa-poll"></i> ${loadPollResponse.poll.description}
         </div>
-        <@security.authorize access="hasRole('ROLE_TAGGER')">
-            <#include "component/poll/detail.ftl">
-        </@security.authorize>
+
+        <#include "component/poll/detail.ftl">
+
+        <div class="ht-box">
+            <#include "component/poll/page-link.ftl">
+            <#include "component/monitor/page-link.ftl">
+            <#include "component/home/page-link.ftl">
+        </div>
     </div>
 
     <#include "component/footer.ftl">

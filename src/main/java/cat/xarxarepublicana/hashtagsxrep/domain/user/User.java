@@ -122,4 +122,8 @@ public class User {
     public void updateSignedInDate(LocalDateTime signInDate) {
         this.signInDate = signInDate;
     }
+
+    public boolean hasAccess(String role) {
+        return Role.ACCESS_MAP.get(getRole()).contains(role);
+    }
 }

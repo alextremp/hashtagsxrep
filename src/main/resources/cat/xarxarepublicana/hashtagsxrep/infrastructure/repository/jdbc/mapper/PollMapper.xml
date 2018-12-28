@@ -19,10 +19,28 @@
         </constructor>
     </resultMap>
 
+    <resultMap id='ProposalResultMap' type="cat.xarxarepublicana.hashtagsxrep.domain.poll.Proposal">
+        <constructor>
+            <idArg column="poll_id" javaType="string" />
+            <idArg column="author_id" javaType="string" />
+            <arg column="nickname" javaType="string" />
+            <arg column="hashtag" javaType="string" />
+            <arg column="subject" javaType="string" />
+            <arg column="creation_date" javaType="java.time.LocalDateTime" />
+        </constructor>
+    </resultMap>
+
     <sql id="sqlPollUserJoin">
         SELECT p.id, p.author_id, u.nickname, p.description,
         p.creation_date, p.start_proposals_time, p.end_proposals_time, p.end_voting_time, p.start_event_time
         FROM POLL p, USER u
+        WHERE p.author_id = u.id
+    </sql>
+
+    <sql id="sqlProposalUserJoin">
+        SELECT p.poll_id, p.author_id, u.nickname,
+            p.hashtag, p.subject, p.creation_date
+        FROM POLL_PROPOSAL p, USER u
         WHERE p.author_id = u.id
     </sql>
 
@@ -43,5 +61,28 @@
         VALUES (#{poll.id}, #{poll.authorId}, #{poll.description}, #{poll.creationDate},
         #{poll.startProposalsTime}, #{poll.endProposalsTime}, #{poll.endVotingTime}, #{poll.startEventTime})
     </insert>
+
+    <select id="existsProposal" resultType="boolean">
+        SELECT exists (
+            SELECT 1 FROM POLL_PROPOSAL
+            WHERE poll_id = #{pollId} AND author_id = #{authorId}
+        )
+    </select>
+
+    <select id="selectOneProposalById" resultMap="ProposalResultMap">
+        <include refid="sqlProposalUserJoin"/>
+        AND poll_id = #{pollId} AND author_id = #{authorId}
+    </select>
+
+    <insert id='insertProposal'>
+        INSERT INTO POLL_PROPOSAL (poll_id, author_id, hashtag, subject, creation_date)
+        VALUES (#{proposal.pollId}, #{proposal.authorId}, #{proposal.hashtag}, #{proposal.subject}, #{proposal.creationDate})
+    </insert>
+
+    <select id="selectProposalsList" resultMap="ProposalResultMap">
+        <include refid="sqlProposalUserJoin"/>
+        AND poll_id = #{pollId}
+        ORDER BY creation_date ASC
+    </select>
 
 </mapper>

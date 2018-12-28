@@ -19,12 +19,11 @@
             <i class="fas fa-user-circle"></i>
             <@security.authentication property="principal.user.nickname"/>
         </div>
-        <@security.authorize access="hasRole('ROLE_ADMIN')">
+
+        <div class="ht-box">
             <#include "component/monitor/page-link.ftl">
-        </@security.authorize>
-        <@security.authorize access="hasRole('ROLE_CREATOR')">
             <#include "component/poll/page-link.ftl">
-        </@security.authorize>
+        </div>
     </div>
     </@security.authorize>
     <#include "component/footer.ftl">

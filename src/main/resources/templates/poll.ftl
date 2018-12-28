@@ -14,12 +14,14 @@
         <div class="ht-info">
             <i class="fas fa-poll"></i> #Decideix
         </div>
-        <@security.authorize access="hasRole('ROLE_CREATOR')">
-            <#include "component/poll/create-form.ftl">
-        </@security.authorize>
-        <@security.authorize access="hasRole('ROLE_TAGGER')">
-            <#include "component/poll/list.ftl">
-        </@security.authorize>
+
+        <#include "component/poll/create-form.ftl">
+        <#include "component/poll/list.ftl">
+
+        <div class="ht-box">
+            <#include "component/monitor/page-link.ftl">
+            <#include "component/home/page-link.ftl">
+        </div>
     </div>
 
     <#include "component/footer.ftl">

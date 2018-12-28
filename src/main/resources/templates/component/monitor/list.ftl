@@ -1,8 +1,10 @@
 <div class="ht-box">
     <div class="ht-tip">
-        <#if !(monitorList?size == 0) >
+    <#if !(monitorList?size == 0)>
         Últims monitors creats.
-        </#if>
+    <#else>
+        Cap monitor actiu.
+    </#if>
     </div>
     <div class="ht-monitors">
         <div class="flex-container">
