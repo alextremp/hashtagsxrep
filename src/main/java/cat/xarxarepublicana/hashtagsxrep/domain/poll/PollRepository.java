@@ -8,7 +8,7 @@ public interface PollRepository {
 
     void save(Poll poll);
 
-    List<Poll> findActive();
+    List<Poll> findLast();
 
     Poll findById(String id);
 

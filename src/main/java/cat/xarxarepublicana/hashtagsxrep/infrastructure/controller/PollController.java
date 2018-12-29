@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.time.LocalDateTime;
@@ -44,7 +46,7 @@ public class PollController {
 
     @PostMapping(Views.URL_POLL)
     @Secured("ROLE_CREATOR")
-    public String createPoll(
+    public RedirectView createPoll(
             @RequestParam("description")
                     String description,
             @RequestParam("startProposalsTime")
@@ -60,13 +62,11 @@ public class PollController {
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
                     LocalDateTime startEventTime,
             @AuthenticationPrincipal
-                    AuthenticationUser authenticationUser,
-            Model model
+                    AuthenticationUser authenticationUser
     ) {
-        CreatePollUseCase.CreatePollResponse poll = createPollUseCase.createPoll(authenticationUser.getUser(), description, startProposalsTime, endProposalsTime, endVotingTime, startEventTime);
-        ListPollUseCase.ListPollResponse listPollResponse = listPollUseCase.listPoll();
-        model.addAttribute("pollList", listPollResponse.getPollList());
-        return Views.VIEW_POLL;
+        CreatePollUseCase.CreatePollResponse createPollResponse = createPollUseCase.createPoll(authenticationUser.getUser(), description, startProposalsTime, endProposalsTime, endVotingTime, startEventTime);
+        //TODO check to pass the model
+        return new RedirectView(Views.URL_POLL);
     }
 
     @GetMapping("/poll/{pollId}")

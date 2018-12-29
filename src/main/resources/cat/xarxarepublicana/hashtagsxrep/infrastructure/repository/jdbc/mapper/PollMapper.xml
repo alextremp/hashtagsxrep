@@ -49,10 +49,10 @@
         AND p.id = #{id}
     </select>
 
-    <select id="selectActive" resultMap="PollResultMap">
+    <select id="selectLastStarted" resultMap="PollResultMap">
         <include refid="sqlPollUserJoin"/>
-        AND p.start_event_time >= NOW()
         ORDER BY p.creation_date DESC
+        LIMIT ${quantity}
     </select>
 
     <insert id='insert'>
@@ -97,7 +97,7 @@
         WHERE p.author_id = u.id
             and v.poll_id=p.poll_id
             and v.proposal_author_id=p.author_id
-            and v.proposal_voter_id=${voter.id}
-            and p.id={proposal.pollId}
+            and v.proposal_voter_id=#{voterId}
+            and p.poll_id=#{pollId}
     </select>
 </mapper>

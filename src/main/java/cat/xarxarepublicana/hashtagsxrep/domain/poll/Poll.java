@@ -71,4 +71,8 @@ public class Poll {
     public boolean isVotingTime() {
         return !isProposalsTime() && instanceTime.isBefore(getEndVotingTime());
     }
+
+    public boolean isVotingClosed() {
+        return getEndVotingTime().isBefore(instanceTime);
+    }
 }

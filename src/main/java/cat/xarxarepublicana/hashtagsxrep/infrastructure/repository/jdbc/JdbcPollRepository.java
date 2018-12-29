@@ -22,8 +22,8 @@ public class JdbcPollRepository implements PollRepository {
     }
 
     @Override
-    public List<Poll> findActive() {
-        return pollMapper.selectActive();
+    public List<Poll> findLast() {
+        return pollMapper.selectLastStarted(10);
     }
 
     @Override

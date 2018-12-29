@@ -1,5 +1,7 @@
 package cat.xarxarepublicana.hashtagsxrep.domain.user;
 
+import cat.xarxarepublicana.hashtagsxrep.domain.poll.Proposal;
+
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
@@ -125,5 +127,9 @@ public class User {
 
     public boolean hasAccess(String role) {
         return Role.ACCESS_MAP.get(getRole()).contains(role);
+    }
+
+    public boolean canVote(Proposal proposal) {
+        return !getId().equals(proposal.getAuthorId()) && hasAccess(Role.TAGGER);
     }
 }

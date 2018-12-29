@@ -1,5 +1,10 @@
 <@security.authorize access="hasRole('ROLE_CREATOR')">
 <#assign startProposalsTime = .now>
+<#if createPollResponse??>
+<div class="ht-box ht-ok">
+Enquesta creada.
+</div>
+</#if>
 <div class="ht-box">
 <div class="wrap-collabsible">
     <input id="poll-form-collapser" class="toggle" type="checkbox"/>

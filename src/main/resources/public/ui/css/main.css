@@ -308,7 +308,7 @@ div.ht-result:nth-child(odd) {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     padding-top: 5px;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
     padding-left: 5px;
     padding-right: 5px;
 }
@@ -318,6 +318,15 @@ div.ht-result:nth-child(odd) {
     font-size: unset;
     color: unset;
     height: 38px;
+}
+.ht-proposal button {
+    padding: 5px;
+    height: 28px;
+    line-height: unset;
+    background-color: white;
+    margin: 5px 0px 0px 0px;
+}
+.ht-ok {
 }
 .ht-footer {
     text-align: center;

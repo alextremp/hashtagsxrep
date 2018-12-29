@@ -12,7 +12,7 @@
                         <div class="six columns">
                             <label for="twitterQuery">Hashtag</label>
                             <input class="u-full-width" type="text" placeholder="#HashtagAConsultar" id="twitterQuery" name="twitterQuery" required
-                                   pattern="#[A-Za-z0-9]{1,25}" title="#Hashtag d'entre 1 i 25 caràcters alfanumèrics"/>
+                                   pattern="#[A-Za-z0-9àèòÀÈÒáéíóúÁÉÍÓÚñÑïüÏÜçÇ]{1,25}" title="#Hashtag d'entre 1 i 25 caràcters alfanumèrics"/>
                         </div>
                         <div class="six columns">
                             <#assign startTime = .now>

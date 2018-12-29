@@ -15,7 +15,7 @@ public interface PollMapper {
 
     Poll selectOneById(@Param("id") String id);
 
-    List<Poll> selectActive();
+    List<Poll> selectLastStarted(@Param("quantity") Integer quantity);
 
     Boolean existsProposal(@Param("pollId") String pollId, @Param("authorId") String authorId);
 
