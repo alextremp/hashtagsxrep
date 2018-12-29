@@ -25,7 +25,7 @@ public interface PollMapper {
 
     void insertProposal(@Param("proposal") Proposal proposal);
 
-    List<Proposal> selectProposalsList(@Param("pollId") String pollId);
+    List<Proposal> selectProposalsList(@Param("pollId") String pollId, @Param("orderVotes") Boolean orderVotes);
 
     void insertVote(@Param("proposal") Proposal proposal, @Param("voter") User voter);
 

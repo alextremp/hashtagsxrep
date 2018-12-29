@@ -21,9 +21,9 @@ public class LoadPollUseCase {
         if (poll == null) {
             throw new EntityNotFoundException("Enquesta no trobada: " + pollId);
         }
-        Proposal userProposal = pollRepository.findProposal(pollId, user.getId());
-        Proposal userVote = pollRepository.findUserVote(pollId, user.getId());
-        List<Proposal> proposalList = pollRepository.findPollProposals(pollId);
+        Proposal userProposal = pollRepository.findProposal(poll, user.getId());
+        Proposal userVote = pollRepository.findUserVote(poll, user.getId());
+        List<Proposal> proposalList = pollRepository.findPollProposals(poll);
         return new LoadPollResponse(poll, userProposal, userVote, proposalList);
     }
 

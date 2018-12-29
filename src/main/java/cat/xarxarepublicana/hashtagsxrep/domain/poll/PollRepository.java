@@ -16,11 +16,11 @@ public interface PollRepository {
 
     void addProposal(Proposal proposal);
 
-    Proposal findProposal(String pollId, String authorId);
+    Proposal findProposal(Poll poll, String authorId);
 
-    List<Proposal> findPollProposals(String pollId);
+    List<Proposal> findPollProposals(Poll poll);
 
     void addVote(Proposal proposal, User voter);
 
-    Proposal findUserVote(String pollId, String voterId);
+    Proposal findUserVote(Poll poll, String voterId);
 }

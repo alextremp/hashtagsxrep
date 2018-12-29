@@ -1,6 +1,7 @@
 package cat.xarxarepublicana.hashtagsxrep.application.poll;
 
 import cat.xarxarepublicana.hashtagsxrep.domain.error.EntityNotFoundException;
+import cat.xarxarepublicana.hashtagsxrep.domain.poll.Poll;
 import cat.xarxarepublicana.hashtagsxrep.domain.poll.PollRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.poll.Proposal;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.User;
@@ -14,7 +15,11 @@ public class PollVoteUseCase {
     }
 
     public PollVoteResponse pollVote(String pollId, String proposalAuthorId, User voter) {
-        Proposal proposal = pollRepository.findProposal(pollId, proposalAuthorId);
+        Poll poll = pollRepository.findById(pollId);
+        if (poll == null) {
+            throw new EntityNotFoundException("No es pot votar. Enquesta no trobada " + pollId);
+        }
+        Proposal proposal = pollRepository.findProposal(poll, proposalAuthorId);
         if (proposal == null) {
             throw new EntityNotFoundException("No es pot votar. Proposta no trobada per l'enquesta " + pollId);
         }

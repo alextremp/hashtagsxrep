@@ -73,5 +73,28 @@
             </#list>
         </form>
         </#if>
+    <#elseif showVoteResults>
+        <div class="ht-tip">
+            Resultat de la votació.
+        </div>
+        <#list loadPollResponse.pollProposals as proposal>
+        <div class="ht-proposal">
+            <header>${proposal.hashtag} (${proposal.votes} <i class="fas fa-thumbs-up"></i>)</header>
+            <div>
+                ${proposal.subject}
+                <footer>
+                    <#if user.id == proposal.authorId>
+                    <div class="ht-tip">
+                        És la teva proposta.
+                    </div>
+                    <#elseif loadPollResponse.userVote.authorId == proposal.authorId>
+                    <div class="ht-tip">
+                        Has votat aquesta proposta.
+                    </div>
+                    </#if>
+                </footer>
+            </div>
+        </div>
+        </#list>
     </#if>
 </div>

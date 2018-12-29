@@ -42,13 +42,13 @@ public class JdbcPollRepository implements PollRepository {
     }
 
     @Override
-    public Proposal findProposal(String pollId, String authorId) {
-        return pollMapper.selectOneProposalById(pollId, authorId);
+    public Proposal findProposal(Poll poll, String authorId) {
+        return pollMapper.selectOneProposalById(poll.getId(), authorId);
     }
 
     @Override
-    public List<Proposal> findPollProposals(String pollId) {
-        return pollMapper.selectProposalsList(pollId);
+    public List<Proposal> findPollProposals(Poll poll) {
+        return pollMapper.selectProposalsList(poll.getId(), poll.isVotingClosed());
     }
 
     @Override
@@ -57,7 +57,7 @@ public class JdbcPollRepository implements PollRepository {
     }
 
     @Override
-    public Proposal findUserVote(String pollId, String voterId) {
-        return pollMapper.selectVotedProposal(pollId, voterId);
+    public Proposal findUserVote(Poll poll, String voterId) {
+        return pollMapper.selectVotedProposal(poll.getId(), voterId);
     }
 }
