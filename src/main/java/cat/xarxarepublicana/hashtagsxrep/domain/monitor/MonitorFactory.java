@@ -18,4 +18,18 @@ public class MonitorFactory {
                 null
         );
     }
+
+    public Monitor createMonitorFromPoll(String pollId, String hashtag, LocalDateTime startDate) {
+        return new Monitor(
+                pollId,
+                "-1",
+                "auto",
+                true,
+                hashtag,
+                LocalDateTime.now(),
+                startDate,
+                null,
+                null
+        );
+    }
 }

@@ -10,14 +10,16 @@ public class Proposal {
     private final String hashtag;
     private final String subject;
     private final LocalDateTime creationDate;
+    private final Integer votes;
 
-    public Proposal(String pollId, String authorId, String authorNickname, String hashtag, String subject, LocalDateTime creationDate) {
+    public Proposal(String pollId, String authorId, String authorNickname, String hashtag, String subject, LocalDateTime creationDate, Integer votes) {
         this.pollId = pollId;
         this.authorId = authorId;
         this.authorNickname = authorNickname;
         this.hashtag = hashtag;
         this.subject = subject;
         this.creationDate = creationDate;
+        this.votes = votes;
     }
 
     public String getPollId() {
@@ -42,5 +44,9 @@ public class Proposal {
 
     public LocalDateTime getCreationDate() {
         return creationDate;
+    }
+
+    public Integer getVotes() {
+        return votes;
     }
 }

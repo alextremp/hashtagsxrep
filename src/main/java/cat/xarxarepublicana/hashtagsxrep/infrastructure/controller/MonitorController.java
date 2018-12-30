@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.time.LocalDateTime;
 
@@ -30,24 +31,19 @@ public class MonitorController {
 
     @PostMapping("/monitor")
     @Secured("ROLE_CREATOR")
-    public String createMonitor(
+    public RedirectView createMonitor(
             @RequestParam("twitterQuery")
                     String twitterQuery,
             @RequestParam("startTime")
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
                     LocalDateTime startTime,
             @AuthenticationPrincipal
-                    AuthenticationUser authenticationUser,
-            Model model) {
+                    AuthenticationUser authenticationUser) {
         CreateMonitorUseCase.CreateMonitorResponse createMonitorResponse = createMonitorUseCase.createMonitor(authenticationUser.getUser(), twitterQuery, startTime);
-        ListMonitorUseCase.ListMonitorResponse listMonitorResponse = listMonitorUseCase.listMonitor();
-        model.addAttribute("monitorList", listMonitorResponse.getMonitorList());
-        model.addAttribute("ok", "Monitor creat: " + createMonitorResponse.getMonitor().getTwitterQuery());
-        return Views.VIEW_MONITOR;
+        return new RedirectView(Views.URL_MONITOR);
     }
 
     @GetMapping("/monitor")
-    @Secured("ROLE_ADMIN")
     public String listMonitors(Model model) {
         ListMonitorUseCase.ListMonitorResponse listMonitorResponse = listMonitorUseCase.listMonitor();
         model.addAttribute("monitorList", listMonitorResponse.getMonitorList());

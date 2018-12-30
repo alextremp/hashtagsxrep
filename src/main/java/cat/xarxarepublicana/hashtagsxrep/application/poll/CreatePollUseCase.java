@@ -29,5 +29,9 @@ public class CreatePollUseCase {
         public CreatePollResponse(Poll poll) {
             this.poll = poll;
         }
+
+        public Poll getPoll() {
+            return poll;
+        }
     }
 }

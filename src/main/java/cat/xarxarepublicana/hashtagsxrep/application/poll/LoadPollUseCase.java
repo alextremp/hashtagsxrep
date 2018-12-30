@@ -21,25 +21,22 @@ public class LoadPollUseCase {
         if (poll == null) {
             throw new EntityNotFoundException("Enquesta no trobada: " + pollId);
         }
-        Proposal userProposal = pollRepository.findProposal(pollId, user.getId());
-
-        List<Proposal> proposalList = null;
-        Proposal userVote = null;
-        if (poll.isVotingTime()) {
-            proposalList = pollRepository.findPollProposals(pollId);
-            userVote = pollRepository.findUserVote(pollId, user.getId());
-        }
-        return new LoadPollResponse(poll, userProposal, proposalList);
+        Proposal userProposal = pollRepository.findProposal(poll, user.getId());
+        Proposal userVote = pollRepository.findUserVote(poll, user.getId());
+        List<Proposal> proposalList = pollRepository.findPollProposals(poll);
+        return new LoadPollResponse(poll, userProposal, userVote, proposalList);
     }
 
     public static class LoadPollResponse {
         private final Poll poll;
         private final Proposal userProposal;
+        private final Proposal userVote;
         private final List<Proposal> pollProposals;
 
-        public LoadPollResponse(Poll poll, Proposal userProposal, List<Proposal> pollProposals) {
+        public LoadPollResponse(Poll poll, Proposal userProposal, Proposal userVote, List<Proposal> pollProposals) {
             this.poll = poll;
             this.userProposal = userProposal;
+            this.userVote = userVote;
             this.pollProposals = pollProposals;
         }
 
@@ -51,8 +48,23 @@ public class LoadPollUseCase {
             return userProposal;
         }
 
+        public Proposal getUserVote() {
+            return userVote;
+        }
+
         public List<Proposal> getPollProposals() {
             return pollProposals;
+        }
+
+        public Integer getPollVoteCount() {
+            if (getPollProposals() == null) {
+                return 0;
+            }
+            int count = 0;
+            for (Proposal proposal: getPollProposals()) {
+                count += proposal.getVotes();
+            }
+            return count;
         }
     }
 }

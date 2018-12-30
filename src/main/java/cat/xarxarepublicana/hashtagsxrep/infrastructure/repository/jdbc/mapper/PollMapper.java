@@ -15,7 +15,7 @@ public interface PollMapper {
 
     Poll selectOneById(@Param("id") String id);
 
-    List<Poll> selectActive();
+    List<Poll> selectLastStarted(@Param("quantity") Integer quantity);
 
     Boolean existsProposal(@Param("pollId") String pollId, @Param("authorId") String authorId);
 
@@ -25,8 +25,11 @@ public interface PollMapper {
 
     void insertProposal(@Param("proposal") Proposal proposal);
 
-    List<Proposal> selectProposalsList(@Param("pollId") String pollId);
+    List<Proposal> selectProposalsList(@Param("pollId") String pollId, @Param("orderVotes") Boolean orderVotes);
 
     void insertVote(@Param("proposal") Proposal proposal, @Param("voter") User voter);
 
+    List<Poll> selectFinishedPollsWithNoMonitor();
+
+    Proposal selectWinnerProposal(@Param("pollId") String pollId);
 }

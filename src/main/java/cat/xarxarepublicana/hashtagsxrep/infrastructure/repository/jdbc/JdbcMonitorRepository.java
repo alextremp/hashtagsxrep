@@ -44,7 +44,7 @@ public class JdbcMonitorRepository implements MonitorRepository {
 
     @Override
     public List<Monitor> getLastMonitors() {
-        return monitorMapper.selectLast(100);
+        return monitorMapper.selectLast(10);
     }
 
     @Override

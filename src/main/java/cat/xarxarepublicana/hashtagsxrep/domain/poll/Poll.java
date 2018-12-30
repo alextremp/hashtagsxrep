@@ -1,13 +1,17 @@
 package cat.xarxarepublicana.hashtagsxrep.domain.poll;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Poll {
+
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/LL HH:mm'h'");
 
     private final String id;
     private final String authorId;
     private final String authorNickname;
     private final String description;
+    private final String monitorId;
     private final LocalDateTime creationDate;
     private final LocalDateTime startProposalsTime;
     private final LocalDateTime endProposalsTime;
@@ -15,11 +19,12 @@ public class Poll {
     private final LocalDateTime startEventTime;
     private final LocalDateTime instanceTime;
 
-    public Poll(String id, String authorId, String authorNickname, String description, LocalDateTime creationDate, LocalDateTime startProposalsTime, LocalDateTime endProposalsTime, LocalDateTime endVotingTime, LocalDateTime startEventTime) {
+    public Poll(String id, String authorId, String authorNickname, String description, String monitorId, LocalDateTime creationDate, LocalDateTime startProposalsTime, LocalDateTime endProposalsTime, LocalDateTime endVotingTime, LocalDateTime startEventTime) {
         this.id = id;
         this.authorId = authorId;
         this.authorNickname = authorNickname;
         this.description = description;
+        this.monitorId = monitorId;
         this.creationDate = creationDate;
         this.startProposalsTime = startProposalsTime;
         this.endProposalsTime = endProposalsTime;
@@ -48,6 +53,10 @@ public class Poll {
         return description;
     }
 
+    public String getMonitorId() {
+        return monitorId;
+    }
+
     public LocalDateTime getStartProposalsTime() {
         return startProposalsTime;
     }
@@ -64,11 +73,23 @@ public class Poll {
         return startEventTime;
     }
 
+    public boolean isNotStarted() {
+        return instanceTime.isBefore(getStartProposalsTime());
+    }
+
     public boolean isProposalsTime() {
-        return instanceTime.isBefore(getEndProposalsTime());
+        return instanceTime.isAfter(getStartProposalsTime()) && instanceTime.isBefore(getEndProposalsTime());
     }
 
     public boolean isVotingTime() {
-        return !isProposalsTime() && instanceTime.isBefore(getEndVotingTime());
+        return instanceTime.isAfter(getEndProposalsTime()) && instanceTime.isBefore(getEndVotingTime());
+    }
+
+    public boolean isVotingClosed() {
+        return instanceTime.isAfter(getEndVotingTime());
+    }
+
+    public String asString(LocalDateTime date) {
+        return FORMATTER.format(date);
     }
 }

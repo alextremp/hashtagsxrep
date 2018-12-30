@@ -11,6 +11,7 @@
             <arg column="author_id" javaType="string" />
             <arg column="nickname" javaType="string" />
             <arg column="description" javaType="string" />
+            <arg column="monitor_id" javaType="string" />
             <arg column="creation_date" javaType="java.time.LocalDateTime" />
             <arg column="start_proposals_time" javaType="java.time.LocalDateTime" />
             <arg column="end_proposals_time" javaType="java.time.LocalDateTime" />
@@ -27,31 +28,45 @@
             <arg column="hashtag" javaType="string" />
             <arg column="subject" javaType="string" />
             <arg column="creation_date" javaType="java.time.LocalDateTime" />
+            <arg column="vote_count" javaType="integer" />
         </constructor>
     </resultMap>
 
-    <sql id="sqlPollUserJoin">
-        SELECT p.id, p.author_id, u.nickname, p.description,
-        p.creation_date, p.start_proposals_time, p.end_proposals_time, p.end_voting_time, p.start_event_time
-        FROM POLL p, USER u
-        WHERE p.author_id = u.id
+    <sql id="sqlPollJoin">
+        SELECT p.id, p.author_id, u.nickname, p.description, m.id as monitor_id,
+            p.creation_date, p.start_proposals_time, p.end_proposals_time, p.end_voting_time, p.start_event_time
+        FROM POLL p
+            INNER JOIN USER u on p.author_id = u.id
+            LEFT JOIN MONITOR m on p.id = m.id
     </sql>
 
-    <sql id="sqlProposalUserJoin">
-        SELECT p.poll_id, p.author_id, u.nickname,
-            p.hashtag, p.subject, p.creation_date
-        FROM POLL_PROPOSAL p, USER u
-        WHERE p.author_id = u.id
+    <sql id="sqlProposalJoin">
+        SELECT proposal.poll_id, proposal.author_id, user.nickname,
+            proposal.hashtag, proposal.subject, proposal.creation_date,
+            count(vote.proposal_voter_id) as vote_count
+        FROM poll_proposal proposal
+            INNER JOIN user ON proposal.author_id=user.id
+            LEFT JOIN poll_vote vote ON proposal.poll_id=vote.poll_id AND proposal.author_id=vote.proposal_author_id
+    </sql>
+    <sql id="sqlProposalGroupAndOrder">
+        GROUP BY proposal.poll_id, proposal.author_id
+        ORDER BY <if test="_parameter.containsKey('orderVotes') and orderVotes != null and orderVotes == true">vote_count DESC,</if> proposal.creation_date ASC
     </sql>
 
     <select id='selectOneById' resultMap="PollResultMap">
-        <include refid="sqlPollUserJoin"/>
-        AND p.id = #{id}
+        <include refid="sqlPollJoin"/>
+        WHERE p.id = #{id}
     </select>
 
-    <select id="selectActive" resultMap="PollResultMap">
-        <include refid="sqlPollUserJoin"/>
-        AND p.start_event_time >= NOW()
+    <select id="selectLastStarted" resultMap="PollResultMap">
+        <include refid="sqlPollJoin"/>
+        ORDER BY p.creation_date DESC
+        LIMIT ${quantity}
+    </select>
+
+    <select id="selectFinishedPollsWithNoMonitor" resultMap="PollResultMap">
+        <include refid="sqlPollJoin"/>
+        WHERE m.id is NULL and p.end_voting_time &lt;= NOW()
         ORDER BY p.creation_date DESC
     </select>
 
@@ -70,8 +85,9 @@
     </select>
 
     <select id="selectOneProposalById" resultMap="ProposalResultMap">
-        <include refid="sqlProposalUserJoin"/>
-        AND poll_id = #{pollId} AND author_id = #{authorId}
+        <include refid="sqlProposalJoin"/>
+        WHERE proposal.poll_id = #{pollId} AND proposal.author_id = #{authorId}
+        <include refid="sqlProposalGroupAndOrder"/>
     </select>
 
     <insert id='insertProposal'>
@@ -80,9 +96,9 @@
     </insert>
 
     <select id="selectProposalsList" resultMap="ProposalResultMap">
-        <include refid="sqlProposalUserJoin"/>
-        AND poll_id = #{pollId}
-        ORDER BY creation_date ASC
+        <include refid="sqlProposalJoin"/>
+        WHERE proposal.poll_id = #{pollId}
+        <include refid="sqlProposalGroupAndOrder"/>
     </select>
 
     <insert id='insertVote'>
@@ -91,13 +107,16 @@
     </insert>
 
     <select id="selectVotedProposal" resultMap="ProposalResultMap">
-        SELECT p.poll_id, p.author_id, u.nickname,
-            p.hashtag, p.subject, p.creation_date
-        FROM POLL_PROPOSAL p, USER u, POLL_VOTE v
-        WHERE p.author_id = u.id
-            and v.poll_id=p.poll_id
-            and v.proposal_author_id=p.author_id
-            and v.proposal_voter_id=${voter.id}
-            and p.id={proposal.pollId}
+        <include refid="sqlProposalJoin"/>
+        WHERE proposal.poll_id = #{pollId} AND vote.proposal_voter_id=#{voterId}
+        <include refid="sqlProposalGroupAndOrder"/>
+    </select>
+
+    <select id="selectWinnerProposal" resultMap="ProposalResultMap">
+        <include refid="sqlProposalJoin"/>
+        WHERE proposal.poll_id = #{pollId}
+        GROUP BY proposal.poll_id, proposal.author_id
+        ORDER BY vote_count DESC, proposal.creation_date ASC
+        LIMIT 1
     </select>
 </mapper>

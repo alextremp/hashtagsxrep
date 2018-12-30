@@ -29,7 +29,7 @@ CREATE TABLE MONITOR
     author_id VARCHAR(50) NOT NULL,
     active BOOLEAN DEFAULT TRUE  NOT NULL,
     twitter_query VARCHAR(200) NOT NULL,
-    creation_date TIMESTAMP NOT NULL,
+    creation_date TIMESTAMP NULL,
     start_date TIMESTAMP NOT NULL,
     last_update_date TIMESTAMP NULL,
     next_query_string VARCHAR(1000) NULL,

@@ -14,7 +14,7 @@ public class ListPollUseCase {
     }
 
     public ListPollResponse listPoll() {
-        List<Poll> pollList = pollRepository.findActive();
+        List<Poll> pollList = pollRepository.findLast();
         return new ListPollResponse(pollList);
     }
 

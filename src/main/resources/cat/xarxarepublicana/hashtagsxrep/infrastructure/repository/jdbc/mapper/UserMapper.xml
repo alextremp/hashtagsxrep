@@ -13,20 +13,20 @@
             <arg column="token" javaType="string" />
             <arg column="secret" javaType="string" />
             <arg column="role" javaType="string" />
-            <arg column="signInDate" javaType="java.time.LocalDateTime" />
-            <arg column="systemCreationDate" javaType="java.time.LocalDateTime" />
-            <arg column="twitterCreationDate" javaType="java.time.LocalDateTime" />
-            <arg column="followers" javaType="long" />
-            <arg column="following" javaType="long" />
+            <arg column="sign_in_date" javaType="java.time.LocalDateTime" />
+            <arg column="system_creation_date" javaType="java.time.LocalDateTime" />
+            <arg column="twitter_creation_date" javaType="java.time.LocalDateTime" />
+            <arg column="followers" javaType="integer" />
+            <arg column="following" javaType="integer" />
             <arg column="language" javaType="string" />
             <arg column="location" javaType="string" />
-            <arg column="profileImageUrl" javaType="string" />
+            <arg column="profile_image_url" javaType="string" />
             <arg column="verified" javaType="boolean" />
             <arg column="locked" javaType="boolean" />
         </constructor>
     </resultMap>
 
-    <select id='selectOneById' resultType='cat.xarxarepublicana.hashtagsxrep.domain.user.User'>
+    <select id='selectOneById' resultMap="UserResultMap">
         SELECT * FROM USER WHERE id = #{id}
     </select>
 
