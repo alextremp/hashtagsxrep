@@ -44,9 +44,9 @@
         SELECT proposal.poll_id, proposal.author_id, user.nickname,
             proposal.hashtag, proposal.subject, proposal.creation_date,
             count(vote.proposal_voter_id) as vote_count
-        FROM poll_proposal proposal
-            INNER JOIN user ON proposal.author_id=user.id
-            LEFT JOIN poll_vote vote ON proposal.poll_id=vote.poll_id AND proposal.author_id=vote.proposal_author_id
+        FROM POLL_PROPOSAL proposal
+            INNER JOIN USER user ON proposal.author_id=user.id
+            LEFT JOIN POLL_VOTE vote ON proposal.poll_id=vote.poll_id AND proposal.author_id=vote.proposal_author_id
     </sql>
     <sql id="sqlProposalGroupAndOrder">
         GROUP BY proposal.poll_id, proposal.author_id
