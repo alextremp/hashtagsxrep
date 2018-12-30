@@ -84,7 +84,13 @@ footer {
 .left { text-align: left; }
 .right { text-align: right; }
 .ml25 { margin-left: 25%; }
+.ml5 { margin-left: 5%; }
 .mr25 { margin-right: 25%; }
+.mr5 { margin-right: 5%; }
+.m-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
 
 input[type='checkbox'].toggle {
   display: none;
@@ -149,6 +155,7 @@ input[type='checkbox'].toggle {
     background-color: white;
     border-radius: 20px;
     padding-top: 15px;
+    padding-bottom: 5px;
     margin-bottom: 15px;
 }
 .ht-form {
@@ -289,10 +296,28 @@ header.ht-result {
 div.ht-result:nth-child(odd) {
     background-color: #fbfbfb;
 }
+.ht-poll-clocks {
+    font-size: 60%;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 5px;
+}
+.ht-poll-clocks-data {
+    display: inline-block;
+}
+.ht-poll-clocks-data footer {
+    background-color: unset;
+    color: unset;
+    font-size: 90%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 .ht-proposal {
     font-size: 60%;
-    margin: 10px;
+    margin: 25px;
     padding-bottom: 10px;
+    background-color: #fafafa;
+    border-radius: 20px;
 }
 .ht-proposal header {
     font-weight: bold;
@@ -301,16 +326,6 @@ div.ht-result:nth-child(odd) {
     text-align: center;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-}
-.ht-proposal div {
-    line-height: 1.2;
-    background-color: #fafafa;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 5px;
-    padding-right: 5px;
 }
 .ht-proposal footer {
     text-align: right;
@@ -324,7 +339,28 @@ div.ht-result:nth-child(odd) {
     height: 28px;
     line-height: unset;
     background-color: white;
-    margin: 5px 0px 0px 0px;
+    float: right;
+    margin-right: 20px;
+}
+.ht-proposal-subject {
+    line-height: 1.2;
+    background-color: white;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 10px;
+    margin-top: 25px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    text-align: left;
+}
+.ht-vote-info {
+    display: inline-block;
+    padding: 5px;
+    background-color: white;
+    color: black;
+    float: right;
+    margin-right: 20px;
 }
 .ht-ok {
 }

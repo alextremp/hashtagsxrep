@@ -61,6 +61,8 @@
 
     <update id="updateCursor">
         UPDATE MONITOR SET
+            creation_date = creation_date,
+            start_date = start_date,
             last_update_date = #{monitor.lastUpdateDate},
             next_query_string = #{monitor.nextQueryString}
         WHERE id = #{monitor.id}

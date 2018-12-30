@@ -55,5 +55,16 @@ public class LoadPollUseCase {
         public List<Proposal> getPollProposals() {
             return pollProposals;
         }
+
+        public Integer getPollVoteCount() {
+            if (getPollProposals() == null) {
+                return 0;
+            }
+            int count = 0;
+            for (Proposal proposal: getPollProposals()) {
+                count += proposal.getVotes();
+            }
+            return count;
+        }
     }
 }

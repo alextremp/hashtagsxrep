@@ -25,13 +25,13 @@ Enquesta creada.
                         <label for="startProposalsTime">
                             Inici: Propostes de hashtags
                         </label>
-                        <input id="startProposalsTime" name="startProposalsTime" type="datetime-local" required value="${startProposalsTime?string.iso_m_nz}" class="u-full-width"/>
+                        <input id="startProposalsTime" name="startProposalsTime" type="datetime-local" required value="${(startProposalsTime?long + 1 * 3600000)?number_to_datetime?string['yyyy-MM-dd\'T\'HH:\'00\'']}" class="u-full-width"/>
                     </div>
                     <div class="six columns">
                         <label for="endProposalsTime">
                             Inici: Votació de hashtags
                         </label>
-                        <input id="endProposalsTime" name="endProposalsTime" type="datetime-local" required  value="${(startProposalsTime?long + 2 * 3600000)?number_to_datetime?string.iso_m_nz}" class="u-full-width"/>
+                        <input id="endProposalsTime" name="endProposalsTime" type="datetime-local" required value="${(startProposalsTime?long + 3 * 3600000)?number_to_datetime?string['yyyy-MM-dd\'T\'HH:\'00\'']}" class="u-full-width"/>
                     </div>
                 </div>
                 <div class="row">
@@ -39,13 +39,13 @@ Enquesta creada.
                         <label for="endVotingTime">
                             Fi: Votació de hashtags
                         </label>
-                        <input id="endVotingTime" name="endVotingTime" type="datetime-local" required value="${(startProposalsTime?long + 4 * 3600000)?number_to_datetime?string.iso_m_nz}" class="u-full-width"/>
+                        <input id="endVotingTime" name="endVotingTime" type="datetime-local" required value="${(startProposalsTime?long + 6 * 3600000)?number_to_datetime?string['yyyy-MM-dd\'T\'HH:\'00\'']}" class="u-full-width"/>
                     </div>
                     <div class="six columns">
                         <label for="startEventTime">
                             Inici: Atac
                         </label>
-                        <input id="startEventTime" name="startEventTime" type="datetime-local" required value="${(startProposalsTime?long + 5 * 3600000)?number_to_datetime?string.iso_m_nz}" class="u-full-width"/>
+                        <input id="startEventTime" name="startEventTime" type="datetime-local" required value="${(startProposalsTime?long + 7 * 3600000)?number_to_datetime?string['yyyy-MM-dd\'T\'HH:\'00\'']}" class="u-full-width"/>
                     </div>
                 </div>
                 <div class="row">

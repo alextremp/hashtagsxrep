@@ -1,8 +1,12 @@
 package cat.xarxarepublicana.hashtagsxrep.domain.poll;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
 public class Poll {
+
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/LL HH:mm'h'");
 
     private final String id;
     private final String authorId;
@@ -64,15 +68,23 @@ public class Poll {
         return startEventTime;
     }
 
+    public boolean isNotStarted() {
+        return instanceTime.isBefore(getStartProposalsTime());
+    }
+
     public boolean isProposalsTime() {
-        return instanceTime.isBefore(getEndProposalsTime());
+        return instanceTime.isAfter(getStartProposalsTime()) && instanceTime.isBefore(getEndProposalsTime());
     }
 
     public boolean isVotingTime() {
-        return !isProposalsTime() && instanceTime.isBefore(getEndVotingTime());
+        return instanceTime.isAfter(getEndProposalsTime()) && instanceTime.isBefore(getEndVotingTime());
     }
 
     public boolean isVotingClosed() {
-        return getEndVotingTime().isBefore(instanceTime);
+        return instanceTime.isAfter(getEndVotingTime());
+    }
+
+    public String asString(LocalDateTime date) {
+        return FORMATTER.format(date);
     }
 }

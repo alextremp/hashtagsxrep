@@ -1,6 +1,5 @@
 package cat.xarxarepublicana.hashtagsxrep.domain.monitor;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class Monitor {
@@ -25,14 +24,6 @@ public class Monitor {
         this.startDate = startDate;
         this.lastUpdateDate = lastUpdateDate;
         this.nextQueryString = nextQueryString;
-    }
-
-    public Monitor(String id, String authorId, String authorNickname, Boolean active, String twitterQuery, Timestamp creationDate, Timestamp startDate, Timestamp lastUpdateDate, String nextQueryString) {
-        this(id, authorId, authorNickname, active, twitterQuery,
-                creationDate != null ? creationDate.toLocalDateTime() : null,
-                startDate != null ? startDate.toLocalDateTime() : null,
-                lastUpdateDate != null ? lastUpdateDate.toLocalDateTime() : null,
-                nextQueryString);
     }
 
     public String getId() {

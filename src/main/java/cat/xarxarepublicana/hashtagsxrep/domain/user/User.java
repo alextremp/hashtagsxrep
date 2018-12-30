@@ -2,7 +2,6 @@ package cat.xarxarepublicana.hashtagsxrep.domain.user;
 
 import cat.xarxarepublicana.hashtagsxrep.domain.poll.Proposal;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class User {
@@ -26,7 +25,7 @@ public class User {
     public User(String id, String nickname, String name, String token, String secret,
                 String role, LocalDateTime signedInDate, LocalDateTime systemCreationDate, LocalDateTime twitterCreationDate,
                 Integer followers, Integer following, String language, String location,
-                String profileImageUrl, boolean verified, boolean locked) {
+                String profileImageUrl, Boolean verified, Boolean locked) {
         this.id = id;
         this.nickname = nickname;
         this.name = name;
@@ -43,18 +42,6 @@ public class User {
         this.profileImageUrl = profileImageUrl;
         this.verified = verified;
         this.locked = locked;
-    }
-
-    public User(String id, String nickname, String name, String token, String secret,
-                String role, Timestamp signedInDate, Timestamp systemCreationDate, Timestamp twitterCreationDate,
-                Integer followers, Integer following, String language, String location,
-                String profileImageUrl, boolean verified, boolean locked) {
-        this(id, nickname, name, token, secret, role,
-                signedInDate != null ? signedInDate.toLocalDateTime() : null,
-                systemCreationDate != null ? signedInDate.toLocalDateTime() : null,
-                twitterCreationDate != null ? twitterCreationDate.toLocalDateTime() : null,
-                followers, following, language, location,
-                profileImageUrl, verified, locked);
     }
 
     public String getId() {
@@ -129,7 +116,15 @@ public class User {
         return Role.ACCESS_MAP.get(getRole()).contains(role);
     }
 
+    public boolean canVote() {
+        return hasAccess(Role.VIEWER);
+    }
+
     public boolean canVote(Proposal proposal) {
-        return !getId().equals(proposal.getAuthorId()) && hasAccess(Role.TAGGER);
+        return canVote() && !getId().equals(proposal.getAuthorId());
+    }
+
+    public boolean canPropose() {
+        return hasAccess(Role.ADMIN);
     }
 }

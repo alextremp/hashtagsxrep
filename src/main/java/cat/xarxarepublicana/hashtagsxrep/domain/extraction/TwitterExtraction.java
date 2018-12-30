@@ -1,6 +1,5 @@
 package cat.xarxarepublicana.hashtagsxrep.domain.extraction;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class TwitterExtraction {
@@ -30,12 +29,6 @@ public class TwitterExtraction {
         this.interactedUserId = interactedUserId;
         this.language = language;
         this.text = text;
-    }
-
-    public TwitterExtraction(String monitorId, String tweetId, String userId, String type, Timestamp creationDate, String interactedStatusId, String interactedUserId, String language, String text) {
-        this(monitorId, tweetId, userId, type,
-                creationDate != null ? creationDate.toLocalDateTime() : null,
-                interactedStatusId, interactedUserId, language, text);
     }
 
     public String getMonitorId() {

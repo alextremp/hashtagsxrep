@@ -17,7 +17,7 @@
                         <div class="six columns">
                             <#assign startTime = .now>
                             <label for="startTime">Inici</label>
-                            <input class="u-full-width" type="datetime-local" id="startTime" name="startTime" value="${startTime?string.iso_m_nz}" required/>
+                            <input class="u-full-width" type="datetime-local" id="startTime" name="startTime" value="${(startTime?long + 1 * 3600000)?number_to_datetime?string['yyyy-MM-dd\'T\'HH:\'00\'']}" required/>
                         </div>
                     </div>
                     <div class="row">
