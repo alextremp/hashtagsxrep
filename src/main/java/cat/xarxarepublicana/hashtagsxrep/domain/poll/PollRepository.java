@@ -23,4 +23,8 @@ public interface PollRepository {
     void addVote(Proposal proposal, User voter);
 
     Proposal findUserVote(Poll poll, String voterId);
+
+    List<Poll> findFinishedPollsWithNoMonitor();
+
+    Proposal findWinnerProposal(Poll poll);
 }

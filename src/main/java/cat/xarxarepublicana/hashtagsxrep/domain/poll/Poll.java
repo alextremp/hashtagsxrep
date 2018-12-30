@@ -2,7 +2,6 @@ package cat.xarxarepublicana.hashtagsxrep.domain.poll;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 
 public class Poll {
 
@@ -12,6 +11,7 @@ public class Poll {
     private final String authorId;
     private final String authorNickname;
     private final String description;
+    private final String monitorId;
     private final LocalDateTime creationDate;
     private final LocalDateTime startProposalsTime;
     private final LocalDateTime endProposalsTime;
@@ -19,11 +19,12 @@ public class Poll {
     private final LocalDateTime startEventTime;
     private final LocalDateTime instanceTime;
 
-    public Poll(String id, String authorId, String authorNickname, String description, LocalDateTime creationDate, LocalDateTime startProposalsTime, LocalDateTime endProposalsTime, LocalDateTime endVotingTime, LocalDateTime startEventTime) {
+    public Poll(String id, String authorId, String authorNickname, String description, String monitorId, LocalDateTime creationDate, LocalDateTime startProposalsTime, LocalDateTime endProposalsTime, LocalDateTime endVotingTime, LocalDateTime startEventTime) {
         this.id = id;
         this.authorId = authorId;
         this.authorNickname = authorNickname;
         this.description = description;
+        this.monitorId = monitorId;
         this.creationDate = creationDate;
         this.startProposalsTime = startProposalsTime;
         this.endProposalsTime = endProposalsTime;
@@ -50,6 +51,10 @@ public class Poll {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getMonitorId() {
+        return monitorId;
     }
 
     public LocalDateTime getStartProposalsTime() {

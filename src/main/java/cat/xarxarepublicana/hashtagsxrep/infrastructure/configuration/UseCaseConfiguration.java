@@ -78,4 +78,9 @@ public class UseCaseConfiguration {
     public PollVoteUseCase pollVoteUseCase(PollRepository pollRepository) {
         return new PollVoteUseCase(pollRepository);
     }
+
+    @Bean
+    public CreateMonitorFromPollUseCase createMonitorFromPollUseCase(MonitorRepository monitorRepository, MonitorFactory monitorFactory, PollRepository pollRepository) {
+        return new CreateMonitorFromPollUseCase(monitorRepository, monitorFactory, pollRepository);
+    }
 }

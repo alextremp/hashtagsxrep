@@ -11,6 +11,7 @@
             <arg column="author_id" javaType="string" />
             <arg column="nickname" javaType="string" />
             <arg column="description" javaType="string" />
+            <arg column="monitor_id" javaType="string" />
             <arg column="creation_date" javaType="java.time.LocalDateTime" />
             <arg column="start_proposals_time" javaType="java.time.LocalDateTime" />
             <arg column="end_proposals_time" javaType="java.time.LocalDateTime" />
@@ -31,11 +32,12 @@
         </constructor>
     </resultMap>
 
-    <sql id="sqlPollUserJoin">
-        SELECT p.id, p.author_id, u.nickname, p.description,
-        p.creation_date, p.start_proposals_time, p.end_proposals_time, p.end_voting_time, p.start_event_time
-        FROM POLL p, USER u
-        WHERE p.author_id = u.id
+    <sql id="sqlPollJoin">
+        SELECT p.id, p.author_id, u.nickname, p.description, m.id as monitor_id,
+            p.creation_date, p.start_proposals_time, p.end_proposals_time, p.end_voting_time, p.start_event_time
+        FROM POLL p
+            INNER JOIN USER u on p.author_id = u.id
+            LEFT JOIN MONITOR m on p.id = m.id
     </sql>
 
     <sql id="sqlProposalJoin">
@@ -52,14 +54,20 @@
     </sql>
 
     <select id='selectOneById' resultMap="PollResultMap">
-        <include refid="sqlPollUserJoin"/>
-        AND p.id = #{id}
+        <include refid="sqlPollJoin"/>
+        WHERE p.id = #{id}
     </select>
 
     <select id="selectLastStarted" resultMap="PollResultMap">
-        <include refid="sqlPollUserJoin"/>
+        <include refid="sqlPollJoin"/>
         ORDER BY p.creation_date DESC
         LIMIT ${quantity}
+    </select>
+
+    <select id="selectFinishedPollsWithNoMonitor" resultMap="PollResultMap">
+        <include refid="sqlPollJoin"/>
+        WHERE m.id is NULL and p.end_voting_time &lt;= NOW()
+        ORDER BY p.creation_date DESC
     </select>
 
     <insert id='insert'>
@@ -102,5 +110,13 @@
         <include refid="sqlProposalJoin"/>
         WHERE proposal.poll_id = #{pollId} AND vote.proposal_voter_id=#{voterId}
         <include refid="sqlProposalGroupAndOrder"/>
+    </select>
+
+    <select id="selectWinnerProposal" resultMap="ProposalResultMap">
+        <include refid="sqlProposalJoin"/>
+        WHERE proposal.poll_id = #{pollId}
+        GROUP BY proposal.poll_id, proposal.author_id
+        ORDER BY vote_count DESC, proposal.creation_date ASC
+        LIMIT 1
     </select>
 </mapper>

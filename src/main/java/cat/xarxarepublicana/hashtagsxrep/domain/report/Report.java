@@ -10,12 +10,12 @@ public class Report {
     private final UserContentResume userContentResume;
 
     public Report(TweetedContentResume tweetedContentResume, InteractorResume interactorResume, Integer taggersCount, Integer maxImpressions, Integer maxAudience, UserContentResume userContentResume) {
-        this.tweetedContentResume = tweetedContentResume;
-        this.interactorResume = interactorResume;
-        this.taggersCount = taggersCount;
-        this.maxImpressions = maxImpressions;
-        this.maxAudience = maxAudience;
-        this.userContentResume = userContentResume;
+        this.tweetedContentResume = tweetedContentResume != null ? tweetedContentResume : new TweetedContentResume(0, 0, 0, 0);
+        this.interactorResume = interactorResume != null ? interactorResume : new InteractorResume(0, 0);
+        this.taggersCount = taggersCount != null ? taggersCount : 0;
+        this.maxImpressions = maxImpressions != null ? maxImpressions : 0;
+        this.maxAudience = maxAudience != null ? maxAudience : 0;
+        this.userContentResume = userContentResume != null ? userContentResume : new UserContentResume(0, 0, 0, 0);
     }
 
     public InteractorResume getInteractorResume() {

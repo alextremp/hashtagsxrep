@@ -11,6 +11,7 @@ public class PollFactory {
                 authorId,
                 authorNickname,
                 description,
+                null,
                 LocalDateTime.now(),
                 startProposalsTime,
                 endProposalsTime,

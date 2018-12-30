@@ -29,4 +29,7 @@ public interface PollMapper {
 
     void insertVote(@Param("proposal") Proposal proposal, @Param("voter") User voter);
 
+    List<Poll> selectFinishedPollsWithNoMonitor();
+
+    Proposal selectWinnerProposal(@Param("pollId") String pollId);
 }

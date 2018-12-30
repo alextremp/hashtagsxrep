@@ -60,4 +60,14 @@ public class JdbcPollRepository implements PollRepository {
     public Proposal findUserVote(Poll poll, String voterId) {
         return pollMapper.selectVotedProposal(poll.getId(), voterId);
     }
+
+    @Override
+    public List<Poll> findFinishedPollsWithNoMonitor() {
+        return pollMapper.selectFinishedPollsWithNoMonitor();
+    }
+
+    @Override
+    public Proposal findWinnerProposal(Poll poll) {
+        return pollMapper.selectWinnerProposal(poll.getId());
+    }
 }

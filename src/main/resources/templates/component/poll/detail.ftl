@@ -106,19 +106,21 @@
         <#list loadPollResponse.pollProposals as proposal>
         <div class="ht-proposal">
             <header>${proposal.hashtag}</header>
-            <div class="ht-vote-info"><i class="fas fa-thumbs-up"></i>  ${proposal.votes} vots</div>
+            <div class="ht-vote-info"><i class="fas fa-user-tag"></i> @${proposal.authorNickname}&nbsp;&nbsp;<i class="fas fa-thumbs-up"></i>  ${proposal.votes} vots</div>
             <div class="ht-proposal-subject">${proposal.subject}</div>
+            <#if user.id == proposal.authorId>
             <footer>
-                <#if user.id == proposal.authorId>
                 <div class="ht-tip">
                     És la teva proposta.
                 </div>
-                <#elseif loadPollResponse.userVote.authorId == proposal.authorId>
+            </footer>
+            <#elseif loadPollResponse.userVote.authorId == proposal.authorId>
+            <footer>
                 <div class="ht-tip">
                     Has votat aquesta proposta.
                 </div>
             </#if>
-        </footer>
+            </footer>
         </div>
         </#list>
     </#if>
