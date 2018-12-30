@@ -298,7 +298,7 @@ div.ht-result:nth-child(odd) {
     background-color: #fbfbfb;
 }
 .ht-poll-clocks {
-    font-size: 60%;
+    font-size: 50%;
     text-align: center;
     padding-left: 10px;
     padding-right: 5px;
@@ -373,7 +373,11 @@ div.ht-result:nth-child(odd) {
     margin: 2px;
 }
 /* Larger than mobile */
-@media (min-width: 400px) {}
+@media (min-width: 400px) {
+    .ht-poll-clocks {
+        font-size: 60%;
+    }
+}
 
 /* Larger than phablet */
 @media (min-width: 550px) {
