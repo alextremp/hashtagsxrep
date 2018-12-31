@@ -27,15 +27,17 @@ public class PollController {
     private final LoadPollUseCase loadPollUseCase;
     private final PollProposalUseCase pollProposalUseCase;
     private final PollVoteUseCase pollVoteUseCase;
+    private final DeletePollUseCase deletePollUseCase;
 
     @Autowired
-    public PollController(StringEscapeService stringEscapeService, CreatePollUseCase createPollUseCase, ListPollUseCase listPollUseCase, LoadPollUseCase loadPollUseCase, PollProposalUseCase pollProposalUseCase, PollVoteUseCase pollVoteUseCase) {
+    public PollController(StringEscapeService stringEscapeService, CreatePollUseCase createPollUseCase, ListPollUseCase listPollUseCase, LoadPollUseCase loadPollUseCase, PollProposalUseCase pollProposalUseCase, PollVoteUseCase pollVoteUseCase, DeletePollUseCase deletePollUseCase) {
         this.stringEscapeService = stringEscapeService;
         this.createPollUseCase = createPollUseCase;
         this.listPollUseCase = listPollUseCase;
         this.loadPollUseCase = loadPollUseCase;
         this.pollProposalUseCase = pollProposalUseCase;
         this.pollVoteUseCase = pollVoteUseCase;
+        this.deletePollUseCase = deletePollUseCase;
     }
 
     @GetMapping(Views.URL_POLL)
@@ -115,6 +117,15 @@ public class PollController {
 
         model.addAttribute("pollVoteResponse", pollVoteResponse);
         return new RedirectView("/poll/" + pollId);
+    }
+
+    @PostMapping("/poll/{pollId}/delete")
+    @Secured("ROLE_CREATOR")
+    public RedirectView pollDelete(
+            @PathVariable("pollId") String pollId
+    ) {
+        deletePollUseCase.deletePoll(pollId);
+        return new RedirectView(Views.URL_POLL);
     }
 
 }

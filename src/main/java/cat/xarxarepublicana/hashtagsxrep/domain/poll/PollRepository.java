@@ -27,4 +27,6 @@ public interface PollRepository {
     List<Poll> findFinishedPollsWithNoMonitor();
 
     Proposal findWinnerProposal(Poll poll);
+
+    void delete(Poll poll);
 }

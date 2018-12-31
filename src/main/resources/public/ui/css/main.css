@@ -213,7 +213,7 @@ input[type='checkbox'].toggle {
     width: 90%;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     padding: 5px 10px 5px 10px;
     border-radius: 10px;
 }
@@ -246,6 +246,15 @@ input[type='checkbox'].toggle {
 }
 .ht-txt-big {
     font-size: 25px;
+}
+.ht-delete {
+    background-color: white;
+    border-radius: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.ht-delete .lbl-toggle {
+    margin: 0px;
 }
 .ht-monitors {
     padding-top: 15px;
@@ -373,6 +382,7 @@ div.ht-result:nth-child(odd) {
 }
 .ht-footer {
     text-align: center;
+    margin-top: 20px;
 }
 .ht-footer p {
     margin: 2px;
