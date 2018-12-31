@@ -114,7 +114,7 @@
                     És la teva proposta.
                 </div>
             </footer>
-            <#elseif loadPollResponse.userVote.authorId == proposal.authorId>
+            <#elseif loadPollResponse.userVote?? \and loadPollResponse.userVote.authorId == proposal.authorId>
             <footer>
                 <div class="ht-tip">
                     Has votat aquesta proposta.
