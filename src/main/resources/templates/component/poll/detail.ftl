@@ -10,7 +10,7 @@
             <div><i class="fas fa-clock"></i> ${loadPollResponse.poll.asString(loadPollResponse.poll.startProposalsTime)}: #IniciPropostesDeHashtags</div>
             <div><i class="fas fa-clock"></i> ${loadPollResponse.poll.asString(loadPollResponse.poll.endProposalsTime)}: #IniciVotacióDePropostes</div>
             <div><i class="fas fa-clock"></i> ${loadPollResponse.poll.asString(loadPollResponse.poll.endVotingTime)}: #TancamentVotació</div>
-            <div><i class="fas fa-clock"></i> ${loadPollResponse.poll.asString(loadPollResponse.poll.startEventTime)}: #IniciAtac</div>
+            <div class="ht-poll-clocks-mark"><i class="fas fa-clock"></i> ${loadPollResponse.poll.asString(loadPollResponse.poll.startEventTime)}: #IniciAtac</div>
             <footer>
                 <i class="fas fa-exclamation-triangle"></i> No utilitzeu el hashtag abans de l'#IniciAtac.
             </footer>
@@ -47,9 +47,7 @@
     <#elseif showUserProposed>
         <div class="ht-proposal">
             <header>${loadPollResponse.userProposal.hashtag}</header>
-            <div class="ht-proposal-subject">
-                ${loadPollResponse.userProposal.subject}
-            </div>
+            <div class="ht-proposal-subject">${stringEscapeService.unescape(loadPollResponse.userProposal.subject)}</div>
             <footer>
                 <div class="ht-tip">
                     És la teva proposta.
@@ -81,7 +79,7 @@
                 <#if !loadPollResponse.userVote?? \and user.canVote(proposal)>
                 <button type="submit" onclick="document.getElementById('proposalAuthorId').value='${proposal.authorId}'"><i class="fas fa-thumbs-up"></i> #Vota</button>
                 </#if>
-                <div class="ht-proposal-subject">${proposal.subject}</div>
+                <div class="ht-proposal-subject">${stringEscapeService.unescape(proposal.subject)}</div>
                 <#if user.id == proposal.authorId>
                 <footer>
                     <div class="ht-tip">
@@ -107,14 +105,14 @@
         <div class="ht-proposal">
             <header>${proposal.hashtag}</header>
             <div class="ht-vote-info"><i class="fas fa-user-tag"></i> @${proposal.authorNickname}&nbsp;&nbsp;<i class="fas fa-thumbs-up"></i>  ${proposal.votes} vots</div>
-            <div class="ht-proposal-subject">${proposal.subject}</div>
+            <div class="ht-proposal-subject">${stringEscapeService.unescape(proposal.subject)}</div>
             <#if user.id == proposal.authorId>
             <footer>
                 <div class="ht-tip">
                     És la teva proposta.
                 </div>
             </footer>
-            <#elseif loadPollResponse.userVote.authorId == proposal.authorId>
+            <#elseif loadPollResponse.userVote?? \and loadPollResponse.userVote.authorId == proposal.authorId>
             <footer>
                 <div class="ht-tip">
                     Has votat aquesta proposta.
