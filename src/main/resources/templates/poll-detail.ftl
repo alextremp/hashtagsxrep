@@ -12,7 +12,7 @@
 
     <div class="ht-block ht-white-block center">
         <div class="ht-info">
-            <i class="fas fa-poll"></i> ${loadPollResponse.poll.description}
+            <i class="fas fa-poll"></i> ${stringEscapeService.unescape(loadPollResponse.poll.description)}
         </div>
 
         <#include "component/poll/detail.ftl">

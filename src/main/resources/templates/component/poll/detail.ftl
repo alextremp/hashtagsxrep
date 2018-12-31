@@ -48,7 +48,7 @@
         <div class="ht-proposal">
             <header>${loadPollResponse.userProposal.hashtag}</header>
             <div class="ht-proposal-subject">
-                ${loadPollResponse.userProposal.subject}
+                ${stringEscapeService.unescape(loadPollResponse.userProposal.subject)}
             </div>
             <footer>
                 <div class="ht-tip">
@@ -81,7 +81,7 @@
                 <#if !loadPollResponse.userVote?? \and user.canVote(proposal)>
                 <button type="submit" onclick="document.getElementById('proposalAuthorId').value='${proposal.authorId}'"><i class="fas fa-thumbs-up"></i> #Vota</button>
                 </#if>
-                <div class="ht-proposal-subject">${proposal.subject}</div>
+                <div class="ht-proposal-subject">${stringEscapeService.unescape(proposal.subject)}</div>
                 <#if user.id == proposal.authorId>
                 <footer>
                     <div class="ht-tip">
@@ -107,7 +107,7 @@
         <div class="ht-proposal">
             <header>${proposal.hashtag}</header>
             <div class="ht-vote-info"><i class="fas fa-user-tag"></i> @${proposal.authorNickname}&nbsp;&nbsp;<i class="fas fa-thumbs-up"></i>  ${proposal.votes} vots</div>
-            <div class="ht-proposal-subject">${proposal.subject}</div>
+            <div class="ht-proposal-subject">${stringEscapeService.unescape(proposal.subject)}</div>
             <#if user.id == proposal.authorId>
             <footer>
                 <div class="ht-tip">
