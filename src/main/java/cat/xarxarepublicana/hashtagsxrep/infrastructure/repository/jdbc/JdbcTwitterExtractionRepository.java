@@ -69,4 +69,9 @@ public class JdbcTwitterExtractionRepository implements TwitterExtractionReposit
         monitorRepository.updateCursor(monitor, existingDataReached ? null : nextQueryString);
         return existingDataReached;
     }
+
+    @Override
+    public void deleteMonitorData(Monitor monitor) {
+        twitterExtractionMapper.deleteDataByMonitorId(monitor.getId());
+    }
 }
