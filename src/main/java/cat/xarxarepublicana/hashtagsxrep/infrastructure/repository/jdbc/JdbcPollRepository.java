@@ -70,4 +70,11 @@ public class JdbcPollRepository implements PollRepository {
     public Proposal findWinnerProposal(Poll poll) {
         return pollMapper.selectWinnerProposal(poll.getId());
     }
+
+    @Override
+    public void delete(Poll poll) {
+        pollMapper.deleteVotes(poll.getId());
+        pollMapper.deleteProposals(poll.getId());
+        pollMapper.delete(poll.getId());
+    }
 }

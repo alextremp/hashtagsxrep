@@ -119,4 +119,17 @@
         ORDER BY vote_count DESC, proposal.creation_date ASC
         LIMIT 1
     </select>
+
+    <delete id="delete">
+        DELETE FROM POLL WHERE id = #{pollId}
+    </delete>
+
+    <delete id="deleteProposals">
+        DELETE FROM POLL_PROPOSAL WHERE poll_id = #{pollId}
+    </delete>
+
+    <delete id="deleteVotes">
+        DELETE FROM POLL_VOTE WHERE poll_id = #{pollId}
+    </delete>
+
 </mapper>
