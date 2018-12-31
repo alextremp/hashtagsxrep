@@ -354,6 +354,7 @@ div.ht-result:nth-child(odd) {
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     text-align: left;
+    white-space: pre-line;
 }
 .ht-vote-info {
     display: inline-block;

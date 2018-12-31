@@ -47,9 +47,7 @@
     <#elseif showUserProposed>
         <div class="ht-proposal">
             <header>${loadPollResponse.userProposal.hashtag}</header>
-            <div class="ht-proposal-subject">
-                ${stringEscapeService.unescape(loadPollResponse.userProposal.subject)}
-            </div>
+            <div class="ht-proposal-subject">${stringEscapeService.unescape(loadPollResponse.userProposal.subject)}</div>
             <footer>
                 <div class="ht-tip">
                     És la teva proposta.
