@@ -10,7 +10,7 @@
             <div><i class="fas fa-clock"></i> ${loadPollResponse.poll.asString(loadPollResponse.poll.startProposalsTime)}: #IniciPropostesDeHashtags</div>
             <div><i class="fas fa-clock"></i> ${loadPollResponse.poll.asString(loadPollResponse.poll.endProposalsTime)}: #IniciVotacióDePropostes</div>
             <div><i class="fas fa-clock"></i> ${loadPollResponse.poll.asString(loadPollResponse.poll.endVotingTime)}: #TancamentVotació</div>
-            <div><i class="fas fa-clock"></i> ${loadPollResponse.poll.asString(loadPollResponse.poll.startEventTime)}: #IniciAtac</div>
+            <div class="ht-poll-clocks-mark"><i class="fas fa-clock"></i> ${loadPollResponse.poll.asString(loadPollResponse.poll.startEventTime)}: #IniciAtac</div>
             <footer>
                 <i class="fas fa-exclamation-triangle"></i> No utilitzeu el hashtag abans de l'#IniciAtac.
             </footer>

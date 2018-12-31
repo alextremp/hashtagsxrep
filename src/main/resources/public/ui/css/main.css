@@ -306,11 +306,15 @@ div.ht-result:nth-child(odd) {
 .ht-poll-clocks-data {
     display: inline-block;
 }
+.ht-poll-clocks-mark {
+    margin-top: 5px;
+    font-weight: bold;
+}
 .ht-poll-clocks-data footer {
     background-color: unset;
     color: unset;
     font-size: 90%;
-    margin-top: 10px;
+    margin-top: 5px;
     margin-bottom: 10px;
 }
 .ht-proposal {
