@@ -28,8 +28,8 @@
             #{extraction.interactedStatusId}, #{extraction.interactedUserId}, #{extraction.language}, #{extraction.text})
     </insert>
 
-    <select id="selectByMonitorId" resultMap="TwitterExtractionResultMap">
-        SELECT * FROM TWITTER_EXTRACTION WHERE monitorId = #{monitorId}
-    </select>
+    <delete id="deleteDataByMonitorId">
+        DELETE FROM TWITTER_EXTRACTION WHERE monitor_id = #{monitorId}
+    </delete>
 
 </mapper>

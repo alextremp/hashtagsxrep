@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <#if loadPollResponse.poll.authorId == user.id>
+    <#if loadPollResponse.poll.authorId == user.id || user.role='CREATOR'>
     <div class="ht-delete">
         <div class="wrap-collabsible">
             <input id="poll-delete-collapser" class="toggle" type="checkbox"/>
@@ -37,7 +37,7 @@
                         <div class="row">
                             <div class="twelve columns">
                                 <div class="ht-tip">
-                                    Esborrar l'enquesta és irreversible i eliminarà qualsevol proposta i tots els vots relacionats. Segur que vols fer-ho?
+                                    <i class="fas fa-exclamation-triangle"></i> Esborrar l'enquesta és irreversible i eliminarà qualsevol proposta i tots els vots relacionats. Segur que vols fer-ho?
                                 </div>
                             </div>
                         </div>

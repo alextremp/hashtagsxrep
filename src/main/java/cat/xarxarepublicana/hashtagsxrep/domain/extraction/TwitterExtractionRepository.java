@@ -5,4 +5,6 @@ import cat.xarxarepublicana.hashtagsxrep.domain.twitter.SearchTweetsResult;
 
 public interface TwitterExtractionRepository {
     boolean save(Monitor monitor, SearchTweetsResult searchTweetsResult);
+
+    void deleteMonitorData(Monitor monitor);
 }

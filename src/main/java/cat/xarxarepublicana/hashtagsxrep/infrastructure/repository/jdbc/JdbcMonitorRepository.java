@@ -2,9 +2,7 @@ package cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc;
 
 import cat.xarxarepublicana.hashtagsxrep.domain.monitor.Monitor;
 import cat.xarxarepublicana.hashtagsxrep.domain.monitor.MonitorRepository;
-import cat.xarxarepublicana.hashtagsxrep.domain.twitter.SearchTweetsResult;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.MonitorMapper;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
@@ -50,5 +48,10 @@ public class JdbcMonitorRepository implements MonitorRepository {
     @Override
     public Monitor findByTwitterQuery(String twitterQuery) {
         return monitorMapper.selectOneByTwitterQuery(twitterQuery);
+    }
+
+    @Override
+    public void delete(Monitor monitor) {
+        monitorMapper.delete(monitor.getId());
     }
 }

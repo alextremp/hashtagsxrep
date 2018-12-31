@@ -22,4 +22,6 @@ public interface MonitorMapper {
     List<Monitor> selectLast(@Param("quantity") Integer qtt);
 
     Monitor selectOneByTwitterQuery(@Param("twitterQuery") String twitterQuery);
+
+    void delete(@Param("monitorId") String monitorId);
 }

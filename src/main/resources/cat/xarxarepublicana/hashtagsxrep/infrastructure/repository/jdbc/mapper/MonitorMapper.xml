@@ -72,4 +72,8 @@
         select max(cast(tweet_id as unsigned)) from TWITTER_EXTRACTION WHERE monitor_id = #{monitorId}
     </select>
 
+    <delete id="delete">
+        DELETE FROM MONITOR WHERE id = #{monitorId}
+    </delete>
+
 </mapper>

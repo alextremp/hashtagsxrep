@@ -1,4 +1,4 @@
-<@security.authorize access="hasRole('ROLE_CREATOR')">
+<@security.authorize access="hasRole('ROLE_ADMIN')">
 <#assign startProposalsTime = .now>
 <#if createPollResponse??>
 <div class="ht-box ht-ok">

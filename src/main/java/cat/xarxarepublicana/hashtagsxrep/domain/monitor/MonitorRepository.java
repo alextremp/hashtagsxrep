@@ -16,4 +16,6 @@ public interface MonitorRepository {
     List<Monitor> getLastMonitors();
 
     Monitor findByTwitterQuery(String twitterQuery);
+
+    void delete(Monitor monitor);
 }

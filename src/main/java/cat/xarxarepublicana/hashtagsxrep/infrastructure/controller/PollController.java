@@ -48,7 +48,7 @@ public class PollController {
     }
 
     @PostMapping(Views.URL_POLL)
-    @Secured("ROLE_CREATOR")
+    @Secured("ROLE_ADMIN")
     public RedirectView createPoll(
             @RequestParam("description")
                     String description,
@@ -120,7 +120,7 @@ public class PollController {
     }
 
     @PostMapping("/poll/{pollId}/delete")
-    @Secured("ROLE_CREATOR")
+    @Secured("ROLE_ADMIN")
     public RedirectView pollDelete(
             @PathVariable("pollId") String pollId
     ) {

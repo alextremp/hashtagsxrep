@@ -1,6 +1,7 @@
 package cat.xarxarepublicana.hashtagsxrep.infrastructure.configuration;
 
 import cat.xarxarepublicana.hashtagsxrep.application.monitor.CreateMonitorUseCase;
+import cat.xarxarepublicana.hashtagsxrep.application.monitor.DeleteMonitorUseCase;
 import cat.xarxarepublicana.hashtagsxrep.application.monitor.ListMonitorUseCase;
 import cat.xarxarepublicana.hashtagsxrep.application.monitor.MonitorDataExtractionUseCase;
 import cat.xarxarepublicana.hashtagsxrep.application.poll.*;
@@ -37,6 +38,11 @@ public class UseCaseConfiguration {
     @Bean
     public CreateMonitorUseCase createMonitorUseCase(MonitorRepository monitorRepository, MonitorFactory monitorFactory) {
         return new CreateMonitorUseCase(monitorRepository, monitorFactory);
+    }
+
+    @Bean
+    public DeleteMonitorUseCase deleteMonitorUseCase(MonitorRepository monitorRepository, TwitterExtractionRepository twitterExtractionRepository) {
+        return new DeleteMonitorUseCase(monitorRepository, twitterExtractionRepository);
     }
 
     @Bean

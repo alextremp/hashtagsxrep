@@ -2,6 +2,7 @@ package cat.xarxarepublicana.hashtagsxrep.infrastructure.controller;
 
 import cat.xarxarepublicana.hashtagsxrep.application.Views;
 import cat.xarxarepublicana.hashtagsxrep.application.monitor.CreateMonitorUseCase;
+import cat.xarxarepublicana.hashtagsxrep.application.monitor.DeleteMonitorUseCase;
 import cat.xarxarepublicana.hashtagsxrep.application.monitor.ListMonitorUseCase;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.security.AuthenticationUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
@@ -22,15 +24,17 @@ public class MonitorController {
 
     private final CreateMonitorUseCase createMonitorUseCase;
     private final ListMonitorUseCase listMonitorUseCase;
+    private final DeleteMonitorUseCase deleteMonitorUseCase;
 
     @Autowired
-    public MonitorController(CreateMonitorUseCase createMonitorUseCase, ListMonitorUseCase listMonitorUseCase) {
+    public MonitorController(CreateMonitorUseCase createMonitorUseCase, ListMonitorUseCase listMonitorUseCase, DeleteMonitorUseCase deleteMonitorUseCase) {
         this.createMonitorUseCase = createMonitorUseCase;
         this.listMonitorUseCase = listMonitorUseCase;
+        this.deleteMonitorUseCase = deleteMonitorUseCase;
     }
 
     @PostMapping("/monitor")
-    @Secured("ROLE_CREATOR")
+    @Secured("ROLE_ADMIN")
     public RedirectView createMonitor(
             @RequestParam("twitterQuery")
                     String twitterQuery,
@@ -49,4 +53,15 @@ public class MonitorController {
         model.addAttribute("monitorList", listMonitorResponse.getMonitorList());
         return Views.VIEW_MONITOR;
     }
+
+
+    @PostMapping("/monitor/{monitorId}/delete")
+    @Secured("ROLE_ADMIN")
+    public RedirectView monitorDelete(
+            @PathVariable("monitorId") String monitorId
+    ) {
+        deleteMonitorUseCase.deleteMonitor(monitorId);
+        return new RedirectView(Views.URL_MONITOR);
+    }
+
 }
