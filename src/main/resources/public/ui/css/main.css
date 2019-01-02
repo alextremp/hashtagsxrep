@@ -41,6 +41,9 @@ footer {
     justify-content: center;
     flex-wrap: wrap;
 }
+.no-mobile {
+    display: none;
+}
 .button.button-primary {
     min-width: 220px;
     background-color: black;
@@ -90,6 +93,9 @@ footer {
 .m-auto {
     margin-left: auto;
     margin-right: auto;
+}
+.mb20 {
+    margin-bottom: 20px;
 }
 
 input[type='checkbox'].toggle {
@@ -396,6 +402,9 @@ div.ht-result:nth-child(odd) {
 
 /* Larger than phablet */
 @media (min-width: 550px) {
+    .no-mobile {
+        display: unset;
+    }
     .ht-footer-l p {
         text-align: left;
         margin-left: 25%;

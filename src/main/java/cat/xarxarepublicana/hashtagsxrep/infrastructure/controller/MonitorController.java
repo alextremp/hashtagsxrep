@@ -58,9 +58,10 @@ public class MonitorController {
     @PostMapping("/monitor/{monitorId}/delete")
     @Secured("ROLE_ADMIN")
     public RedirectView monitorDelete(
-            @PathVariable("monitorId") String monitorId
+            @PathVariable("monitorId") String monitorId,
+            @RequestParam("hashtag") String hashtag
     ) {
-        deleteMonitorUseCase.deleteMonitor(monitorId);
+        deleteMonitorUseCase.deleteMonitor(monitorId, hashtag);
         return new RedirectView(Views.URL_MONITOR);
     }
 
