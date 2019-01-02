@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org//DTD Mapper 3.0//EN'
+        'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+
+
+<mapper namespace='cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.PollMapper'>
+
+    <select id="selectUserRanking">
+        SELECT ranking.user_nickname, sum(ranking.ht_score) as score
+        FROM (
+          SELECT q.twitter_query as hashtag, q.nickname as user_nickname, q.rownum * q.quantity * q.multiplier as ht_score
+          FROM (
+            SELECT monitor.rownum, monitor.id, monitor.twitter_query, user.nickname,
+                  CASE twitter.type WHEN 'T' THEN 15 WHEN 'Q' THEN 12 WHEN 'C' THEN 5 ELSE 1 END as multiplier,
+                  count(twitter.tweet_id) as quantity
+            FROM (
+              SELECT @r := @r-1 as rownum, z.*
+              FROM  (SELECT m.id, m.twitter_query FROM MONITOR m ORDER BY start_date DESC LIMIT 4) z,
+                    (SELECT @r:=5)y
+            ) monitor, TWITTER_EXTRACTION twitter, USER user
+            WHERE monitor.id=twitter.monitor_id and user.id=twitter.user_id
+            GROUP BY monitor.rownum, monitor.id, monitor.twitter_query, user.nickname, twitter.type
+          ) q
+          GROUP BY q.twitter_query, q.nickname
+        ) ranking
+        GROUP BY ranking.user_nickname
+        ORDER BY score DESC
+        LIMIT 100
+    </select>
+
+    <select id="selectUserScore">
+        SELECT q.twitter_query as hashtag,
+                CASE q.type WHEN 'T' THEN 'TWEET' WHEN 'Q' THEN 'CITA' WHEN 'C' THEN 'COMENTARI' ELSE 'RETWEET' END as type,
+                q.quantity, q.rownum * q.quantity * q.multiplier as ht_score
+        FROM (
+            SELECT monitor.rownum, monitor.id, monitor.twitter_query, twitter.type,
+                CASE twitter.type WHEN 'T' THEN 15 WHEN 'Q' THEN 12 WHEN 'C' THEN 5 ELSE 1 END as multiplier,
+                count(twitter.tweet_id) as quantity
+            FROM (
+                SELECT @r := @r-1 as rownum, z.*
+                FROM  (SELECT m.id, m.twitter_query FROM MONITOR m ORDER BY start_date DESC LIMIT 4) z,
+                      (SELECT @r:=5)y
+            ) monitor, TWITTER_EXTRACTION twitter, USER user
+            WHERE monitor.id=twitter.monitor_id and user.id=twitter.user_id and user.nickname='alextremp'
+            GROUP BY monitor.rownum, monitor.id, monitor.twitter_query, user.nickname, twitter.type
+        ) q
+        GROUP BY q.twitter_query, q.type, q.quantity
+        ORDER BY q.rownum DESC, q.multiplier DESC
+    </select>
+
+</mapper>
