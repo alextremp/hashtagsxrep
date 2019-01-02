@@ -122,9 +122,10 @@ public class PollController {
     @PostMapping("/poll/{pollId}/delete")
     @Secured("ROLE_ADMIN")
     public RedirectView pollDelete(
-            @PathVariable("pollId") String pollId
+            @PathVariable("pollId") String pollId,
+            @RequestParam("description") String description
     ) {
-        deletePollUseCase.deletePoll(pollId);
+        deletePollUseCase.deletePoll(pollId, description);
         return new RedirectView(Views.URL_POLL);
     }
 

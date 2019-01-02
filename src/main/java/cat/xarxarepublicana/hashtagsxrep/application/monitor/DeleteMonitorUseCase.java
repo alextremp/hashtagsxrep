@@ -1,8 +1,10 @@
 package cat.xarxarepublicana.hashtagsxrep.application.monitor;
 
+import cat.xarxarepublicana.hashtagsxrep.domain.error.ValidationException;
 import cat.xarxarepublicana.hashtagsxrep.domain.extraction.TwitterExtractionRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.monitor.Monitor;
 import cat.xarxarepublicana.hashtagsxrep.domain.monitor.MonitorRepository;
+import org.apache.commons.lang3.StringUtils;
 
 public class DeleteMonitorUseCase {
 
@@ -14,11 +16,15 @@ public class DeleteMonitorUseCase {
         this.twitterExtractionRepository = twitterExtractionRepository;
     }
 
-    public void deleteMonitor(String monitorId) {
+    public void deleteMonitor(String monitorId, String hashtag) {
         Monitor monitor = monitorRepository.findById(monitorId);
         if (monitor != null) {
-            twitterExtractionRepository.deleteMonitorData(monitor);
-            monitorRepository.delete(monitor);
+            if (StringUtils.equals(monitor.getTwitterQuery(), hashtag)) {
+                twitterExtractionRepository.deleteMonitorData(monitor);
+                monitorRepository.delete(monitor);
+            } else {
+                throw new ValidationException("No coincideixen: [" + monitor.getTwitterQuery() + "]/[" + hashtag + "]");
+            }
         }
     }
 }
