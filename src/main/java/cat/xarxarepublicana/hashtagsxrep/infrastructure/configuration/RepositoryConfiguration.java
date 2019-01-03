@@ -9,8 +9,10 @@ import cat.xarxarepublicana.hashtagsxrep.domain.poll.PollRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.poll.ProposalFactory;
 import cat.xarxarepublicana.hashtagsxrep.domain.report.ReportRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.twitter.TwitterRepository;
+import cat.xarxarepublicana.hashtagsxrep.domain.user.User;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserFactory;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserRepository;
+import cat.xarxarepublicana.hashtagsxrep.infrastructure.cache.CachedUserRepository;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.*;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.*;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.twitter.TwitterApi;
@@ -25,6 +27,7 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
@@ -67,8 +70,14 @@ public class RepositoryConfiguration {
     }
 
     @Bean
-    public UserRepository jdbcUserRepository(UserMapper userMapper) {
+    public JdbcUserRepository jdbcUserRepository(UserMapper userMapper) {
         return new JdbcUserRepository(userMapper);
+    }
+
+    @Bean
+    @Primary
+    public CachedUserRepository cachedJdbcUserRepository(JdbcUserRepository jdbcUserRepository) {
+        return new CachedUserRepository(jdbcUserRepository);
     }
 
     @Bean
