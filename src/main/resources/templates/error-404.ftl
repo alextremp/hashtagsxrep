@@ -10,13 +10,12 @@
     <#include "component/header.ftl">
     <div class="ht-block ht-white-block ht-entry-block center">
         <div class="ht-info">
-            <i class="fas fa-dizzy"></i> ERROR
+            <i class="fas fa-grin-beam-sweat"></i> NO TROBAT
         </div>
         <div class="ht-box">
             <div class="ht-tip">
-                Aquesta aplicació està desplegada en una plataforma gratuita i és possible que s'hagin sobrepassat els usuaris connectats simultàneament als que pot donar-se abast.<br/><br/>
-                També es pot deure a un bug (shit happens).<br/><br/>
-                Prova d'accedir en una estona :)<br/><br/>
+                La pàgina no existeix.<br/><br/>
+                Intenta accedir al contingut que buscaves navegant des de la pàgina d'inici.<br/><br/>
             </div>
             <a href="/" class="button button-primary">
                 <i class="fas fa-home"></i> #Inici
