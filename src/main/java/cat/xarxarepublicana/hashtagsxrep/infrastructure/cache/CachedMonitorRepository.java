@@ -44,10 +44,7 @@ public class CachedMonitorRepository implements MonitorRepository {
 
     @Override
     public List<Monitor> getActiveMonitors() {
-        return monitorListCache.get(MONITOR_LIST_CACHE_KEY)
-                .stream()
-                .filter(monitor -> monitor.getActive())
-                .collect(Collectors.toList());
+        return monitorRepository.getActiveMonitors();
     }
 
     @Override
