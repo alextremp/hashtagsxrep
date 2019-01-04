@@ -3,22 +3,16 @@ package cat.xarxarepublicana.hashtagsxrep.infrastructure.cache;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.User;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserRepository;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.JdbcUserRepository;
-import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
-
-import java.util.concurrent.TimeUnit;
 
 public class CachedUserRepository implements UserRepository {
 
     private final LoadingCache<String, User> cache;
     private final JdbcUserRepository jdbcUserRepository;
 
-    public CachedUserRepository(JdbcUserRepository jdbcUserRepository) {
+    public CachedUserRepository(LoadingCache<String, User> cache, JdbcUserRepository jdbcUserRepository) {
+        this.cache = cache;
         this.jdbcUserRepository = jdbcUserRepository;
-        this.cache = Caffeine.newBuilder()
-            .expireAfterAccess(5, TimeUnit.MINUTES)
-            .maximumSize(100)
-            .build(id -> jdbcUserRepository.findById(id));
     }
 
     @Override

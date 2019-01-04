@@ -4,7 +4,6 @@ import cat.xarxarepublicana.hashtagsxrep.application.Views;
 import cat.xarxarepublicana.hashtagsxrep.application.monitor.CreateMonitorUseCase;
 import cat.xarxarepublicana.hashtagsxrep.application.monitor.DeleteMonitorUseCase;
 import cat.xarxarepublicana.hashtagsxrep.application.monitor.ListMonitorUseCase;
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.cache.CachedListMonitorUseCase;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.security.AuthenticationUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -25,10 +24,10 @@ public class MonitorController {
 
     private final CreateMonitorUseCase createMonitorUseCase;
     private final DeleteMonitorUseCase deleteMonitorUseCase;
-    private final CachedListMonitorUseCase listMonitorUseCase;
+    private final ListMonitorUseCase listMonitorUseCase;
 
     @Autowired
-    public MonitorController(CreateMonitorUseCase createMonitorUseCase, CachedListMonitorUseCase listMonitorUseCase, DeleteMonitorUseCase deleteMonitorUseCase) {
+    public MonitorController(CreateMonitorUseCase createMonitorUseCase, ListMonitorUseCase listMonitorUseCase, DeleteMonitorUseCase deleteMonitorUseCase) {
         this.createMonitorUseCase = createMonitorUseCase;
         this.listMonitorUseCase = listMonitorUseCase;
         this.deleteMonitorUseCase = deleteMonitorUseCase;
@@ -45,7 +44,6 @@ public class MonitorController {
             @AuthenticationPrincipal
                     AuthenticationUser authenticationUser) {
         CreateMonitorUseCase.CreateMonitorResponse createMonitorResponse = createMonitorUseCase.createMonitor(authenticationUser.getUser(), twitterQuery, startTime);
-        listMonitorUseCase.invalidate();
         return new RedirectView(Views.URL_MONITOR);
     }
 
@@ -64,7 +62,6 @@ public class MonitorController {
             @RequestParam("hashtag") String hashtag
     ) {
         deleteMonitorUseCase.deleteMonitor(monitorId, hashtag);
-        listMonitorUseCase.invalidate();
         return new RedirectView(Views.URL_MONITOR);
     }
 

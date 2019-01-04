@@ -2,28 +2,33 @@ package cat.xarxarepublicana.hashtagsxrep.infrastructure.configuration;
 
 import cat.xarxarepublicana.hashtagsxrep.domain.extraction.TwitterExtractionFactory;
 import cat.xarxarepublicana.hashtagsxrep.domain.extraction.TwitterExtractionRepository;
+import cat.xarxarepublicana.hashtagsxrep.domain.monitor.Monitor;
 import cat.xarxarepublicana.hashtagsxrep.domain.monitor.MonitorFactory;
 import cat.xarxarepublicana.hashtagsxrep.domain.monitor.MonitorRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.poll.PollFactory;
 import cat.xarxarepublicana.hashtagsxrep.domain.poll.PollRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.poll.ProposalFactory;
-import cat.xarxarepublicana.hashtagsxrep.domain.report.ReportRepository;
+import cat.xarxarepublicana.hashtagsxrep.domain.report.Report;
 import cat.xarxarepublicana.hashtagsxrep.domain.twitter.TwitterRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.User;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserFactory;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserRepository;
+import cat.xarxarepublicana.hashtagsxrep.infrastructure.cache.CachedMonitorRepository;
+import cat.xarxarepublicana.hashtagsxrep.infrastructure.cache.CachedReportRepository;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.cache.CachedUserRepository;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.*;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.*;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.twitter.TwitterApi;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.twitter.TwitterRepositoryImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.benmanes.caffeine.cache.LoadingCache;
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.OAuth1AccessToken;
 import com.github.scribejava.core.oauth.OAuth10aService;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,6 +36,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
+import java.util.List;
 
 @Configuration
 public class RepositoryConfiguration {
@@ -76,8 +82,8 @@ public class RepositoryConfiguration {
 
     @Bean
     @Primary
-    public CachedUserRepository cachedJdbcUserRepository(JdbcUserRepository jdbcUserRepository) {
-        return new CachedUserRepository(jdbcUserRepository);
+    public CachedUserRepository cachedJdbcUserRepository(@Qualifier("userCache") LoadingCache<String, User> userCache, JdbcUserRepository jdbcUserRepository) {
+        return new CachedUserRepository(userCache, jdbcUserRepository);
     }
 
     @Bean
@@ -86,8 +92,14 @@ public class RepositoryConfiguration {
     }
 
     @Bean
-    public MonitorRepository jdbcMonitorRepository(MonitorMapper monitorMapper) {
+    public JdbcMonitorRepository jdbcMonitorRepository(MonitorMapper monitorMapper) {
         return new JdbcMonitorRepository(monitorMapper);
+    }
+
+    @Bean
+    @Primary
+    public CachedMonitorRepository cachedMonitorRepository(JdbcMonitorRepository jdbcMonitorRepository, @Qualifier("monitorCache") LoadingCache<String, Monitor> monitorCache, @Qualifier("monitorListCache") LoadingCache<String, List<Monitor>> monitorListCache, @Qualifier("reportCache") LoadingCache<String, Report> reportCache) {
+        return new CachedMonitorRepository(jdbcMonitorRepository, monitorCache, monitorListCache, reportCache);
     }
 
     @Bean
@@ -106,8 +118,14 @@ public class RepositoryConfiguration {
     }
 
     @Bean
-    public ReportRepository jdbcReportRepository(ReportMapper reportMapper) {
+    public JdbcReportRepository jdbcReportRepository(ReportMapper reportMapper) {
         return new JdbcReportRepository(reportMapper);
+    }
+
+    @Bean
+    @Primary
+    public CachedReportRepository cachedReportRepository(JdbcReportRepository jdbcReportRepository, @Qualifier("reportCache") LoadingCache<String, Report> reportCache) {
+        return new CachedReportRepository(jdbcReportRepository, reportCache);
     }
 
     @Bean

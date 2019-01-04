@@ -17,8 +17,6 @@ import cat.xarxarepublicana.hashtagsxrep.domain.poll.ProposalFactory;
 import cat.xarxarepublicana.hashtagsxrep.domain.report.ReportRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.twitter.TwitterRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserRepository;
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.cache.CachedGetTwitterQueryReportUseCase;
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.cache.CachedListMonitorUseCase;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.security.AuthenticationContext;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -48,8 +46,8 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public CachedListMonitorUseCase listMonitorUseCase(MonitorRepository monitorRepository) {
-        return new CachedListMonitorUseCase(monitorRepository);
+    public ListMonitorUseCase listMonitorUseCase(MonitorRepository monitorRepository) {
+        return new ListMonitorUseCase(monitorRepository);
     }
 
     @Bean
@@ -58,8 +56,8 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public CachedGetTwitterQueryReportUseCase getTwitterQueryReportUseCase(ReportRepository reportRepository, MonitorRepository monitorRepository) {
-        return new CachedGetTwitterQueryReportUseCase(reportRepository, monitorRepository);
+    public GetTwitterQueryReportUseCase getTwitterQueryReportUseCase(ReportRepository reportRepository, MonitorRepository monitorRepository) {
+        return new GetTwitterQueryReportUseCase(reportRepository, monitorRepository);
     }
 
     @Bean
