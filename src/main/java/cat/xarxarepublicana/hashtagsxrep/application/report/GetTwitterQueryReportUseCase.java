@@ -1,7 +1,7 @@
 package cat.xarxarepublicana.hashtagsxrep.application.report;
 
+import cat.xarxarepublicana.hashtagsxrep.domain.error.EntityNotFoundException;
 import cat.xarxarepublicana.hashtagsxrep.domain.monitor.Monitor;
-import cat.xarxarepublicana.hashtagsxrep.domain.monitor.MonitorNotFoundException;
 import cat.xarxarepublicana.hashtagsxrep.domain.monitor.MonitorRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.report.Report;
 import cat.xarxarepublicana.hashtagsxrep.domain.report.ReportRepository;
@@ -19,11 +19,11 @@ public class GetTwitterQueryReportUseCase {
     public GetTwitterQueryReport getTwitterQueryReport(String twitterQuery) {
         Monitor monitor = monitorRepository.findByTwitterQuery(twitterQuery);
         if (monitor == null) {
-            throw new MonitorNotFoundException("No hi ha cap monitor per a: " + twitterQuery);
+            throw new EntityNotFoundException("No hi ha cap monitor per a: " + twitterQuery);
         }
         Report report = reportRepository.loadReport(monitor.getId());
 
-        GetTwitterQueryReport getTwitterQueryReport = new GetTwitterQueryReport(report,monitor);
+        GetTwitterQueryReport getTwitterQueryReport = new GetTwitterQueryReport(report, monitor);
         return getTwitterQueryReport;
     }
 
