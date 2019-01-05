@@ -23,8 +23,8 @@ import java.time.LocalDateTime;
 public class MonitorController {
 
     private final CreateMonitorUseCase createMonitorUseCase;
-    private final ListMonitorUseCase listMonitorUseCase;
     private final DeleteMonitorUseCase deleteMonitorUseCase;
+    private final ListMonitorUseCase listMonitorUseCase;
 
     @Autowired
     public MonitorController(CreateMonitorUseCase createMonitorUseCase, ListMonitorUseCase listMonitorUseCase, DeleteMonitorUseCase deleteMonitorUseCase) {
@@ -58,9 +58,10 @@ public class MonitorController {
     @PostMapping("/monitor/{monitorId}/delete")
     @Secured("ROLE_ADMIN")
     public RedirectView monitorDelete(
-            @PathVariable("monitorId") String monitorId
+            @PathVariable("monitorId") String monitorId,
+            @RequestParam("hashtag") String hashtag
     ) {
-        deleteMonitorUseCase.deleteMonitor(monitorId);
+        deleteMonitorUseCase.deleteMonitor(monitorId, hashtag);
         return new RedirectView(Views.URL_MONITOR);
     }
 

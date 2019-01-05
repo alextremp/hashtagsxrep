@@ -34,7 +34,7 @@ public class MonitorDataExtractionUseCase {
         int extractionRequestsCounter = 0;
         boolean stopByBlockSize;
         boolean stopByWindowRequests = false;
-        boolean existingDataReached = false;
+        boolean existingDataReached;
         StringBuffer queryString;
         SearchTweetsResult searchTweetsResult;
 

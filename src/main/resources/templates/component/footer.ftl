@@ -7,7 +7,7 @@
         </div>
         <div class="six columns ht-footer-r">
             <p>
-                GitHub <a href="https://github.com/HashtagsXRep">HashtagsXRep</a>
+                GitHub <a href="https://github.com/HashtagsXRep/hashtagsxrep">HashtagsXRep</a>
             </p>
         </div>
     </div>
