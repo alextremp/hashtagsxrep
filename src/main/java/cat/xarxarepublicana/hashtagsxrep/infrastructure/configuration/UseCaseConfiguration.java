@@ -5,6 +5,7 @@ import cat.xarxarepublicana.hashtagsxrep.application.monitor.DeleteMonitorUseCas
 import cat.xarxarepublicana.hashtagsxrep.application.monitor.ListMonitorUseCase;
 import cat.xarxarepublicana.hashtagsxrep.application.monitor.MonitorDataExtractionUseCase;
 import cat.xarxarepublicana.hashtagsxrep.application.poll.*;
+import cat.xarxarepublicana.hashtagsxrep.application.ranking.GetTaggersRankingUseCase;
 import cat.xarxarepublicana.hashtagsxrep.application.report.GetTwitterQueryReportUseCase;
 import cat.xarxarepublicana.hashtagsxrep.application.signin.ConnectTwitterCallbackUseCase;
 import cat.xarxarepublicana.hashtagsxrep.application.signin.SignInWithTwitterUse;
@@ -14,6 +15,7 @@ import cat.xarxarepublicana.hashtagsxrep.domain.monitor.MonitorRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.poll.PollFactory;
 import cat.xarxarepublicana.hashtagsxrep.domain.poll.PollRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.poll.ProposalFactory;
+import cat.xarxarepublicana.hashtagsxrep.domain.ranking.RankingRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.report.ReportRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.twitter.TwitterRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserRepository;
@@ -93,5 +95,10 @@ public class UseCaseConfiguration {
     @Bean
     public DeletePollUseCase deletePollUseCase(PollRepository pollRepository) {
         return new DeletePollUseCase(pollRepository);
+    }
+
+    @Bean
+    public GetTaggersRankingUseCase getTaggersRankingUseCase(RankingRepository rankingRepository) {
+        return new GetTaggersRankingUseCase(rankingRepository);
     }
 }

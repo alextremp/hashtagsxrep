@@ -384,6 +384,41 @@ div.ht-result:nth-child(odd) {
     margin-right: 20px;
     font-size: 90%;
 }
+.ht-ranking {
+    display: table;
+    background-color: #212121;
+    font-size: 5vw;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    border-radius: 10px;
+}
+.ht-score {
+    display: table-row;
+}
+.ht-score .nickname {
+    display: table-cell;
+    text-align: left;
+    padding-left: 10px;
+}
+.ht-score .score {
+    display: table-cell;
+    text-align: right;
+    color: #ffffdb;
+}
+.ht-score .rank {
+    display: table-cell;
+    text-align: center;
+    color: #ffffdb;
+    font-size: 85%;
+}
+.ht-score.table-header div {
+    display: table-cell;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+}
+
 .ht-ok {
 }
 .ht-footer {
@@ -397,6 +432,9 @@ div.ht-result:nth-child(odd) {
 @media (min-width: 400px) {
     .ht-poll-clocks {
         font-size: 60%;
+    }
+    .ht-ranking {
+        font-size: 4.5vw;
     }
 }
 
@@ -413,13 +451,17 @@ div.ht-result:nth-child(odd) {
         text-align: right;
         margin-right: 25%;
     }
+    .ht-ranking {
+        font-size: unset;
+    }
 }
 
 /* Larger than tablet */
 @media (min-width: 750px) {}
 
 /* Larger than desktop */
-@media (min-width: 1000px) {}
+@media (min-width: 1000px) {
+}
 
 /* Larger than Desktop HD */
 @media (min-width: 1200px) {}

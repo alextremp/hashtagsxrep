@@ -6,12 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.logging.Logger;
 
 @Controller
-public class PoCController {
-
-    private static final Logger LOG = Logger.getLogger(PoCController.class.getName());
-
-    public PoCController() {
-    }
+public class MainController {
 
     @GetMapping("/")
     public String index() {

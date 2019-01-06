@@ -18,4 +18,7 @@ public interface Views {
     String VIEW_POLL_DETAIL = "poll-detail";
 
     String VIEW_REPORT = "report";
+
+    String URL_RANKING = "/ranking";
+    String VIEW_RANKING = "ranking";
 }

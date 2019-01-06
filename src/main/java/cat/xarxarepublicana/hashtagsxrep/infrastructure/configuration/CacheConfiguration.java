@@ -1,11 +1,11 @@
 package cat.xarxarepublicana.hashtagsxrep.infrastructure.configuration;
 
-import cat.xarxarepublicana.hashtagsxrep.application.report.GetTwitterQueryReportUseCase;
 import cat.xarxarepublicana.hashtagsxrep.domain.monitor.Monitor;
+import cat.xarxarepublicana.hashtagsxrep.domain.ranking.Ranking;
 import cat.xarxarepublicana.hashtagsxrep.domain.report.Report;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.User;
-import cat.xarxarepublicana.hashtagsxrep.domain.user.UserRepository;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.JdbcMonitorRepository;
+import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.JdbcRankingRepository;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.JdbcReportRepository;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.JdbcUserRepository;
 import com.github.benmanes.caffeine.cache.Caffeine;
@@ -51,5 +51,13 @@ public class CacheConfiguration {
                 .expireAfterAccess(10, TimeUnit.MINUTES)
                 .maximumSize(100)
                 .build(userId -> jdbcUserRepository.findById(userId));
+    }
+
+    @Qualifier("rankingCache")
+    @Bean
+    public LoadingCache<String, Ranking> rankingCache(JdbcRankingRepository jdbcRankingRepository) {
+        return Caffeine.newBuilder()
+                .expireAfterAccess(10, TimeUnit.MINUTES)
+                .build(key -> jdbcRankingRepository.loadRanking());
     }
 }

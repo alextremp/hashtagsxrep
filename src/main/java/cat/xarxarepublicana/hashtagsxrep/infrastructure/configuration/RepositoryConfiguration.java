@@ -8,12 +8,14 @@ import cat.xarxarepublicana.hashtagsxrep.domain.monitor.MonitorRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.poll.PollFactory;
 import cat.xarxarepublicana.hashtagsxrep.domain.poll.PollRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.poll.ProposalFactory;
+import cat.xarxarepublicana.hashtagsxrep.domain.ranking.Ranking;
 import cat.xarxarepublicana.hashtagsxrep.domain.report.Report;
 import cat.xarxarepublicana.hashtagsxrep.domain.twitter.TwitterRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.User;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserFactory;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserRepository;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.cache.CachedMonitorRepository;
+import cat.xarxarepublicana.hashtagsxrep.infrastructure.cache.CachedRankingRepository;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.cache.CachedReportRepository;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.cache.CachedUserRepository;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.*;
@@ -98,8 +100,8 @@ public class RepositoryConfiguration {
 
     @Bean
     @Primary
-    public CachedMonitorRepository cachedMonitorRepository(JdbcMonitorRepository jdbcMonitorRepository, @Qualifier("monitorCache") LoadingCache<String, Monitor> monitorCache, @Qualifier("monitorListCache") LoadingCache<String, List<Monitor>> monitorListCache, @Qualifier("reportCache") LoadingCache<String, Report> reportCache) {
-        return new CachedMonitorRepository(jdbcMonitorRepository, monitorCache, monitorListCache, reportCache);
+    public CachedMonitorRepository cachedMonitorRepository(JdbcMonitorRepository jdbcMonitorRepository, @Qualifier("monitorCache") LoadingCache<String, Monitor> monitorCache, @Qualifier("monitorListCache") LoadingCache<String, List<Monitor>> monitorListCache, @Qualifier("reportCache") LoadingCache<String, Report> reportCache, @Qualifier("rankingCache") LoadingCache<String, Ranking> rankingCache) {
+        return new CachedMonitorRepository(jdbcMonitorRepository, monitorCache, monitorListCache, reportCache, rankingCache);
     }
 
     @Bean
@@ -126,6 +128,17 @@ public class RepositoryConfiguration {
     @Primary
     public CachedReportRepository cachedReportRepository(JdbcReportRepository jdbcReportRepository, @Qualifier("reportCache") LoadingCache<String, Report> reportCache) {
         return new CachedReportRepository(jdbcReportRepository, reportCache);
+    }
+
+    @Bean
+    public JdbcRankingRepository jdbcRankingRepository(RankingMapper rankingMapper) {
+        return new JdbcRankingRepository(rankingMapper);
+    }
+
+    @Bean
+    @Primary
+    public CachedRankingRepository cachedRankingRepository(JdbcRankingRepository jdbcRankingRepository, @Qualifier("rankingCache")LoadingCache<String, Ranking> rankingCache) {
+        return new CachedRankingRepository(jdbcRankingRepository, rankingCache);
     }
 
     @Bean
