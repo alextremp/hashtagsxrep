@@ -16,6 +16,8 @@
             <i class="fas fa-list-ol"></i> #Rànquing
         </div>
 
+        <#include "component/ranking/user-score.ftl">
+        <#include "component/ranking/score-info.ftl">
         <#include "component/ranking/list.ftl">
 
         <div class="ht-box">
