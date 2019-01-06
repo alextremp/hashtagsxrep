@@ -14,4 +14,13 @@ public class Ranking {
     public List<Score> getTaggerScoreList() {
         return taggerScoreList;
     }
+
+    public Integer getRankByNickname(String nickname) {
+        for (int i=0; i<taggerScoreList.size(); i++) {
+            if (taggerScoreList.get(i).getNickname().equals(nickname)) {
+                return i + 1;
+            }
+        }
+        return null;
+    }
 }

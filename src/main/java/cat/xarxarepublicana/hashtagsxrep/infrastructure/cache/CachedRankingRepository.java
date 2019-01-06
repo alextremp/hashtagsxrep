@@ -2,6 +2,7 @@ package cat.xarxarepublicana.hashtagsxrep.infrastructure.cache;
 
 import cat.xarxarepublicana.hashtagsxrep.domain.ranking.Ranking;
 import cat.xarxarepublicana.hashtagsxrep.domain.ranking.RankingRepository;
+import cat.xarxarepublicana.hashtagsxrep.domain.ranking.UserRank;
 import com.github.benmanes.caffeine.cache.LoadingCache;
 
 import static cat.xarxarepublicana.hashtagsxrep.infrastructure.cache.CacheConstants.SINGLE_ENTRY_KEY;
@@ -19,5 +20,10 @@ public class CachedRankingRepository implements RankingRepository {
     @Override
     public Ranking loadRanking() {
         return rankingCache.get(SINGLE_ENTRY_KEY);
+    }
+
+    @Override
+    public UserRank loadUserRank(String nickname) {
+        return rankingRepository.loadUserRank(nickname);
     }
 }
