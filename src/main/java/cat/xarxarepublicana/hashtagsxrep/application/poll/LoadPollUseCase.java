@@ -1,6 +1,8 @@
 package cat.xarxarepublicana.hashtagsxrep.application.poll;
 
 import cat.xarxarepublicana.hashtagsxrep.domain.error.EntityNotFoundException;
+import cat.xarxarepublicana.hashtagsxrep.domain.invite.InviteGroup;
+import cat.xarxarepublicana.hashtagsxrep.domain.invite.InviteRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.poll.Poll;
 import cat.xarxarepublicana.hashtagsxrep.domain.poll.PollRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.poll.Proposal;
@@ -11,9 +13,11 @@ import java.util.List;
 public class LoadPollUseCase {
 
     private final PollRepository pollRepository;
+    private final InviteRepository inviteRepository;
 
-    public LoadPollUseCase(PollRepository pollRepository) {
+    public LoadPollUseCase(PollRepository pollRepository, InviteRepository inviteRepository) {
         this.pollRepository = pollRepository;
+        this.inviteRepository = inviteRepository;
     }
 
     public LoadPollResponse loadPoll (String pollId, User user) {
@@ -24,7 +28,8 @@ public class LoadPollUseCase {
         Proposal userProposal = pollRepository.findProposal(poll, user.getId());
         Proposal userVote = pollRepository.findUserVote(poll, user.getId());
         List<Proposal> proposalList = pollRepository.findPollProposals(poll);
-        return new LoadPollResponse(poll, userProposal, userVote, proposalList);
+        InviteGroup inviteGroup = inviteRepository.loadInvitesForPoll(poll);
+        return new LoadPollResponse(poll, userProposal, userVote, proposalList, inviteGroup);
     }
 
     public static class LoadPollResponse {
@@ -32,12 +37,14 @@ public class LoadPollUseCase {
         private final Proposal userProposal;
         private final Proposal userVote;
         private final List<Proposal> pollProposals;
+        private final InviteGroup inviteGroup;
 
-        public LoadPollResponse(Poll poll, Proposal userProposal, Proposal userVote, List<Proposal> pollProposals) {
+        public LoadPollResponse(Poll poll, Proposal userProposal, Proposal userVote, List<Proposal> pollProposals, InviteGroup inviteGroup) {
             this.poll = poll;
             this.userProposal = userProposal;
             this.userVote = userVote;
             this.pollProposals = pollProposals;
+            this.inviteGroup = inviteGroup;
         }
 
         public Poll getPoll() {
@@ -54,6 +61,10 @@ public class LoadPollUseCase {
 
         public List<Proposal> getPollProposals() {
             return pollProposals;
+        }
+
+        public InviteGroup getInviteGroup() {
+            return inviteGroup;
         }
 
         public Integer getPollVoteCount() {

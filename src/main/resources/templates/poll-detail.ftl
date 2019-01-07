@@ -16,6 +16,7 @@
         </div>
 
         <#include "component/poll/detail.ftl">
+        <#include "component/invite/detail.ftl">
 
         <div class="ht-box">
             <#include "component/poll/page-link.ftl">

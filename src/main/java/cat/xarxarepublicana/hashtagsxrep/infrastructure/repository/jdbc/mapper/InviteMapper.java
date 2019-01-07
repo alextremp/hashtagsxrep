@@ -1,7 +1,10 @@
 package cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper;
 
+import cat.xarxarepublicana.hashtagsxrep.domain.invite.Invite;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 @Mapper
 public interface InviteMapper {
@@ -17,4 +20,6 @@ public interface InviteMapper {
     void insertInfluencers(@Param("pollId") String pollId);
 
     void deleteByPollId(@Param("pollId") String pollId);
+
+    List<Invite> selectInvitesByPollId(@Param("pollId") String pollId);
 }

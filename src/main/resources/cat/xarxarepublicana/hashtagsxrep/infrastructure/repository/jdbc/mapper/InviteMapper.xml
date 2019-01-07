@@ -128,4 +128,10 @@
         DELETE FROM POLL_INVITE WHERE poll_id = #{pollId}
     </delete>
 
+    <select id="selectInvitesByPollId" resultMap="InviteResultMap">
+        SELECT nickname, reason
+        FROM POLL_INVITE
+        WHERE poll_id = #{pollId}
+    </select>
+
 </mapper>
