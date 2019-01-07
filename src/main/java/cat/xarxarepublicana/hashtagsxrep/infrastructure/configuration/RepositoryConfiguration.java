@@ -2,6 +2,8 @@ package cat.xarxarepublicana.hashtagsxrep.infrastructure.configuration;
 
 import cat.xarxarepublicana.hashtagsxrep.domain.extraction.TwitterExtractionFactory;
 import cat.xarxarepublicana.hashtagsxrep.domain.extraction.TwitterExtractionRepository;
+import cat.xarxarepublicana.hashtagsxrep.domain.invite.InviteGroup;
+import cat.xarxarepublicana.hashtagsxrep.domain.invite.InviteRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.monitor.Monitor;
 import cat.xarxarepublicana.hashtagsxrep.domain.monitor.MonitorFactory;
 import cat.xarxarepublicana.hashtagsxrep.domain.monitor.MonitorRepository;
@@ -14,10 +16,7 @@ import cat.xarxarepublicana.hashtagsxrep.domain.twitter.TwitterRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.User;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserFactory;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserRepository;
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.cache.CachedMonitorRepository;
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.cache.CachedRankingRepository;
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.cache.CachedReportRepository;
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.cache.CachedUserRepository;
+import cat.xarxarepublicana.hashtagsxrep.infrastructure.cache.*;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.*;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.*;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.twitter.TwitterApi;
@@ -152,8 +151,19 @@ public class RepositoryConfiguration {
     }
 
     @Bean
-    public PollRepository jdbcPollRepository(PollMapper pollMapper) {
-        return new JdbcPollRepository(pollMapper);
+    public PollRepository jdbcPollRepository(PollMapper pollMapper, InviteMapper inviteMapper) {
+        return new JdbcPollRepository(pollMapper, inviteMapper);
+    }
+
+    @Bean
+    public JdbcInviteRepository jdbcInviteRepository(InviteMapper inviteMapper) {
+        return new JdbcInviteRepository(inviteMapper);
+    }
+
+    @Bean
+    @Primary
+    public CachedInviteRepository cachedInviteRepository(InviteRepository inviteRepository, @Qualifier("inviteGroupCache") LoadingCache<String, InviteGroup> inviteGroupCache) {
+        return new CachedInviteRepository(inviteRepository, inviteGroupCache);
     }
 
     @Bean

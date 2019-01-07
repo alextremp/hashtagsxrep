@@ -4,6 +4,7 @@ import cat.xarxarepublicana.hashtagsxrep.domain.poll.Poll;
 import cat.xarxarepublicana.hashtagsxrep.domain.poll.PollRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.poll.Proposal;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.User;
+import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.InviteMapper;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.PollMapper;
 
 import java.util.List;
@@ -11,9 +12,11 @@ import java.util.List;
 public class JdbcPollRepository implements PollRepository {
 
     private final PollMapper pollMapper;
+    private final InviteMapper inviteMapper;
 
-    public JdbcPollRepository(PollMapper pollMapper) {
+    public JdbcPollRepository(PollMapper pollMapper, InviteMapper inviteMapper) {
         this.pollMapper = pollMapper;
+        this.inviteMapper = inviteMapper;
     }
 
     @Override
@@ -73,6 +76,7 @@ public class JdbcPollRepository implements PollRepository {
 
     @Override
     public void delete(Poll poll) {
+        inviteMapper.deleteByPollId(poll.getId());
         pollMapper.deleteVotes(poll.getId());
         pollMapper.deleteProposals(poll.getId());
         pollMapper.delete(poll.getId());
