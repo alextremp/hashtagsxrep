@@ -152,8 +152,13 @@ public class RepositoryConfiguration {
     }
 
     @Bean
-    public PollRepository jdbcPollRepository(PollMapper pollMapper) {
-        return new JdbcPollRepository(pollMapper);
+    public PollRepository jdbcPollRepository(PollMapper pollMapper, InviteMapper inviteMapper) {
+        return new JdbcPollRepository(pollMapper, inviteMapper);
+    }
+
+    @Bean
+    public JdbcInviteRepository jdbcInviteRepository(InviteMapper inviteMapper) {
+        return new JdbcInviteRepository(inviteMapper);
     }
 
     @Bean

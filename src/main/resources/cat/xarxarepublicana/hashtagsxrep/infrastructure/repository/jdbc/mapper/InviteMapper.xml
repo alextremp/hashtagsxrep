@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org//DTD Mapper 3.0//EN'
+        'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+
+<mapper namespace='cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.InviteMapper'>
+
+    <resultMap id='InviteResultMap' type="cat.xarxarepublicana.hashtagsxrep.domain.invite.Invite">
+        <constructor>
+            <idArg column="nickname" javaType="string" />
+            <arg column="reason" javaType="string" />
+        </constructor>
+    </resultMap>
+
+    <sql id="sqlSelectTaggersRanking">
+      SELECT
+        ranking.nickname,
+        sum(ranking.ht_score)                            AS score,
+        group_concat(DISTINCT ranking.type SEPARATOR '') AS content
+      FROM (
+             SELECT
+               q.nickname,
+               q.twitter_query                      AS hashtag,
+               q.type                               AS type,
+               q.quantity,
+               q.rownum * q.quantity * q.multiplier AS ht_score
+             FROM (
+                    SELECT
+                      user.nickname,
+                      monitor.rownum,
+                      monitor.id,
+                      monitor.twitter_query,
+                      twitter.type,
+                      CASE twitter.type
+                      WHEN 'T'
+                        THEN 15
+                      WHEN 'Q'
+                        THEN 12
+                      WHEN 'C'
+                        THEN 5
+                      ELSE 1 END              AS multiplier,
+                      count(twitter.tweet_id) AS quantity
+                    FROM (
+                           SELECT
+                             @r := @r - 1 AS rownum,
+                             z.*
+                           FROM (SELECT
+                                   m.id,
+                                   m.twitter_query
+                                 FROM MONITOR m
+                                 ORDER BY start_date DESC
+                                 LIMIT 4) z,
+                             (SELECT @r := 5) y
+                         ) monitor, TWITTER_EXTRACTION twitter, USER user
+                    WHERE monitor.id = twitter.monitor_id AND user.id = twitter.user_id
+                    GROUP BY user.nickname, monitor.rownum, monitor.id, monitor.twitter_query, twitter.type
+                  ) q
+             GROUP BY q.nickname, q.twitter_query, q.type, q.quantity
+           ) ranking
+      GROUP BY ranking.nickname
+      HAVING content &lt;&gt; 'R'
+    </sql>
+
+    <sql id="selectNicknamesByPollId">
+        SELECT invite.nickname
+        FROM POLL_INVITE invite
+        WHERE invite.poll_id = #{pollId}
+    </sql>
+
+    <insert id="insertAdmins">
+        INSERT INTO POLL_INVITE (poll_id, nickname, reason)
+        SELECT #{pollId}, user.nickname, 'ADMIN'
+        FROM USER user
+        WHERE user.role in ('CREATOR', 'ADMIN') and user.nickname &lt;&gt; 'auto'
+    </insert>
+
+    <insert id="insertTaggers">
+        INSERT INTO POLL_INVITE (poll_id, nickname, reason)
+        SELECT #{pollId}, user.nickname, 'TAGGER'
+        FROM USER user
+        WHERE user.role in ('TAGGER')
+        AND user.nickname NOT IN (
+            <include refid="selectNicknamesByPollId"/>
+        )
+    </insert>
+
+    <insert id="insertTopRanking">
+        INSERT INTO POLL_INVITE (poll_id, nickname, reason)
+        SELECT #{pollId}, taggers_ranking.nickname, 'SCORE'
+        FROM (
+            <include refid="sqlSelectTaggersRanking"/>
+        ) taggers_ranking
+        WHERE taggers_ranking.nickname NOT IN (
+            <include refid="selectNicknamesByPollId"/>
+        )
+        ORDER BY taggers_ranking.score DESC
+        LIMIT 15
+    </insert>
+
+    <insert id="insertRandomRanking">
+        INSERT INTO POLL_INVITE (poll_id, nickname, reason)
+        SELECT #{pollId}, taggers_ranking.nickname, 'RANDOM'
+        FROM (
+            <include refid="sqlSelectTaggersRanking"/>
+        ) taggers_ranking
+        WHERE taggers_ranking.nickname NOT IN (
+            SELECT invite.nickname
+            FROM POLL_INVITE invite
+        )
+        ORDER BY RAND()
+        LIMIT 5
+    </insert>
+
+    <insert id="insertInfluencers">
+        INSERT INTO POLL_INVITE (poll_id, nickname, reason)
+        SELECT #{pollId}, taggers_ranking.nickname, 'INFLUENCE'
+        FROM (
+            <include refid="sqlSelectTaggersRanking"/>
+        ) taggers_ranking, USER user
+        WHERE taggers_ranking.nickname NOT IN (
+            <include refid="selectNicknamesByPollId"/>
+        )
+        AND user.nickname = taggers_ranking.nickname
+        ORDER BY user.followers DESC
+        LIMIT 5
+    </insert>
+
+    <delete id="deleteByPollId">
+        DELETE FROM POLL_INVITE WHERE poll_id = #{pollId}
+    </delete>
+
+</mapper>

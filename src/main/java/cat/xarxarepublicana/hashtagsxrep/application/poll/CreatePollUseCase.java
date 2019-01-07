@@ -1,5 +1,6 @@
 package cat.xarxarepublicana.hashtagsxrep.application.poll;
 
+import cat.xarxarepublicana.hashtagsxrep.domain.invite.InviteRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.poll.Poll;
 import cat.xarxarepublicana.hashtagsxrep.domain.poll.PollFactory;
 import cat.xarxarepublicana.hashtagsxrep.domain.poll.PollRepository;
@@ -11,15 +12,18 @@ public class CreatePollUseCase {
 
     private final PollFactory pollFactory;
     private final PollRepository pollRepository;
+    private final InviteRepository inviteRepository;
 
-    public CreatePollUseCase(PollFactory pollFactory, PollRepository pollRepository) {
+    public CreatePollUseCase(PollFactory pollFactory, PollRepository pollRepository, InviteRepository inviteRepository) {
         this.pollFactory = pollFactory;
         this.pollRepository = pollRepository;
+        this.inviteRepository = inviteRepository;
     }
 
     public CreatePollResponse createPoll(User author, String description, LocalDateTime startProposalsTime, LocalDateTime endProposalsTime, LocalDateTime endVotingTime, LocalDateTime startEventTime) {
         Poll poll = pollFactory.createPoll(author.getId(), author.getNickname(), description, startProposalsTime, endProposalsTime, endVotingTime, startEventTime);
         pollRepository.save(poll);
+        inviteRepository.inviteToPoll(poll);
         return new CreatePollResponse(poll);
     }
 

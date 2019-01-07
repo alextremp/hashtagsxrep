@@ -102,3 +102,13 @@ CREATE TABLE POLL_VOTE
     CONSTRAINT POLL_VOTE_USER_id_fk FOREIGN KEY (proposal_voter_id) REFERENCES USER (id)
 );
 ALTER TABLE POLL_VOTE COMMENT = 'Taula de vots a propostes de hashtags';
+
+CREATE TABLE POLL_INVITE
+(
+    poll_id VARCHAR(40) NOT NULL,
+    nickname VARCHAR(20) NOT NULL,
+    reason VARCHAR(10) NOT NULL,
+    CONSTRAINT POLL_INVITE_poll_id_nickname_pk PRIMARY KEY (poll_id, nickname),
+    CONSTRAINT POLL_INVITE_POLL_id_fk FOREIGN KEY (poll_id) REFERENCES POLL (id)
+);
+ALTER TABLE POLL_INVITE COMMENT = 'Taula de usuaris invitats a proposar hashtags';
