@@ -23,7 +23,7 @@ public class CreatePollUseCase {
     public CreatePollResponse createPoll(User author, String description, LocalDateTime startProposalsTime, LocalDateTime endProposalsTime, LocalDateTime endVotingTime, LocalDateTime startEventTime) {
         Poll poll = pollFactory.createPoll(author.getId(), author.getNickname(), description, startProposalsTime, endProposalsTime, endVotingTime, startEventTime);
         pollRepository.save(poll);
-        inviteRepository.inviteToPoll(poll);
+        inviteRepository.inviteToPoll(poll.getId());
         return new CreatePollResponse(poll);
     }
 

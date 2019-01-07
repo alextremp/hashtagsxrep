@@ -1,10 +1,8 @@
 package cat.xarxarepublicana.hashtagsxrep.domain.invite;
 
-import cat.xarxarepublicana.hashtagsxrep.domain.poll.Poll;
-
 public interface InviteRepository {
 
-    void inviteToPoll(Poll poll);
+    void inviteToPoll(String pollId);
 
-    InviteGroup loadInvitesForPoll(Poll poll);
+    InviteGroup loadInvitesForPoll(String pollId);
 }

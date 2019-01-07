@@ -1,5 +1,7 @@
 package cat.xarxarepublicana.hashtagsxrep.domain.invite;
 
+import cat.xarxarepublicana.hashtagsxrep.domain.user.User;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,5 +39,34 @@ public class InviteGroup {
 
     public List<Invite> getRandomRankingList() {
         return randomRankingList;
+    }
+
+    public boolean isInvited(User user) {
+        return isAdmin(user) || isTop(user) || isRandom(user) || isTagger(user) || isInfluencer(user);
+    }
+
+    private boolean isRandom(User user) {
+        return randomRankingList.stream()
+                .anyMatch(invite -> user.getNickname().equals(invite.getNickname()));
+    }
+
+    private boolean isTop(User user) {
+        return topRankingList.stream()
+                .anyMatch(invite -> user.getNickname().equals(invite.getNickname()));
+    }
+
+    private boolean isInfluencer(User user) {
+        return influenceList.stream()
+                .anyMatch(invite -> user.getNickname().equals(invite.getNickname()));
+    }
+
+    private boolean isTagger(User user) {
+        return taggerList.stream()
+                .anyMatch(invite -> user.getNickname().equals(invite.getNickname()));
+    }
+
+    private boolean isAdmin(User user) {
+        return adminList.stream()
+                .anyMatch(invite -> user.getNickname().equals(invite.getNickname()));
     }
 }

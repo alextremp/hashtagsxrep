@@ -1,13 +1,11 @@
 package cat.xarxarepublicana.hashtagsxrep.infrastructure.configuration;
 
+import cat.xarxarepublicana.hashtagsxrep.domain.invite.InviteGroup;
 import cat.xarxarepublicana.hashtagsxrep.domain.monitor.Monitor;
 import cat.xarxarepublicana.hashtagsxrep.domain.ranking.Ranking;
 import cat.xarxarepublicana.hashtagsxrep.domain.report.Report;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.User;
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.JdbcMonitorRepository;
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.JdbcRankingRepository;
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.JdbcReportRepository;
-import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.JdbcUserRepository;
+import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.*;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -59,5 +57,13 @@ public class CacheConfiguration {
         return Caffeine.newBuilder()
                 .expireAfterAccess(10, TimeUnit.MINUTES)
                 .build(key -> jdbcRankingRepository.loadRanking());
+    }
+
+    @Qualifier("inviteGroupCache")
+    @Bean
+    public LoadingCache<String, InviteGroup> inviteGroupCache(JdbcInviteRepository jdbcInviteRepository) {
+        return Caffeine.newBuilder()
+                .expireAfterAccess(10, TimeUnit.MINUTES)
+                .build(pollId -> jdbcInviteRepository.loadInvitesForPoll(pollId));
     }
 }

@@ -124,7 +124,4 @@ public class User {
         return canVote() && !getId().equals(proposal.getAuthorId());
     }
 
-    public boolean canPropose() {
-        return hasAccess(Role.ADMIN);
-    }
 }

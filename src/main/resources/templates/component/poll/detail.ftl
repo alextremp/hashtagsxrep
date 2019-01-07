@@ -1,7 +1,8 @@
+<#assign canPropose = loadPollResponse.inviteGroup.isInvited(user) />
 <#assign showNotStarted = loadPollResponse.poll.notStarted />
-<#assign showProposalForm = loadPollResponse.poll.proposalsTime \and !(loadPollResponse.userProposal??) \and user.canPropose() />
-<#assign showUserProposed = loadPollResponse.poll.proposalsTime \and loadPollResponse.userProposal?? \and user.canPropose() />
-<#assign showCannotPropose = loadPollResponse.poll.proposalsTime \and  !user.canPropose() />
+<#assign showProposalForm = loadPollResponse.poll.proposalsTime \and !(loadPollResponse.userProposal??) \and canPropose />
+<#assign showUserProposed = loadPollResponse.poll.proposalsTime \and loadPollResponse.userProposal?? \and canPropose />
+<#assign showCannotPropose = loadPollResponse.poll.proposalsTime \and  !canPropose />
 <#assign showProposalToVoteList = loadPollResponse.poll.votingTime />
 <#assign showVoteResults = loadPollResponse.poll.votingClosed />
 <div class="ht-box">

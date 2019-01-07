@@ -28,7 +28,7 @@ public class LoadPollUseCase {
         Proposal userProposal = pollRepository.findProposal(poll, user.getId());
         Proposal userVote = pollRepository.findUserVote(poll, user.getId());
         List<Proposal> proposalList = pollRepository.findPollProposals(poll);
-        InviteGroup inviteGroup = inviteRepository.loadInvitesForPoll(poll);
+        InviteGroup inviteGroup = inviteRepository.loadInvitesForPoll(poll.getId());
         return new LoadPollResponse(poll, userProposal, userVote, proposalList, inviteGroup);
     }
 
