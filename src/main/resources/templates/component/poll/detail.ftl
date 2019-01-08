@@ -21,7 +21,7 @@
 <div class="ht-box">
     <#if showProposalForm>
         <div class="ht-tip">
-            Proposa un hashtag.
+            Proposa un hashtag. La votació de propostes serà anònima. Acabada la votació es mostrarà la teva proposta junt amb el teu nickname :)
         </div>
         <form action="/poll/${loadPollResponse.poll.id}/proposal" method="post" class="ht-form">
             <div class="row">
@@ -46,6 +46,9 @@
             </div>
         </form>
     <#elseif showUserProposed>
+        <div class="ht-message">
+            <i class="fas fa-heart"></i> Gràcies per la teva proposta! Torna a les ${loadPollResponse.poll.asString(loadPollResponse.poll.endProposalsTime)} per poder votar entre les altres propostes!
+        </div>
         <div class="ht-proposal">
             <header>${loadPollResponse.userProposal.hashtag}</header>
             <div class="ht-proposal-subject">${stringEscapeService.unescape(loadPollResponse.userProposal.subject)}</div>
@@ -56,21 +59,28 @@
             </footer>
         </div>
     <#elseif showNotStarted>
-        <div class="ht-tip">
-            <i class="fas fa-info-circle"></i> L'enquesta no s'inicia fins l'hora marcada amb #IniciPropostesDeHashtags.
+        <div class="ht-message">
+            <i class="fas fa-info-circle"></i> L'enquesta no s'inicia fins el ${loadPollResponse.poll.asString(loadPollResponse.poll.startProposalsTime)}.
         </div>
     <#elseif showCannotPropose>
-        <div class="ht-tip">
-            <i class="fas fa-info-circle"></i> De moment, només els administradors poden proposar hashtags. Torna a l'hora #IniciVotacióDePropostes per poder votar el teu hashtag preferit.
+        <div class="ht-message">
+            <i class="fas fa-info-circle"></i> Avui no pots proposar hashtag, però torna el ${loadPollResponse.poll.asString(loadPollResponse.poll.endProposalsTime)} i podràs votar el que més t'agradi!
         </div>
     <#elseif showProposalToVoteList>
-        <div class="ht-tip">
-            <#if loadPollResponse.pollProposals?? \and loadPollResponse.pollProposals?size != 0>
-            Llista de propostes.
-            <#else>
-            No hi ha propostes per aquesta enquesta.
-            </#if>
+        <#if loadPollResponse.userVote??>
+        <div class="ht-message mb20">
+            <i class="fas fa-heart"></i> Gràcies pel teu vot! Torna a les ${loadPollResponse.poll.asString(loadPollResponse.poll.endVotingTime)} per poder conèixer la proposta de hashtag més votada!
         </div>
+        </#if>
+        <#if loadPollResponse.pollProposals?? \and loadPollResponse.pollProposals?size != 0>
+        <div class="ht-tip">
+            Llista de propostes. (${loadPollResponse.pollVoteCount} vots)
+        </div>
+        <#else>
+        <div class="ht-tip">
+            No hi ha propostes per aquesta enquesta.
+        </div>
+        </#if>
         <#if loadPollResponse.pollProposals?? \and loadPollResponse.pollProposals?size != 0>
         <form action="/poll/${loadPollResponse.poll.id}/vote" method="post" class="ht-form">
             <input type="hidden" name="proposalAuthorId" id="proposalAuthorId" value=""/>
@@ -103,6 +113,13 @@
             Resultat de la votació. (${loadPollResponse.pollVoteCount} vots)
         </div>
         <#list loadPollResponse.pollProposals as proposal>
+        <#if proposal?counter == 1>
+        <div class="ht-proposal-wbox winner">
+            <header>Proposta Guanyadora</header>
+        <#else>
+        <div class="ht-proposal-wbox others">
+            <header>Resta de propostes</header>
+        </#if>
         <div class="ht-proposal">
             <header>${proposal.hashtag}</header>
             <div class="ht-vote-info"><i class="fas fa-user-tag"></i> @${proposal.authorNickname}&nbsp;&nbsp;<i class="fas fa-thumbs-up"></i>  ${proposal.votes} vots</div>
@@ -121,6 +138,12 @@
             </#if>
             </footer>
         </div>
+        <#if proposal?counter == 1>
+        </div>
+        </#if>
         </#list>
+        <#if loadPollResponse.pollProposals?size &gt; 1>
+        </div>
+        </#if>
     </#if>
 </div>
