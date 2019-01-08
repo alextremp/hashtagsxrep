@@ -407,6 +407,18 @@ header.ht-user-rank {
     padding: 10px;
     border-radius: 10px;
 }
+.ht-ranking header {
+    color: white;
+    display: table-caption;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    background-color: black;
+    font-weight: bold;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
 .ht-score {
     display: table-row;
 }
