@@ -116,7 +116,7 @@
         <#if proposal?counter == 1>
         <div class="ht-proposal-wbox winner">
             <header>Proposta Guanyadora</header>
-        <#else>
+        <#elseif proposal?counter == 2>
         <div class="ht-proposal-wbox others">
             <header>Resta de propostes</header>
         </#if>
@@ -145,7 +145,7 @@
         </div>
         </#if>
         </#list>
-        <#if loadPollResponse.pollProposals?size &gt; 1>
+        <#if loadPollResponse.pollProposals?size == 2>
         </div>
         </#if>
     </#if>
