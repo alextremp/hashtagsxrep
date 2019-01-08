@@ -11,7 +11,9 @@
             <#list pollList as poll>
             <div class="ht-poll">
                 <a href="/poll/${poll.id}" class="button button-ht">
-                    ${poll.description}
+                    <#if poll.description?length &gt; 25>${poll.description[0..*25]}...
+                    <#else>${poll.description}
+                    </#if>
                 </a>
             </div>
             </#list>
