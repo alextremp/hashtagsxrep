@@ -140,6 +140,9 @@
         </div>
         <#if proposal?counter == 1>
         </div>
+        <div class="ht-message">
+            <i class="fas fa-clock"></i> Recorda, a les ${loadPollResponse.poll.asString(loadPollResponse.poll.startEventTime)} comencem!
+        </div>
         </#if>
         </#list>
         <#if loadPollResponse.pollProposals?size &gt; 1>
