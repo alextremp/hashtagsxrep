@@ -125,7 +125,7 @@ public class PollController {
             @PathVariable("pollId") String pollId,
             @RequestParam("description") String description
     ) {
-        deletePollUseCase.deletePoll(pollId, description);
+        deletePollUseCase.deletePoll(pollId, stringEscapeService.escapeHTML(description));
         return new RedirectView(Views.URL_POLL);
     }
 
