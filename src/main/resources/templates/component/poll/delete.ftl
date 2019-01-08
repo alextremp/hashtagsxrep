@@ -18,7 +18,7 @@
                     <div class="row">
                         <div class="twelve columns">
                             <label for="description">Còpia la descripció de l'enquesta</label>
-                            <input placeholder="Validació de seguretat..." id="description" name="description" type="text" minlength="3" maxlength="30" title="Breu descripció de l'atac pel que es fa l'enquesta." required class="u-full-width"/>
+                            <input placeholder="Validació de seguretat..." id="description" name="description" type="text" minlength="3" maxlength="200" title="Breu descripció de l'atac pel que es fa l'enquesta." required class="u-full-width"/>
                         </div>
                     </div>
                     <div class="row">

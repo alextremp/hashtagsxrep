@@ -17,6 +17,7 @@
         Desglòs de la teva puntuació.
     </div>
     <div class="ht-ranking">
+        <header>${getTaggersRankingResponse.userRank.totalScore} punts</header>
         <#assign lastHT = ''/>
         <#list getTaggersRankingResponse.userRank.hashtagScoreList as score>
         <#if score.hashtag != lastHT>

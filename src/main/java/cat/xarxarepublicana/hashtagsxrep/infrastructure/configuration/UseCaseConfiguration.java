@@ -79,8 +79,8 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public PollProposalUseCase pollProposalUseCase(PollRepository pollRepository, ProposalFactory proposalFactory) {
-        return new PollProposalUseCase(pollRepository, proposalFactory);
+    public PollProposalUseCase pollProposalUseCase(PollRepository pollRepository, ProposalFactory proposalFactory, InviteRepository inviteRepository) {
+        return new PollProposalUseCase(pollRepository, proposalFactory, inviteRepository);
     }
 
     @Bean

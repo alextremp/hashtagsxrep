@@ -87,7 +87,7 @@ public class PollController {
     }
 
     @PostMapping("/poll/{pollId}/proposal")
-    @Secured("ROLE_ADMIN")
+    @Secured("ROLE_VIEWER")
     public RedirectView pollProposal(
             @PathVariable("pollId") String pollId,
             @RequestParam("hashtag")

@@ -1,13 +1,13 @@
 <div class="ht-box">
     <div class="ht-info">
-        <i class="fas fa-users"></i> #Usuaris de #PropostesDeHashtags per aquesta enquesta
+        <i class="fas fa-users"></i> #Usuaris convidats a proposar hashtags
     </div>
     <div class="ht-tip">
-        <i class="fas fa-info-circle"></i> Un cop s'obri la votació, tothom podrà votar la proposta que més li agradi, però només els següents usuaris podran crear propostes de hashtags.
+        <i class="fas fa-info-circle"></i> Tothom podrà votar la proposta que més li agradi!
     </div>
     <div class="row">
         <#if loadPollResponse.inviteGroup.topRankingList?size != 0>
-        <div class="four columns">
+        <div class="six columns">
             <div class="ht-invite">
                 <header>
                     Top Taggers del Rànquing
@@ -20,22 +20,8 @@
             </div>
         </div>
         </#if>
-        <div class="four columns">
-            <#if loadPollResponse.inviteGroup.influenceList?size != 0>
-            <div class="ht-invite">
-                <header>
-                    Top Influencers del Rànquing
-                </header>
-                <div class="ht-invite-list">
-                    <#list loadPollResponse.inviteGroup.influenceList as inviteI>
-                    <div class="ht-invite-item"><a href="https://twitter.com/${inviteI.nickname}" target="_blank">@${inviteI.nickname}</a></div>
-                    </#list>
-                </div>
-            </div>
-            </#if>
-        </div>
-        <div class="four columns">
-            <#if loadPollResponse.inviteGroup.randomRankingList?size != 0>
+        <#if loadPollResponse.inviteGroup.randomRankingList?size != 0>
+        <div class="six columns">
             <div class="ht-invite">
                 <header>
                     Taggers Aleatoris del Rànquing
@@ -46,27 +32,26 @@
                     </#list>
                 </div>
             </div>
-            </#if>
         </div>
+        </#if>
     </div>
     <div class="row">
-        <div class="two columns no-mobile">&nbsp;</div>
-        <div class="four columns">
-            <#if loadPollResponse.inviteGroup.taggerList?size != 0>
+        <#if loadPollResponse.inviteGroup.influenceList?size != 0>
+        <div class="six columns">
             <div class="ht-invite">
                 <header>
-                    Col·laboradors VIP
+                    Top Influencers del Rànquing
                 </header>
                 <div class="ht-invite-list">
-                    <#list loadPollResponse.inviteGroup.taggerList as inviteT>
-                    <div class="ht-invite-item"><a href="https://twitter.com/${inviteT.nickname}" target="_blank">@${inviteT.nickname}</a></div>
+                    <#list loadPollResponse.inviteGroup.influenceList as inviteI>
+                    <div class="ht-invite-item"><a href="https://twitter.com/${inviteI.nickname}" target="_blank">@${inviteI.nickname}</a></div>
                     </#list>
                 </div>
             </div>
-            </#if>
         </div>
-        <div class="four columns">
-            <#if loadPollResponse.inviteGroup.adminList?size != 0>
+        </#if>
+        <#if loadPollResponse.inviteGroup.adminList?size != 0>
+        <div class="six columns">
             <div class="ht-invite">
                 <header>
                     Administradors #HashtagsXRep
@@ -77,8 +62,23 @@
                     </#list>
                 </div>
             </div>
-            </#if>
         </div>
-        <div class="two columns no-mobile">&nbsp;</div>
+        </#if>
+    </div>
+    <div class="row">
+        <#if loadPollResponse.inviteGroup.taggerList?size != 0>
+        <div class="six columns">
+            <div class="ht-invite">
+                <header>
+                    Col·laboradors VIP
+                </header>
+                <div class="ht-invite-list">
+                    <#list loadPollResponse.inviteGroup.taggerList as inviteT>
+                    <div class="ht-invite-item"><a href="https://twitter.com/${inviteT.nickname}" target="_blank">@${inviteT.nickname}</a></div>
+                    </#list>
+                </div>
+            </div>
+        </div>
+        </#if>
     </div>
 </div>
