@@ -48,6 +48,7 @@
 
     <select id="selectLast" resultMap="MonitorResultMap">
         <include refid="sqlMonitorUserJoin"/>
+        AND m.author_id = '-1'
         ORDER BY m.creation_date DESC
         LIMIT #{quantity}
     </select>

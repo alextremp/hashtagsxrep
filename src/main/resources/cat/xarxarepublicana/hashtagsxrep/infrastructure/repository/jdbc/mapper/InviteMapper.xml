@@ -47,6 +47,7 @@
                                    m.id,
                                    m.twitter_query
                                  FROM MONITOR m
+                                 WHERE m.author_id = '-1'
                                  ORDER BY start_date DESC
                                  LIMIT 4) z,
                              (SELECT @r := 5) y
@@ -70,7 +71,7 @@
         INSERT INTO POLL_INVITE (poll_id, nickname, reason)
         SELECT #{pollId}, user.nickname, 'ADMIN'
         FROM USER user
-        WHERE user.role in ('CREATOR', 'ADMIN') and user.nickname &lt;&gt; 'auto'
+        WHERE user.role in ('CREATOR', 'ADMIN') and user.id &lt;&gt; '-1'
     </insert>
 
     <insert id="insertTaggers">
