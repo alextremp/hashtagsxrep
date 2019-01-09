@@ -30,6 +30,7 @@ public class CachedMonitorRepository implements MonitorRepository {
     public void save(Monitor monitor) {
         monitorRepository.save(monitor);
         monitorCache.invalidate(monitor.getId());
+        reportCache.invalidate(monitor.getId());
         monitorListCache.invalidate(SINGLE_ENTRY_KEY);
         rankingCache.invalidate(SINGLE_ENTRY_KEY);
     }
@@ -39,6 +40,7 @@ public class CachedMonitorRepository implements MonitorRepository {
         monitorRepository.updateCursor(monitor, nextQueryString);
         monitorCache.invalidate(monitor.getId());
         reportCache.invalidate(monitor.getId());
+        rankingCache.invalidate(SINGLE_ENTRY_KEY);
     }
 
     @Override
