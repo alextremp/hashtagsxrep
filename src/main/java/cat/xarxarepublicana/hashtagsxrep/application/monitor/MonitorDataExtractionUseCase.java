@@ -48,13 +48,15 @@ public class MonitorDataExtractionUseCase {
                     queryString.append(monitor.getNextQueryString());
                 } else {
                     String maxTweetId = monitorRepository.getMaxTweetId(monitor.getId());
-                    queryString.append("q=").append(monitor.getTwitterQuery());
-                    queryString.append("&count=").append(TwitterRepository.MAX_STATUSES_PER_REQUEST);
+                    queryString.append("count=").append(TwitterRepository.MAX_STATUSES_PER_REQUEST);
+                    queryString.append("&q=").append(monitor.getTwitterQuery());
                     if (StringUtils.isNotBlank(maxTweetId)) {
                         queryString.append("&since_id=").append(maxTweetId);
                     }
                 }
-                searchTweetsResult = twitterRepository.searchTweets(queryString.toString());
+                String query = queryString.toString();
+                LOG.info(">> searchTweets: " + query);
+                searchTweetsResult = twitterRepository.searchTweets(query);
 
                 if (LOG.isLoggable(Level.FINE)) {
                     LOG.log(Level.FINE, ">> RESULT: " + searchTweetsResult.getStatuses().length + " statuses >> NEXT: " + searchTweetsResult.getSearchMetadata().getNextResults());
