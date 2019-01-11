@@ -46,6 +46,9 @@
             </div>
         </form>
     <#elseif showUserProposed>
+        <div class="ht-tip mb20">
+            <i class="fas fa-info-circle"></i> Hi ha ${loadPollResponse.pollProposals?size} propostes registrades.
+        </div>
         <div class="ht-message">
             <i class="fas fa-heart"></i> Gràcies per la teva proposta! Torna a les ${loadPollResponse.poll.asString(loadPollResponse.poll.endProposalsTime)} per poder votar entre les altres propostes!
         </div>
