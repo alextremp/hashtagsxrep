@@ -40,13 +40,17 @@ public class JdbcPollRepository implements PollRepository {
     }
 
     @Override
-    public void addProposal(Proposal proposal) {
-        pollMapper.insertProposal(proposal);
+    public void saveProposal(Proposal proposal) {
+        if (pollMapper.existsProposal(proposal.getPollId(), proposal.getAuthorId())) {
+            pollMapper.updateProposal(proposal);
+        } else {
+            pollMapper.insertProposal(proposal);
+        }
     }
 
     @Override
-    public Proposal findProposal(Poll poll, String authorId) {
-        return pollMapper.selectOneProposalById(poll.getId(), authorId);
+    public Proposal findProposal(String pollId, String authorId) {
+        return pollMapper.selectOneProposalById(pollId, authorId);
     }
 
     @Override

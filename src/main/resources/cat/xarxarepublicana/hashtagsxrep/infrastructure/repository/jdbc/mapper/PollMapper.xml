@@ -95,6 +95,14 @@
         VALUES (#{proposal.pollId}, #{proposal.authorId}, #{proposal.hashtag}, #{proposal.subject}, #{proposal.creationDate})
     </insert>
 
+    <update id='updateProposal'>
+        UPDATE POLL_PROPOSAL SET
+            hashtag = #{proposal.hashtag},
+            subject = #{proposal.subject},
+            creation_date = creation_date
+        WHERE poll_id = #{proposal.pollId} AND author_id = #{proposal.authorId}
+    </update>
+
     <select id="selectProposalsList" resultMap="ProposalResultMap">
         <include refid="sqlProposalJoin"/>
         WHERE proposal.poll_id = #{pollId}

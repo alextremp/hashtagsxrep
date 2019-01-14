@@ -25,7 +25,7 @@ public class LoadPollUseCase {
         if (poll == null) {
             throw new EntityNotFoundException("Enquesta no trobada: " + pollId);
         }
-        Proposal userProposal = pollRepository.findProposal(poll, user.getId());
+        Proposal userProposal = pollRepository.findProposal(poll.getId(), user.getId());
         Proposal userVote = pollRepository.findUserVote(poll, user.getId());
         List<Proposal> proposalList = pollRepository.findPollProposals(poll);
         InviteGroup inviteGroup = inviteRepository.loadInvitesForPoll(poll.getId());

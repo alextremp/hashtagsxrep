@@ -14,9 +14,9 @@ public interface PollRepository {
 
     Boolean hasProposal(String pollId, String authorId);
 
-    void addProposal(Proposal proposal);
+    void saveProposal(Proposal proposal);
 
-    Proposal findProposal(Poll poll, String authorId);
+    Proposal findProposal(String pollId, String authorId);
 
     List<Proposal> findPollProposals(Poll poll);
 

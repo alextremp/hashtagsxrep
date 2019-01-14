@@ -52,14 +52,30 @@
         <div class="ht-message">
             <i class="fas fa-heart"></i> Gràcies per la teva proposta! Torna a les ${loadPollResponse.poll.asString(loadPollResponse.poll.endProposalsTime)} per poder votar entre les altres propostes!
         </div>
-        <div class="ht-proposal">
-            <header>${loadPollResponse.userProposal.hashtag}</header>
-            <div class="ht-proposal-subject">${stringEscapeService.unescape(loadPollResponse.userProposal.subject)}</div>
-            <footer>
-                <div class="ht-tip">
-                    És la teva proposta.
+        <form action="/poll/${loadPollResponse.poll.id}/proposal" method="post" class="ht-form">
+            <div class="row">
+                <div class="twelve columns">
+                    <label for="hashtag">Hashtag</label>
+                    <input class="u-full-width" type="text" placeholder="#HashtagVàlid" id="hashtag" name="hashtag" required value="${loadPollResponse.userProposal.hashtag}"
+                           pattern="#[A-Za-z0-9àèòÀÈÒáéíóúÁÉÍÓÚñÑïüÏÜçÇ]{1,25}" title="#Hashtag d'entre 1 i 25 caràcters alfanumèrics"/>
                 </div>
-            </footer>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    <label for="subject">Tema</label>
+                    <textarea class="u-full-width" id="subject" name="subject" required minlength="20" maxlength="400" rows="4" title="Tema del hashtag, entre 20 i 400 caràcters">${stringEscapeService.unescape(loadPollResponse.userProposal.subject)}</textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns ht-submit-row">
+                    <button class="button button-primary" type="submit">
+                        <i class="fas fa-edit"></i> #Modifica
+                    </button>
+                </div>
+            </div>
+        </form>
+        <div class="ht-message">
+            Si la vols modificar, tens fins les ${loadPollResponse.poll.asString(loadPollResponse.poll.endProposalsTime)} per fer-ho!
         </div>
     <#elseif showNotStarted>
         <div class="ht-message">
