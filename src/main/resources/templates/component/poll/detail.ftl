@@ -52,30 +52,49 @@
         <div class="ht-message">
             <i class="fas fa-heart"></i> Gràcies per la teva proposta! Torna a les ${loadPollResponse.poll.asString(loadPollResponse.poll.endProposalsTime)} per poder votar entre les altres propostes!
         </div>
-        <form action="/poll/${loadPollResponse.poll.id}/proposal" method="post" class="ht-form">
-            <div class="row">
-                <div class="twelve columns">
-                    <label for="hashtag">Hashtag</label>
-                    <input class="u-full-width" type="text" placeholder="#HashtagVàlid" id="hashtag" name="hashtag" required value="${loadPollResponse.userProposal.hashtag}"
-                           pattern="#[A-Za-z0-9àèòÀÈÒáéíóúÁÉÍÓÚñÑïüÏÜçÇ]{1,25}" title="#Hashtag d'entre 1 i 25 caràcters alfanumèrics"/>
+        <div class="wrap-collabsible">
+            <input id="proposal-update-collapser" class="toggle" type="checkbox"/>
+            <label for="proposal-update-collapser" class="lbl-toggle">
+                Modifica la teva proposta.
+            </label>
+            <div class="collapsible-content">
+                <div class="content-inner">
+                    <form action="/poll/${loadPollResponse.poll.id}/proposal" method="post" class="ht-form">
+                        <div class="ht-message">
+                            Si la vols modificar, tens fins les ${loadPollResponse.poll.asString(loadPollResponse.poll.endProposalsTime)} per fer-ho!
+                        </div>
+                        <div class="row">
+                            <div class="twelve columns">
+                                <label for="hashtag">Hashtag</label>
+                                <input class="u-full-width" type="text" placeholder="#HashtagVàlid" id="hashtag" name="hashtag" required value="${loadPollResponse.userProposal.hashtag}"
+                                       pattern="#[A-Za-z0-9àèòÀÈÒáéíóúÁÉÍÓÚñÑïüÏÜçÇ]{1,25}" title="#Hashtag d'entre 1 i 25 caràcters alfanumèrics"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="twelve columns">
+                                <label for="subject">Tema</label>
+                                <textarea class="u-full-width" id="subject" name="subject" required minlength="20" maxlength="400" rows="4" title="Tema del hashtag, entre 20 i 400 caràcters">${stringEscapeService.unescape(loadPollResponse.userProposal.subject)}</textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="twelve columns ht-submit-row">
+                                <button class="button button-primary" type="submit">
+                                    <i class="fas fa-edit"></i> #Modifica
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div class="row">
-                <div class="twelve columns">
-                    <label for="subject">Tema</label>
-                    <textarea class="u-full-width" id="subject" name="subject" required minlength="20" maxlength="400" rows="4" title="Tema del hashtag, entre 20 i 400 caràcters">${stringEscapeService.unescape(loadPollResponse.userProposal.subject)}</textarea>
+        </div>
+        <div class="ht-proposal">
+            <header>${loadPollResponse.userProposal.hashtag}</header>
+            <div class="ht-proposal-subject">${stringEscapeService.unescape(loadPollResponse.userProposal.subject)}</div>
+            <footer>
+                <div class="ht-tip">
+                    És la teva proposta.
                 </div>
-            </div>
-            <div class="row">
-                <div class="twelve columns ht-submit-row">
-                    <button class="button button-primary" type="submit">
-                        <i class="fas fa-edit"></i> #Modifica
-                    </button>
-                </div>
-            </div>
-        </form>
-        <div class="ht-message">
-            Si la vols modificar, tens fins les ${loadPollResponse.poll.asString(loadPollResponse.poll.endProposalsTime)} per fer-ho!
+            </footer>
         </div>
     <#elseif showNotStarted>
         <div class="ht-message">
@@ -89,6 +108,31 @@
         <#if loadPollResponse.userVote??>
         <div class="ht-message mb20">
             <i class="fas fa-heart"></i> Gràcies pel teu vot! Torna a les ${loadPollResponse.poll.asString(loadPollResponse.poll.endVotingTime)} per poder conèixer la proposta de hashtag més votada!
+        </div>
+        <div class="ht-tip">
+            Has votat: ${loadPollResponse.userVote.hashtag}
+        </div>
+        <div class="wrap-collabsible">
+            <input id="unvote-collapser" class="toggle" type="checkbox"/>
+            <label for="unvote-collapser" class="lbl-toggle">
+                Desfés el teu vot.
+            </label>
+            <div class="collapsible-content">
+                <div class="content-inner">
+                    <form action="/poll/${loadPollResponse.poll.id}/unvote" method="post" class="ht-form">
+                        <div class="ht-message">
+                            Si desfàs el vot, tens fins les ${loadPollResponse.poll.asString(loadPollResponse.poll.endVotingTime)} per tornar a votar!
+                        </div>
+                        <div class="row">
+                            <div class="twelve columns ht-submit-row">
+                                <button class="button button-primary" type="submit">
+                                    <i class="fas fa-trash-alt"></i> #DesfésElVot
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
         </#if>
         <#if loadPollResponse.pollProposals?? \and loadPollResponse.pollProposals?size != 0>

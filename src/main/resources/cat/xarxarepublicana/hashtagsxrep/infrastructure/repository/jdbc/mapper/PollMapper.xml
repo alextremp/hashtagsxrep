@@ -114,6 +114,11 @@
         VALUES (#{proposal.pollId}, #{proposal.authorId}, #{voter.id})
     </insert>
 
+    <delete id='deleteVote'>
+        DELETE FROM POLL_VOTE
+        WHERE poll_id = #{pollId} AND proposal_voter_id = #{userId}
+    </delete>
+
     <select id="selectVotedProposal" resultMap="ProposalResultMap">
         <include refid="sqlProposalJoin"/>
         WHERE proposal.poll_id = #{pollId} AND vote.proposal_voter_id=#{voterId}

@@ -28,9 +28,10 @@ public class PollController {
     private final PollProposalUseCase pollProposalUseCase;
     private final PollVoteUseCase pollVoteUseCase;
     private final DeletePollUseCase deletePollUseCase;
+    private final PollUnvoteUseCase pollUnvoteUseCase;
 
     @Autowired
-    public PollController(StringEscapeService stringEscapeService, CreatePollUseCase createPollUseCase, ListPollUseCase listPollUseCase, LoadPollUseCase loadPollUseCase, PollProposalUseCase pollProposalUseCase, PollVoteUseCase pollVoteUseCase, DeletePollUseCase deletePollUseCase) {
+    public PollController(StringEscapeService stringEscapeService, CreatePollUseCase createPollUseCase, ListPollUseCase listPollUseCase, LoadPollUseCase loadPollUseCase, PollProposalUseCase pollProposalUseCase, PollVoteUseCase pollVoteUseCase, DeletePollUseCase deletePollUseCase, PollUnvoteUseCase pollUnvoteUseCase) {
         this.stringEscapeService = stringEscapeService;
         this.createPollUseCase = createPollUseCase;
         this.listPollUseCase = listPollUseCase;
@@ -38,6 +39,7 @@ public class PollController {
         this.pollProposalUseCase = pollProposalUseCase;
         this.pollVoteUseCase = pollVoteUseCase;
         this.deletePollUseCase = deletePollUseCase;
+        this.pollUnvoteUseCase = pollUnvoteUseCase;
     }
 
     @GetMapping(Views.URL_POLL)
@@ -116,6 +118,17 @@ public class PollController {
         PollVoteUseCase.PollVoteResponse pollVoteResponse = pollVoteUseCase.pollVote(pollId, proposalAuthorId, authenticationUser.getUser());
 
         model.addAttribute("pollVoteResponse", pollVoteResponse);
+        return new RedirectView("/poll/" + pollId);
+    }
+
+    @PostMapping("/poll/{pollId}/unvote")
+    @Secured("ROLE_VIEWER")
+    public RedirectView pollVote(
+            @PathVariable("pollId") String pollId,
+            @AuthenticationPrincipal
+                    AuthenticationUser authenticationUser
+    ) {
+        pollUnvoteUseCase.pollUnvote(pollId, authenticationUser.getUser());
         return new RedirectView("/poll/" + pollId);
     }
 
