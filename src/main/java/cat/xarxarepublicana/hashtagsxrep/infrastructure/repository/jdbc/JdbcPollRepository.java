@@ -69,6 +69,11 @@ public class JdbcPollRepository implements PollRepository {
     }
 
     @Override
+    public void deleteVote(String pollId, String userId) {
+        pollMapper.deleteVote(pollId, userId);
+    }
+
+    @Override
     public List<Poll> findFinishedPollsWithNoMonitor() {
         return pollMapper.selectFinishedPollsWithNoMonitor();
     }
@@ -85,4 +90,5 @@ public class JdbcPollRepository implements PollRepository {
         pollMapper.deleteProposals(poll.getId());
         pollMapper.delete(poll.getId());
     }
+
 }

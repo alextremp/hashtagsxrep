@@ -40,4 +40,6 @@ public interface PollMapper {
     void deleteProposals(@Param("pollId") String pollId);
 
     void delete(@Param("pollId") String pollId);
+
+    void deleteVote(@Param("pollId") String pollId, @Param("userId") String userId);
 }

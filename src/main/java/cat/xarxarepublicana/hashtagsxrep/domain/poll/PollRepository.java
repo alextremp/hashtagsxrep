@@ -29,4 +29,6 @@ public interface PollRepository {
     Proposal findWinnerProposal(Poll poll);
 
     void delete(Poll poll);
+
+    void deleteVote(String pollId, String userId);
 }

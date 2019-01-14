@@ -90,6 +90,11 @@ public class UseCaseConfiguration {
     }
 
     @Bean
+    public PollUnvoteUseCase pollUnvoteUseCase(PollRepository pollRepository) {
+        return new PollUnvoteUseCase(pollRepository);
+    }
+
+    @Bean
     public FinishPollUseCase createFinishPollUseCase(MonitorRepository monitorRepository, MonitorFactory monitorFactory, PollRepository pollRepository, NoticeRepository noticeRepository) {
         return new FinishPollUseCase(monitorRepository, monitorFactory, pollRepository, noticeRepository);
     }
