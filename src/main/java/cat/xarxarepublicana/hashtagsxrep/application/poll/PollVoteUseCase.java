@@ -19,7 +19,7 @@ public class PollVoteUseCase {
         if (poll == null) {
             throw new EntityNotFoundException("No es pot votar. Enquesta no trobada " + pollId);
         }
-        Proposal proposal = pollRepository.findProposal(poll, proposalAuthorId);
+        Proposal proposal = pollRepository.findProposal(poll.getId(), proposalAuthorId);
         if (proposal == null) {
             throw new EntityNotFoundException("No es pot votar. Proposta no trobada per l'enquesta " + pollId);
         }

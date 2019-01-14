@@ -7,8 +7,8 @@ public class Proposal {
     private final String pollId;
     private final String authorId;
     private final String authorNickname;
-    private final String hashtag;
-    private final String subject;
+    private String hashtag;
+    private String subject;
     private final LocalDateTime creationDate;
     private final Integer votes;
 
@@ -20,6 +20,11 @@ public class Proposal {
         this.subject = subject;
         this.creationDate = creationDate;
         this.votes = votes;
+    }
+
+    public void update(String hashtag, String subject) {
+        this.hashtag = hashtag;
+        this.subject = subject;
     }
 
     public String getPollId() {
@@ -49,4 +54,5 @@ public class Proposal {
     public Integer getVotes() {
         return votes;
     }
+
 }

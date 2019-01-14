@@ -20,15 +20,17 @@ public class PollProposalUseCase {
     }
 
     public PollProposalResponse pollProposal(String pollId, User user, String hashtag, String subject) {
-        if (pollRepository.hasProposal(pollId, user.getId())) {
-            return new PollProposalResponse(false, "Ja tens una proposta guardada");
-        }
         InviteGroup inviteGroup = inviteRepository.loadInvitesForPoll(pollId);
         if (!inviteGroup.isInvited(user)) {
             return new PollProposalResponse(false, "No pots proposar hashtags");
         }
-        Proposal proposal = proposalFactory.create(pollId, user.getId(), user.getNickname(), hashtag, subject);
-        pollRepository.addProposal(proposal);
+        Proposal userProposal = pollRepository.findProposal(pollId, user.getId());
+        if (userProposal != null) {
+            userProposal.update(hashtag, subject);
+        } else {
+            userProposal = proposalFactory.create(pollId, user.getId(), user.getNickname(), hashtag, subject);
+        }
+        pollRepository.saveProposal(userProposal);
         return new PollProposalResponse(true, null);
     }
 

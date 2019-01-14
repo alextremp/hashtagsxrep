@@ -185,7 +185,7 @@ input[type='checkbox'].toggle {
     box-sizing: border-box;
 }
 .ht-form textarea {
-    min-height: 80px;
+    min-height: 160px;
 }
 .ht-form input:focus {
     border-color: black;
