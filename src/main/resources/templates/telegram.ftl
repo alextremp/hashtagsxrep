@@ -1,16 +1,16 @@
-<b>${title} a les ${hour}</b>
+<b>${stringEscapeService.unescape(notice.title)} a les ${notice.hour}</b>
 
-${hashtag}
+${notice.hashtag}
 
 <b>TEMA:</b>
 
-${subject}
+${stringEscapeService.unescape(notice.subject)}
 
 <b>INSTRUCCIONS:</b>
 
-&#x2611; Preparar 3 tuits amb el hashtag escollit i publicar-los a les ${hour}.
+&#x2611; Preparar 3 tuits amb el hashtag escollit i publicar-los a les ${notice.hour}.
 
-&#x1F558; A LES ${hour} &#x203c;
+&#x1F558; A LES ${notice.hour} &#x203c;
 
 &#x2611; Clicar sobre el hashtag, llegir els tuits i fer molts RT a tuits independentistes.
 
@@ -27,13 +27,13 @@ ${subject}
 &#x26a0; Comenteu tweets dels usuaris que seguiu afegint el hashtag! Així acabarem sent més!
 
 &#x2139; Aquest missatge s'ha generat automàticament quan ha acabat l'enquesta:
-https://hashtagsxrep.herokuapp.com/poll/${pollId}
+https://hashtagsxrep.herokuapp.com/poll/${notice.pollId}
 
 &#x2139; Podreu seguir l'evolució del hashtag
-https://hashtagsxrep.herokuapp.com/report/${hashtag?replace('#', '')}
+https://hashtagsxrep.herokuapp.com/report/${notice.hashtag?replace('#', '')}
 
-&#x2139; RECORDA: a les ${hour} comencem!!!
+&#x2139; RECORDA: a les ${notice.hour} comencem!!!
 
-${hashtag}
+${notice.hashtag}
 
-Salut i República :yellow_heart:
+Salut i República &#x1f49b;
