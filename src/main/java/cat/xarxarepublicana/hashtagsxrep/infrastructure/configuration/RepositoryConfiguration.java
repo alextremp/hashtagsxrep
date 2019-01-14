@@ -22,6 +22,7 @@ import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.*
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.telegram.TelegramNoticeRepository;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.twitter.TwitterApi;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.twitter.TwitterRepositoryImpl;
+import cat.xarxarepublicana.hashtagsxrep.infrastructure.service.StringEscapeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.benmanes.caffeine.cache.LoadingCache;
 import com.github.scribejava.core.builder.ServiceBuilder;
@@ -169,8 +170,8 @@ public class RepositoryConfiguration {
     }
 
     @Bean
-    public TelegramNoticeRepository telegramNoticeRepository(FreeMarkerConfig freeMarkerConfig, @Value("${telegram.publisher.apiKey}") String botApiKey, @Value("${telegram.publisher.channel}") String channel) {
-        return new TelegramNoticeRepository(freeMarkerConfig, botApiKey, channel);
+    public TelegramNoticeRepository telegramNoticeRepository(FreeMarkerConfig freeMarkerConfig, @Value("${telegram.publisher.apiKey}") String botApiKey, @Value("${telegram.publisher.channel}") String channel, StringEscapeService stringEscapeService) {
+        return new TelegramNoticeRepository(freeMarkerConfig, botApiKey, channel, stringEscapeService);
     }
 
     @Bean
