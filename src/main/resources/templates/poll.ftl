@@ -2,7 +2,7 @@
 <html lang="es">
 <#include "common/enable-security.ftl">
 <head>
-    <#assign pageTitle = "Enquestes | Hashtags per la República">
+    <#assign pageTitle = "Votació | Hashtags per la República">
     <#include "common/head.ftl">
 </head>
 
