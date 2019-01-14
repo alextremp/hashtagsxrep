@@ -1,38 +1,38 @@
-**${title} a les ${hour}**
+<b>${title} a les ${hour}</b>
 
 ${hashtag}
 
-TEMA:
+<b>TEMA:</b>
 
 ${subject}
 
-INSTRUCCIONS:
+<b>INSTRUCCIONS:</b>
 
-:ballot_box_with_check: Preparar 3 tuits amb el hashtag escollit i publicar-los a les ${hour}.
+&#x2611; Preparar 3 tuits amb el hashtag escollit i publicar-los a les ${hour}.
 
-:clock9: A LES ${hour} :bangbang:
+&#x1F558; A LES ${hour} &#x203c;
 
-:ballot_box_with_check: Clicar sobre el hashtag, llegir els tuits i fer molts RT a tuits independentistes.
+&#x2611; Clicar sobre el hashtag, llegir els tuits i fer molts RT a tuits independentistes.
 
-:ballot_box_with_check: Penja comentaris, afegint el Hashtag, a tweets dels comptes que segueixes!
+&#x2611; Penja comentaris, afegint el Hashtag, a tweets dels comptes que segueixes!
 
-:ballot_box_with_check: Fer nous tuits, RT amb comentari afegint el hashtag.
+&#x2611; Fer nous tuits, RT amb comentari afegint el hashtag.
 
-:no_entry_sign: Mai repetir el mateix comentari.
+&#x1F6AB; Mai repetir el mateix comentari.
 
-:no_entry_sign: No fer RT ni comentar mai afegint el hashtag sol.
+&#x1F6AB; No fer RT ni comentar mai afegint el hashtag sol.
 
-:no_entry_sign:  Només fer like no suma.
+&#x1F6AB;  Només fer like no suma.
 
-:warning: Comenteu tweets dels usuaris que seguiu afegint el hashtag! Així acabarem sent més!
+&#x26a0; Comenteu tweets dels usuaris que seguiu afegint el hashtag! Així acabarem sent més!
 
-:information_source: Aquest missatge s'ha generat automàticament quan ha acabat l'enquesta:
+&#x2139; Aquest missatge s'ha generat automàticament quan ha acabat l'enquesta:
 https://hashtagsxrep.herokuapp.com/poll/${pollId}
 
-:information_source: Podreu seguir l'evolució del hashtag
+&#x2139; Podreu seguir l'evolució del hashtag
 https://hashtagsxrep.herokuapp.com/report/${hashtag?replace('#', '')}
 
-:information_source: RECORDA: a les ${hour} comencem!!!
+&#x2139; RECORDA: a les ${hour} comencem!!!
 
 ${hashtag}
 
