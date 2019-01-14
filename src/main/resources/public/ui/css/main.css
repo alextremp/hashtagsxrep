@@ -389,6 +389,7 @@ div.ht-result:nth-child(odd) {
     border-bottom-right-radius: 20px;
     text-align: left;
     white-space: pre-line;
+    overflow-wrap: break-word;
 }
 .ht-proposal-wbox {
     padding-top: 20px;
