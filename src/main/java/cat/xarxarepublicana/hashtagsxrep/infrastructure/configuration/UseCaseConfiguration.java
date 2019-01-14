@@ -13,6 +13,7 @@ import cat.xarxarepublicana.hashtagsxrep.domain.extraction.TwitterExtractionRepo
 import cat.xarxarepublicana.hashtagsxrep.domain.invite.InviteRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.monitor.MonitorFactory;
 import cat.xarxarepublicana.hashtagsxrep.domain.monitor.MonitorRepository;
+import cat.xarxarepublicana.hashtagsxrep.domain.notice.NoticeRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.poll.PollFactory;
 import cat.xarxarepublicana.hashtagsxrep.domain.poll.PollRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.poll.ProposalFactory;
@@ -89,8 +90,8 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public CreateMonitorFromPollUseCase createMonitorFromPollUseCase(MonitorRepository monitorRepository, MonitorFactory monitorFactory, PollRepository pollRepository) {
-        return new CreateMonitorFromPollUseCase(monitorRepository, monitorFactory, pollRepository);
+    public FinishPollUseCase createFinishPollUseCase(MonitorRepository monitorRepository, MonitorFactory monitorFactory, PollRepository pollRepository, NoticeRepository noticeRepository) {
+        return new FinishPollUseCase(monitorRepository, monitorFactory, pollRepository, noticeRepository);
     }
 
     @Bean

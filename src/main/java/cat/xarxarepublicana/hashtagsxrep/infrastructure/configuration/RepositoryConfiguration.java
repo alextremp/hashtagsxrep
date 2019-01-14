@@ -19,6 +19,7 @@ import cat.xarxarepublicana.hashtagsxrep.domain.user.UserRepository;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.cache.*;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.*;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.*;
+import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.telegram.TelegramNoticeRepository;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.twitter.TwitterApi;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.twitter.TwitterRepositoryImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,6 +36,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerConfig;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -164,6 +166,11 @@ public class RepositoryConfiguration {
     @Primary
     public CachedInviteRepository cachedInviteRepository(InviteRepository inviteRepository, @Qualifier("inviteGroupCache") LoadingCache<String, InviteGroup> inviteGroupCache) {
         return new CachedInviteRepository(inviteRepository, inviteGroupCache);
+    }
+
+    @Bean
+    public TelegramNoticeRepository telegramNoticeRepository(FreeMarkerConfig freeMarkerConfig, @Value("${telegram.publisher.apiKey}") String botApiKey, @Value("${telegram.publisher.channel}") String channel) {
+        return new TelegramNoticeRepository(freeMarkerConfig, botApiKey, channel);
     }
 
     @Bean
