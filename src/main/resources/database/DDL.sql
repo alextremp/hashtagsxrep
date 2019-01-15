@@ -112,3 +112,6 @@ CREATE TABLE POLL_INVITE
     CONSTRAINT POLL_INVITE_POLL_id_fk FOREIGN KEY (poll_id) REFERENCES POLL (id)
 );
 ALTER TABLE POLL_INVITE COMMENT = 'Taula de usuaris invitats a proposar hashtags';
+
+
+ALTER TABLE POLL ADD end_ranking_time TIMESTAMP NULL;

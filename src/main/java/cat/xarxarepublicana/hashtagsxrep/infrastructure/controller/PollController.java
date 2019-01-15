@@ -66,10 +66,13 @@ public class PollController {
             @RequestParam("startEventTime")
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
                     LocalDateTime startEventTime,
+            @RequestParam("endRankingTime")
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+                    LocalDateTime endRankingTime,
             @AuthenticationPrincipal
                     AuthenticationUser authenticationUser
     ) {
-        CreatePollUseCase.CreatePollResponse createPollResponse = createPollUseCase.createPoll(authenticationUser.getUser(), stringEscapeService.escapeHTML(description), startProposalsTime, endProposalsTime, endVotingTime, startEventTime);
+        CreatePollUseCase.CreatePollResponse createPollResponse = createPollUseCase.createPoll(authenticationUser.getUser(), stringEscapeService.escapeHTML(description), startProposalsTime, endProposalsTime, endVotingTime, startEventTime, endRankingTime);
         //TODO check to pass the model
         return new RedirectView(Views.URL_POLL);
     }
