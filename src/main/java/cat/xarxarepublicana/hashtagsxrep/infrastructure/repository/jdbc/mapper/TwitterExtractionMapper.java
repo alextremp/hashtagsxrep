@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface TwitterExtractionMapper {
-    void insert(@Param("extraction") TwitterExtraction twitterExtraction);
+    void insert(@Param("extraction") TwitterExtraction twitterExtraction, @Param("ranked") Boolean ranked);
 
     void deleteDataByMonitorId(@Param("monitorId") String monitorId);
 }
