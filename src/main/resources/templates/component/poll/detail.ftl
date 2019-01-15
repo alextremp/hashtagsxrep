@@ -206,6 +206,16 @@
         <div class="ht-message">
             <i class="fas fa-clock"></i> Recorda, a les ${loadPollResponse.poll.asString(loadPollResponse.poll.startEventTime)} comencem!
         </div>
+        <#if loadPollResponse.monitor??>
+        <div class="ht-tip">
+            <i class="fas fa-robot"></i> Aquí pots seguir l'evolució de l'atac:
+        </div>
+        <div class="ht-monitor">
+            <a href="/report/${loadPollResponse.monitor.twitterQuery?replace('#', '')}" class="button button-ht">
+                ${loadPollResponse.monitor.twitterQuery}
+            </a>
+        </div>
+        </#if>
         </#if>
         </#list>
         <#if loadPollResponse.pollProposals?size == 2>

@@ -75,8 +75,8 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public LoadPollUseCase loadPollUseCase(PollRepository pollRepository, InviteRepository inviteRepository) {
-        return new LoadPollUseCase(pollRepository, inviteRepository);
+    public LoadPollUseCase loadPollUseCase(PollRepository pollRepository, InviteRepository inviteRepository, MonitorRepository monitorRepository) {
+        return new LoadPollUseCase(pollRepository, inviteRepository, monitorRepository);
     }
 
     @Bean
