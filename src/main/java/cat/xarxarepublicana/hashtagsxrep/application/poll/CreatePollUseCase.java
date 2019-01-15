@@ -20,8 +20,8 @@ public class CreatePollUseCase {
         this.inviteRepository = inviteRepository;
     }
 
-    public CreatePollResponse createPoll(User author, String description, LocalDateTime startProposalsTime, LocalDateTime endProposalsTime, LocalDateTime endVotingTime, LocalDateTime startEventTime) {
-        Poll poll = pollFactory.createPoll(author.getId(), author.getNickname(), description, startProposalsTime, endProposalsTime, endVotingTime, startEventTime);
+    public CreatePollResponse createPoll(User author, String description, LocalDateTime startProposalsTime, LocalDateTime endProposalsTime, LocalDateTime endVotingTime, LocalDateTime startEventTime, LocalDateTime endRankingTime) {
+        Poll poll = pollFactory.createPoll(author.getId(), author.getNickname(), description, startProposalsTime, endProposalsTime, endVotingTime, startEventTime, endRankingTime);
         pollRepository.save(poll);
         inviteRepository.inviteToPoll(poll.getId());
         return new CreatePollResponse(poll);

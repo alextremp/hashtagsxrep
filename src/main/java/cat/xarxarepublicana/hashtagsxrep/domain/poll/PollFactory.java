@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class PollFactory {
 
-    public Poll createPoll(String authorId, String authorNickname, String description, LocalDateTime startProposalsTime, LocalDateTime endProposalsTime, LocalDateTime endVotingTime, LocalDateTime startEventTime) {
+    public Poll createPoll(String authorId, String authorNickname, String description, LocalDateTime startProposalsTime, LocalDateTime endProposalsTime, LocalDateTime endVotingTime, LocalDateTime startEventTime, LocalDateTime endRankingTime) {
         return new Poll(
                 UUID.randomUUID().toString(),
                 authorId,
@@ -16,7 +16,7 @@ public class PollFactory {
                 startProposalsTime,
                 endProposalsTime,
                 endVotingTime,
-                startEventTime
-        );
+                startEventTime,
+                endRankingTime);
     }
 }

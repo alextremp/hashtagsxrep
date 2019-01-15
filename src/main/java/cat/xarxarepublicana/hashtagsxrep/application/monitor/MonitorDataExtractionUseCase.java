@@ -3,11 +3,13 @@ package cat.xarxarepublicana.hashtagsxrep.application.monitor;
 import cat.xarxarepublicana.hashtagsxrep.domain.extraction.TwitterExtractionRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.monitor.Monitor;
 import cat.xarxarepublicana.hashtagsxrep.domain.monitor.MonitorRepository;
+import cat.xarxarepublicana.hashtagsxrep.domain.poll.Poll;
+import cat.xarxarepublicana.hashtagsxrep.domain.poll.PollRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.twitter.SearchTweetsResult;
 import cat.xarxarepublicana.hashtagsxrep.domain.twitter.TwitterRepository;
 import org.apache.commons.lang3.StringUtils;
-import sun.rmi.runtime.Log;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,12 +22,14 @@ public class MonitorDataExtractionUseCase {
     private final TwitterExtractionRepository twitterExtractionRepository;
     private final TwitterRepository twitterRepository;
     private final MonitorRepository monitorRepository;
+    private final PollRepository pollRepository;
 
-    public MonitorDataExtractionUseCase(Integer maxExtractionRequests, TwitterExtractionRepository twitterExtractionRepository, TwitterRepository twitterRepository, MonitorRepository monitorRepository) {
+    public MonitorDataExtractionUseCase(Integer maxExtractionRequests, TwitterExtractionRepository twitterExtractionRepository, TwitterRepository twitterRepository, MonitorRepository monitorRepository, PollRepository pollRepository) {
         this.maxExtractionRequests = maxExtractionRequests;
         this.twitterExtractionRepository = twitterExtractionRepository;
         this.twitterRepository = twitterRepository;
         this.monitorRepository = monitorRepository;
+        this.pollRepository = pollRepository;
     }
 
     public void extractData() {
@@ -35,11 +39,20 @@ public class MonitorDataExtractionUseCase {
         boolean stopByBlockSize;
         boolean stopByWindowRequests = false;
         boolean existingDataReached;
+        boolean ranked = false;
         StringBuffer queryString;
         SearchTweetsResult searchTweetsResult;
 
+        Poll poll;
         for (Monitor monitor : monitorList) {
             LOG.info(">> MONITOR: " + monitor.getId() + " >> " + monitor.getTwitterQuery());
+            if (monitor.getAuthorId().equals("-1")) {
+                poll = pollRepository.findById(monitor.getId());
+                if (poll != null) {
+                    LocalDateTime now = LocalDateTime.now();
+                    ranked = poll.getEndRankingTime() != null && now.isAfter(monitor.getStartDate()) && now.isBefore(poll.getEndRankingTime());
+                }
+            }
             stopByBlockSize = false;
             existingDataReached = false;
             while (!stopByBlockSize && !stopByWindowRequests && !existingDataReached) {
@@ -61,7 +74,7 @@ public class MonitorDataExtractionUseCase {
                 if (LOG.isLoggable(Level.FINE)) {
                     LOG.log(Level.FINE, ">> RESULT: " + searchTweetsResult.getStatuses().length + " statuses >> NEXT: " + searchTweetsResult.getSearchMetadata().getNextResults());
                 }
-                existingDataReached = twitterExtractionRepository.save(monitor, searchTweetsResult);
+                existingDataReached = twitterExtractionRepository.save(monitor, searchTweetsResult, ranked);
                 stopByBlockSize = searchTweetsResult.getStatuses().length < TwitterRepository.MAX_STATUSES_PER_REQUEST;
                 if (stopByBlockSize) {
                     LOG.info(">> STOP :: There are no more statuses yet");

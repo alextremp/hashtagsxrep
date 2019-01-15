@@ -17,9 +17,10 @@ public class Poll {
     private final LocalDateTime endProposalsTime;
     private final LocalDateTime endVotingTime;
     private final LocalDateTime startEventTime;
+    private final LocalDateTime endRankingTime;
     private final LocalDateTime instanceTime;
 
-    public Poll(String id, String authorId, String authorNickname, String description, String monitorId, LocalDateTime creationDate, LocalDateTime startProposalsTime, LocalDateTime endProposalsTime, LocalDateTime endVotingTime, LocalDateTime startEventTime) {
+    public Poll(String id, String authorId, String authorNickname, String description, String monitorId, LocalDateTime creationDate, LocalDateTime startProposalsTime, LocalDateTime endProposalsTime, LocalDateTime endVotingTime, LocalDateTime startEventTime, LocalDateTime endRankingTime) {
         this.id = id;
         this.authorId = authorId;
         this.authorNickname = authorNickname;
@@ -30,6 +31,7 @@ public class Poll {
         this.endProposalsTime = endProposalsTime;
         this.endVotingTime = endVotingTime;
         this.startEventTime = startEventTime;
+        this.endRankingTime = endRankingTime;
         this.instanceTime = LocalDateTime.now();
     }
 
@@ -71,6 +73,10 @@ public class Poll {
 
     public LocalDateTime getStartEventTime() {
         return startEventTime;
+    }
+
+    public LocalDateTime getEndRankingTime() {
+        return endRankingTime;
     }
 
     public boolean isNotStarted() {

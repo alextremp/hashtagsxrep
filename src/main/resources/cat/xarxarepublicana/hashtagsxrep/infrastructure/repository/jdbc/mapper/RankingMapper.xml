@@ -63,7 +63,7 @@ SELECT taggers_ranking.nickname, taggers_ranking.score FROM (
                              LIMIT 4) z,
                          (SELECT @r := 5) y
                      ) monitor, TWITTER_EXTRACTION twitter, USER user
-                WHERE monitor.id = twitter.monitor_id AND user.id = twitter.user_id
+                WHERE monitor.id = twitter.monitor_id AND user.id = twitter.user_id AND twitter.ranked = TRUE
                 GROUP BY user.nickname, monitor.rownum, monitor.id, monitor.twitter_query, twitter.type
               ) q
          GROUP BY q.nickname, q.twitter_query, q.type, q.quantity
@@ -108,7 +108,7 @@ SELECT
                       LIMIT 4) z,
                   (SELECT @r := 5) y
               ) monitor, TWITTER_EXTRACTION twitter, USER user
-         WHERE monitor.id = twitter.monitor_id AND user.id = twitter.user_id AND user.nickname = #{nickname}
+         WHERE monitor.id = twitter.monitor_id AND user.id = twitter.user_id AND user.nickname = #{nickname} AND twitter.ranked = TRUE
          GROUP BY monitor.rownum, monitor.id, monitor.twitter_query, twitter.type
        ) q,
     (
@@ -128,7 +128,7 @@ SELECT
                    LIMIT 4) z,
                (SELECT @r := 5) y
            ) monitor, TWITTER_EXTRACTION twitter, USER user
-      WHERE monitor.id = twitter.monitor_id AND user.id = twitter.user_id AND user.nickname = #{nickname}
+      WHERE monitor.id = twitter.monitor_id AND user.id = twitter.user_id AND user.nickname = #{nickname} AND twitter.ranked = TRUE
       GROUP BY monitor.twitter_query
     ) control
   WHERE q.twitter_query = control.twitter_query AND control.content <> 'R'

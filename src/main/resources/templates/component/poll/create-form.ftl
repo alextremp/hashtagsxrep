@@ -23,33 +23,39 @@ Enquesta creada.
                 <div class="row">
                     <div class="six columns">
                         <label for="startProposalsTime">
-                            Inici: Propostes de hashtags
+                            Inici de Propostes
                         </label>
-                        <input id="startProposalsTime" name="startProposalsTime" type="datetime-local" required value="${(startProposalsTime?long + 1 * 3600000)?number_to_datetime?string['yyyy-MM-dd\'T\'HH:\'00\'']}" class="u-full-width"/>
+                        <input id="startProposalsTime" name="startProposalsTime" type="datetime-local" required value="${startProposalsTime?string['yyyy-MM-dd\'T\'10:\'00\'']}" class="u-full-width"/>
                     </div>
                     <div class="six columns">
                         <label for="endProposalsTime">
-                            Inici: Votació de hashtags
+                            Inici de la Votació
                         </label>
-                        <input id="endProposalsTime" name="endProposalsTime" type="datetime-local" required value="${(startProposalsTime?long + 3 * 3600000)?number_to_datetime?string['yyyy-MM-dd\'T\'HH:\'00\'']}" class="u-full-width"/>
+                        <input id="endProposalsTime" name="endProposalsTime" type="datetime-local" required value="${startProposalsTime?string['yyyy-MM-dd\'T\'17:\'00\'']}" class="u-full-width"/>
                     </div>
                 </div>
                 <div class="row">
                     <div class="six columns">
                         <label for="endVotingTime">
-                            Fi: Votació de hashtags
+                            Tancament de la Votació
                         </label>
-                        <input id="endVotingTime" name="endVotingTime" type="datetime-local" required value="${(startProposalsTime?long + 6 * 3600000)?number_to_datetime?string['yyyy-MM-dd\'T\'HH:\'00\'']}" class="u-full-width"/>
+                        <input id="endVotingTime" name="endVotingTime" type="datetime-local" required value="${startProposalsTime?string['yyyy-MM-dd\'T\'20:\'00\'']}" class="u-full-width"/>
                     </div>
                     <div class="six columns">
                         <label for="startEventTime">
-                            Inici: Atac
+                            Inici de l'Atac
                         </label>
-                        <input id="startEventTime" name="startEventTime" type="datetime-local" required value="${(startProposalsTime?long + 7 * 3600000)?number_to_datetime?string['yyyy-MM-dd\'T\'HH:\'00\'']}" class="u-full-width"/>
+                        <input id="startEventTime" name="startEventTime" type="datetime-local" required value="${startProposalsTime?string['yyyy-MM-dd\'T\'21:\'00\'']}" class="u-full-width"/>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="twelve columns ht-submit-row">
+                    <div class="six columns">
+                        <label for="endRankingTime">
+                            Tancament del Rànquing
+                        </label>
+                        <input id="endRankingTime" name="endRankingTime" type="datetime-local" required value="${(startProposalsTime?long + 48 * 3600000)?number_to_datetime?string['yyyy-MM-dd\'T\'23:\'59\'']}" class="u-full-width"/>
+                    </div>
+                    <div class="six columns ht-submit-row mt20">
                         <button class="button button-primary" type="submit">
                             <i class="fas fa-plus-circle"></i> #Crea
                         </button>

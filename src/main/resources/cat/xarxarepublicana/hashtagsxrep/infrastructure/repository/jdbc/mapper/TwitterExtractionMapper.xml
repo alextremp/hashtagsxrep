@@ -22,10 +22,10 @@
     <insert id='insert'>
         INSERT INTO TWITTER_EXTRACTION
             (monitor_id, tweet_id, user_id, type, creation_date,
-            interacted_status_id, interacted_user_id, language, text)
+            interacted_status_id, interacted_user_id, language, text, ranked)
         VALUES
             (#{extraction.monitorId}, #{extraction.tweetId}, #{extraction.userId}, #{extraction.type}, #{extraction.creationDate},
-            #{extraction.interactedStatusId}, #{extraction.interactedUserId}, #{extraction.language}, #{extraction.text})
+            #{extraction.interactedStatusId}, #{extraction.interactedUserId}, #{extraction.language}, #{extraction.text}, #{ranked})
     </insert>
 
     <delete id="deleteDataByMonitorId">

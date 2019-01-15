@@ -39,7 +39,7 @@ public class JdbcTwitterExtractionRepository implements TwitterExtractionReposit
     }
 
     @Override
-    public boolean save(Monitor monitor, SearchTweetsResult searchTweetsResult) {
+    public boolean save(Monitor monitor, SearchTweetsResult searchTweetsResult, boolean ranked) {
         Set<String> updatedUserIds = new HashSet<>();
         User user;
         TwitterExtraction twitterExtraction;
@@ -52,7 +52,7 @@ public class JdbcTwitterExtractionRepository implements TwitterExtractionReposit
             }
             twitterExtraction = twitterExtractionFactory.createFromMonitorExtractedTweet(monitor, tweet);
             try {
-                twitterExtractionMapper.insert(twitterExtraction);
+                twitterExtractionMapper.insert(twitterExtraction, ranked);
             } catch (Exception e) {
                 if (DuplicateKeyException.class.isAssignableFrom(e.getClass())) {
                     if (LOG.isLoggable(Level.FINE)) {

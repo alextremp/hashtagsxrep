@@ -55,8 +55,8 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public MonitorDataExtractionUseCase monitorDataExtractionUseCase(@Value("${app.monitor.extraction.maxRequests}") Integer maxExtractionRequests, TwitterExtractionRepository twitterExtractionRepository, TwitterRepository twitterRepository, MonitorRepository monitorRepository) {
-        return new MonitorDataExtractionUseCase(maxExtractionRequests, twitterExtractionRepository, twitterRepository, monitorRepository);
+    public MonitorDataExtractionUseCase monitorDataExtractionUseCase(@Value("${app.monitor.extraction.maxRequests}") Integer maxExtractionRequests, TwitterExtractionRepository twitterExtractionRepository, TwitterRepository twitterRepository, MonitorRepository monitorRepository, PollRepository pollRepository) {
+        return new MonitorDataExtractionUseCase(maxExtractionRequests, twitterExtractionRepository, twitterRepository, monitorRepository, pollRepository);
     }
 
     @Bean
@@ -75,8 +75,8 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public LoadPollUseCase loadPollUseCase(PollRepository pollRepository, InviteRepository inviteRepository) {
-        return new LoadPollUseCase(pollRepository, inviteRepository);
+    public LoadPollUseCase loadPollUseCase(PollRepository pollRepository, InviteRepository inviteRepository, MonitorRepository monitorRepository) {
+        return new LoadPollUseCase(pollRepository, inviteRepository, monitorRepository);
     }
 
     @Bean
