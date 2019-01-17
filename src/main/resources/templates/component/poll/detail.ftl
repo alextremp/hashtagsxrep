@@ -20,9 +20,7 @@
 </div>
 <div class="ht-box">
     <#if showProposalForm>
-        <div class="ht-tip">
-            Proposa un hashtag. La votació de propostes serà anònima. Acabada la votació es mostrarà la teva proposta junt amb el teu nickname :)
-        </div>
+        <#include "hashtag-info.ftl">
         <form action="/poll/${loadPollResponse.poll.id}/proposal" method="post" class="ht-form">
             <div class="row">
                 <div class="twelve columns">
@@ -63,6 +61,7 @@
                         <div class="ht-message">
                             Si la vols modificar, tens fins les ${loadPollResponse.poll.asString(loadPollResponse.poll.endProposalsTime)} per fer-ho!
                         </div>
+                        <#include "hashtag-info.ftl">
                         <div class="row">
                             <div class="twelve columns">
                                 <label for="hashtag">Hashtag</label>
