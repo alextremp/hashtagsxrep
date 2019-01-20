@@ -111,7 +111,7 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public HashtagCountUseCase hashtagCountUseCase(TwitterSearchService twitterSearchService) {
-        return new HashtagCountUseCase(twitterSearchService);
+    public ValidateHashtagUseCase validateHashtagUseCase(TwitterSearchService twitterSearchService, MonitorRepository monitorRepository) {
+        return new ValidateHashtagUseCase(twitterSearchService, monitorRepository);
     }
 }

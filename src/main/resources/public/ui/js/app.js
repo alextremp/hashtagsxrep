@@ -1,16 +1,17 @@
-function hashtagCount(ht, ok) {
+function hashtagCount(ht, ok, ko) {
     var input = ht.replace('#', '');
     $.ajax({
         url: "/hashtag/" + input + "/count",
         success: ok,
+        error: ko,
         dataType: 'json'
     });
 }
 
 function submitProposal() {
     var hashtag = $('#hashtag');
+    var form = $("#proposalForm");
     hashtagCount(hashtag.val(), function(response) {
-        var form = $("#proposalForm");
         if (response.accepted) {
             form.attr('onsubmit', '');
             form.submit();
@@ -21,6 +22,9 @@ function submitProposal() {
             removeValidation('#hashtag');
             hashtag.get(0).scrollIntoView();
         }
+    }, function(err) {
+        form.attr('onsubmit', '');
+        form.submit();
     });
     return false;
 }
