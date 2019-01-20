@@ -20,6 +20,7 @@ import cat.xarxarepublicana.hashtagsxrep.domain.poll.ProposalFactory;
 import cat.xarxarepublicana.hashtagsxrep.domain.ranking.RankingRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.report.ReportRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.twitter.TwitterRepository;
+import cat.xarxarepublicana.hashtagsxrep.domain.twitter.TwitterSearchService;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserRepository;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.security.AuthenticationContext;
 import org.springframework.beans.factory.annotation.Value;
@@ -107,5 +108,10 @@ public class UseCaseConfiguration {
     @Bean
     public GetTaggersRankingUseCase getTaggersRankingUseCase(RankingRepository rankingRepository) {
         return new GetTaggersRankingUseCase(rankingRepository);
+    }
+
+    @Bean
+    public HashtagCountUseCase hashtagCountUseCase(TwitterSearchService twitterSearchService) {
+        return new HashtagCountUseCase(twitterSearchService);
     }
 }

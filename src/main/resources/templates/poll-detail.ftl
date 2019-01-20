@@ -30,5 +30,6 @@
 
     <#include "component/footer.ftl">
 </div>
+<#include "common/scripts.ftl">
 </body>
 </html>

@@ -61,8 +61,7 @@ public class RepositoryConfiguration {
     private String oauthCallback;
 
     @Bean
-    public TwitterRepository twitterRepository(UserFactory userFactory, OAuth10aService oAuth10aService, OAuth1AccessToken applicationToken) {
-        ObjectMapper objectMapper = new ObjectMapper();
+    public TwitterRepository twitterRepository(UserFactory userFactory, OAuth10aService oAuth10aService, OAuth1AccessToken applicationToken, @Qualifier("jsonObjectMapper") ObjectMapper objectMapper) {
         return new TwitterRepositoryImpl(userFactory, oAuth10aService, applicationToken, objectMapper);
     }
 
@@ -139,7 +138,7 @@ public class RepositoryConfiguration {
 
     @Bean
     @Primary
-    public CachedRankingRepository cachedRankingRepository(JdbcRankingRepository jdbcRankingRepository, @Qualifier("rankingCache")LoadingCache<String, Ranking> rankingCache) {
+    public CachedRankingRepository cachedRankingRepository(JdbcRankingRepository jdbcRankingRepository, @Qualifier("rankingCache") LoadingCache<String, Ranking> rankingCache) {
         return new CachedRankingRepository(jdbcRankingRepository, rankingCache);
     }
 
@@ -172,6 +171,12 @@ public class RepositoryConfiguration {
     @Bean
     public TelegramNoticeRepository telegramNoticeRepository(FreeMarkerConfig freeMarkerConfig, @Value("${telegram.publisher.apiKey}") String botApiKey, @Value("${telegram.publisher.channel}") String channel, StringEscapeService stringEscapeService) {
         return new TelegramNoticeRepository(freeMarkerConfig, botApiKey, channel, stringEscapeService);
+    }
+
+    @Bean
+    @Qualifier("jsonObjectMapper")
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
     }
 
     @Bean
