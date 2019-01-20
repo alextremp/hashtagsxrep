@@ -1,6 +1,6 @@
 package cat.xarxarepublicana.hashtagsxrep.infrastructure.controller;
 
-import cat.xarxarepublicana.hashtagsxrep.application.poll.HashtagCountUseCase;
+import cat.xarxarepublicana.hashtagsxrep.application.poll.ValidateHashtagUseCase;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.controller.dto.HashtagCountResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,18 +10,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HashtagController {
 
-    private final HashtagCountUseCase hashtagCountUseCase;
+    private final ValidateHashtagUseCase validateHashtagUseCase;
 
     @Autowired
-    public HashtagController(HashtagCountUseCase hashtagCountUseCase) {
-        this.hashtagCountUseCase = hashtagCountUseCase;
+    public HashtagController(ValidateHashtagUseCase validateHashtagUseCase) {
+        this.validateHashtagUseCase = validateHashtagUseCase;
     }
 
     @GetMapping("/hashtag/{hashtag}/count")
     public HashtagCountResponse hashtagCount(
             @PathVariable("hashtag") String hashtag
     ) {
-        String error = hashtagCountUseCase.count("#" + hashtag);
+        String error = validateHashtagUseCase.validate("#" + hashtag);
         return error == null ? new HashtagCountResponse(true, null) : new HashtagCountResponse(false, error);
     }
 
