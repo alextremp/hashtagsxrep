@@ -21,22 +21,28 @@ public class TwitterSearchService {
     }
 
     public Integer countTweets(String hashtag, Integer max) {
-        StringBuffer queryString = new StringBuffer();
-        queryString.append("count=").append(MAX_TWEETS_PER_QUERY)
-                .append("&q=").append(hashtag);
+        String queryString = new StringBuffer()
+                .append("count=").append(MAX_TWEETS_PER_QUERY)
+                .append("&q=").append(hashtag)
+                .toString();
 
         SearchTweetsResult searchTweetsResult;
         int count = 0;
         boolean stop = false;
         while (!stop) {
-            searchTweetsResult = twitterRepository.searchTweets(queryString.toString());
+            searchTweetsResult = twitterRepository.searchTweets(queryString);
             count += Arrays.stream(searchTweetsResult.getStatuses())
                     .filter(tweet -> !TYPE_RETWEET.equals(type(tweet)))
                     .count();
             if (LOG.isLoggable(Level.FINE)) {
-                LOG.log(Level.FINE, hashtag + " >> count >> " + count);
+                LOG.log(Level.FINE, queryString + " >> count >> " + count);
             }
-            stop = searchTweetsResult.getStatuses().length < MAX_TWEETS_PER_QUERY || count > max;
+            stop = searchTweetsResult.getStatuses().length < MAX_TWEETS_PER_QUERY
+                    || searchTweetsResult.getSearchMetadata().getNextResults() == null
+                    || count > max;
+            if (!stop) {
+                queryString = searchTweetsResult.getSearchMetadata().getNextResults();
+            }
         }
         return count;
     }
