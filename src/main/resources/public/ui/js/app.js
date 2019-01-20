@@ -20,7 +20,8 @@ function submitProposal() {
             validation.addClass('error');
             validation.text(response.reason);
             removeValidation('#hashtag');
-            hashtag.get(0).scrollIntoView();
+            hashtag.focus();
+            $('html, body').animate({scrollTop: hashtag.offset().top}, 500);
         }
     }, function(err) {
         form.attr('onsubmit', '');
