@@ -103,6 +103,15 @@ span {
 input[type='checkbox'].toggle {
   display: none;
 }
+.error {
+    font-size: .9rem;
+    text-align: left;
+    margin: -25px 0px 20px 10px;
+    padding: 5px;
+    background-color: #ffd9d9;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
 .lbl-toggle {
   display: block;
   text-align: center;

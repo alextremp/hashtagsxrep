@@ -11,5 +11,6 @@
     <#include "component/user/login-with-twitter.ftl">
     <#include "component/footer.ftl">
 </div>
+<#include "common/scripts.ftl">
 </body>
 </html>

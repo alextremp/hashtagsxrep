@@ -14,7 +14,7 @@ public class HashtagCountUseCase {
         int maxAcceptedTweets = 10;
         int countTweets = twitterSearchService.countTweets(hashtag, maxAcceptedTweets);
         if (countTweets > maxAcceptedTweets) {
-            return hashtag + ": S'han trobat més de 10 tweets";
+            return hashtag + ": Aquest hashtag ja està en ús (més de 10 tweets la última setmana), proposa'n un que no s'estigui fent servir";
         }
         return null;
     }
