@@ -502,6 +502,19 @@ header.ht-user-rank {
     color: white;
     font-weight: bold;
 }
+.ht-invite-container {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
 .ht-invite {
     margin: 20px 10px 5px 10px;
     background-color: #212121;
@@ -509,6 +522,7 @@ header.ht-user-rank {
     min-height: 200px;
     border-radius: 20px;
     padding: 10px 10px 15px 10px;
+    min-width: 260px;
 }
 .ht-invite header {
     background-color: white;
