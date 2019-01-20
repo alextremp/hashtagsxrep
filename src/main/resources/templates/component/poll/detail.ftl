@@ -58,7 +58,7 @@
             </label>
             <div class="collapsible-content">
                 <div class="content-inner">
-                    <form action="/poll/${loadPollResponse.poll.id}/proposal" method="post" class="ht-form">
+                    <form id="proposalForm" action="/poll/${loadPollResponse.poll.id}/proposal" method="post" class="ht-form" onsubmit="return submitProposal();">
                         <div class="ht-message">
                             Si la vols modificar, tens fins les ${loadPollResponse.poll.asString(loadPollResponse.poll.endProposalsTime)} per fer-ho!
                         </div>
@@ -68,6 +68,7 @@
                                 <label for="hashtag">Hashtag</label>
                                 <input class="u-full-width" type="text" placeholder="#HashtagVàlid" id="hashtag" name="hashtag" required value="${loadPollResponse.userProposal.hashtag}"
                                        pattern="#[A-Za-z0-9àèòÀÈÒáéíóúÁÉÍÓÚñÑïüÏÜçÇ]{1,25}" title="#Hashtag d'entre 1 i 25 caràcters alfanumèrics"/>
+                                <div id="hashtag_validation"></div>
                             </div>
                         </div>
                         <div class="row">
