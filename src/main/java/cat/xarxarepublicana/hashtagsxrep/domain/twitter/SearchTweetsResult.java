@@ -10,8 +10,8 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class SearchTweetsResult {
 
-    private Tweet[] statuses;
-    private SearchMetadata searchMetadata;
+    private Tweet[] statuses = new Tweet[0];
+    private SearchMetadata searchMetadata = new SearchMetadata();
 
     public Tweet[] getStatuses() {
         return statuses;
