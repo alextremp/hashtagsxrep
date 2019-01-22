@@ -3,6 +3,7 @@ package cat.xarxarepublicana.hashtagsxrep.infrastructure.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextImpl;
@@ -15,14 +16,14 @@ import reactor.core.publisher.Mono;
 public class CookiedSecurityContextRepository implements ServerSecurityContextRepository {
 
     private final String cookieName;
-    private final AuthenticationManager authenticationManager;
+    private final ReactiveAuthenticationManager reactiveAuthenticationManager;
 
     @Autowired
     public CookiedSecurityContextRepository(
             @Value("${app.usertoken.cookiename}") String cookieName,
-            AuthenticationManager authenticationManager) {
+            ReactiveAuthenticationManager reactiveAuthenticationManager) {
         this.cookieName = cookieName;
-        this.authenticationManager = authenticationManager;
+        this.reactiveAuthenticationManager = reactiveAuthenticationManager;
     }
 
     @Override
@@ -37,7 +38,7 @@ public class CookiedSecurityContextRepository implements ServerSecurityContextRe
                 .map(cookiesMap -> cookiesMap.getFirst(cookieName))
                 .map(httpCookie -> httpCookie.getValue())
                 .map(token -> new UsernamePasswordAuthenticationToken(token, token))
-                .map(authenticationToken -> authenticationManager.authenticate(authenticationToken))
+                .flatMap(authenticationToken -> reactiveAuthenticationManager.authenticate(authenticationToken))
                 .map(authentication -> new SecurityContextImpl(authentication));
     }
 }

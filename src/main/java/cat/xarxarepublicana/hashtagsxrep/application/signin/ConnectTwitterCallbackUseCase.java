@@ -21,7 +21,7 @@ public class ConnectTwitterCallbackUseCase {
         this.authenticationContext = authenticationContext;
     }
 
-    public ConnectResponse connect(HttpServletResponse response, String oauthToken, String oauthVerifier, String denied) {
+    /*public ConnectResponse connect(HttpServletResponse response, String oauthToken, String oauthVerifier, String denied) {
         if (denied != null) {
             return new ConnectResponse(Views.URL_LOGIN);
         }
@@ -31,7 +31,7 @@ public class ConnectTwitterCallbackUseCase {
         AuthenticationUser authenticationUser = new AuthenticationUser(user);
         authenticationContext.put(authenticationUser, response);
         return new ConnectResponse(Views.URL_INDEX);
-    }
+    }*/
 
     public static class ConnectResponse {
         private final String redirectTo;

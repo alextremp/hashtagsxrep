@@ -2,11 +2,14 @@ package cat.xarxarepublicana.hashtagsxrep.infrastructure.security;
 
 import cat.xarxarepublicana.hashtagsxrep.domain.user.User;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserRepository;
+import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
+import reactor.core.publisher.Mono;
 
-public class AuthenticationUserService implements UserDetailsService {
+@Component
+public class AuthenticationUserService implements ReactiveUserDetailsService {
 
     private UserRepository userRepository;
 
@@ -15,12 +18,13 @@ public class AuthenticationUserService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        User user = userRepository.findById(id);
-        if (user == null) {
-            throw new UsernameNotFoundException("Not found: " + id);
-        }
-        return new AuthenticationUser(user);
+    public Mono<UserDetails> findByUsername(String id) {
+        return Mono.fromCallable(() -> {
+            User user = userRepository.findById(id);
+            if (user == null) {
+                throw new UsernameNotFoundException("Not found: " + id);
+            }
+            return new AuthenticationUser(user);
+        });
     }
-
 }

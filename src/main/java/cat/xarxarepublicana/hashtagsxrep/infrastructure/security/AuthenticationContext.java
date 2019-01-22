@@ -11,13 +11,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 public class AuthenticationContext {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AuthenticationContext.class);
+    /*private static final Logger LOG = LoggerFactory.getLogger(AuthenticationContext.class);
 
     private static final int COOKIE_MAX_AGE = 2 * 30 * 24 * 3600; //two months
     private static final String COOKIE_LOGOUT = "_"; //support for browser versions not deleting the cookie
@@ -116,6 +112,6 @@ public class AuthenticationContext {
             }
         }
         return null;
-    }
+    }*/
 
 }

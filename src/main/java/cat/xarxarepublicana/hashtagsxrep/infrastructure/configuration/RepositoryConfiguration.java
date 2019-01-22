@@ -37,7 +37,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.web.servlet.view.freemarker.FreeMarkerConfig;
+import org.springframework.web.reactive.result.view.freemarker.FreeMarkerConfig;
 
 import javax.sql.DataSource;
 import java.util.List;
