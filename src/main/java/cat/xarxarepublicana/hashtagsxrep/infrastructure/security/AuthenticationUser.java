@@ -7,6 +7,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Spring Security enabled user. The AuthenticationUser wraps the
+ */
 public class AuthenticationUser implements UserDetails {
 
     private List<AuthenticationRole> authorities;

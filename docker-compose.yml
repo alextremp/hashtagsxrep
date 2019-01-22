@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  db:
+    image: mysql:5.7
+    container_name: develop-mysql
+    restart: always
+    command: mysqld --user=root --verbose
+    ports:
+      - 13306:3306
+    environment:
+      MYSQL_DATABASE: "hashtagsxrep"
+      MYSQL_USER: "local"
+      MYSQL_PASSWORD: "local"
+      MYSQL_ROOT_PASSWORD: "root"

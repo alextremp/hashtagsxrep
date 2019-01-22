@@ -1,44 +1,37 @@
 package cat.xarxarepublicana.hashtagsxrep.infrastructure.security;
 
-import java.io.IOException;
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ServerWebExchange;
+import org.springframework.web.server.WebFilter;
+import org.springframework.web.server.WebFilterChain;
+import reactor.core.publisher.Mono;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Simple CORS filter
  */
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
-class CorsFilter implements Filter {
+class CorsFilter implements WebFilter {
+
+    private static final Map<String, String> HEADERS = new HashMap<String, String>() {{
+        put("Access-Control-Allow-Origin", "*");
+        put("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS, DELETE");
+        put("Access-Control-Allow-Headers", "x-requested-with");
+        put("Access-Control-Max-Age", "3600");
+    }};
 
     @Override
-    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
-        HttpServletResponse response = (HttpServletResponse) res;
-        HttpServletRequest request = (HttpServletRequest) req;
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS, DELETE");
-        response.setHeader("Access-Control-Allow-Headers", "x-requested-with");
-        response.setHeader("Access-Control-Max-Age", "3600");
-        if (!"OPTIONS".equals(request.getMethod())) {
-            chain.doFilter(req, res);
-        }
+    public Mono<Void> filter(ServerWebExchange serverWebExchange, WebFilterChain webFilterChain) {
+        return Mono.fromRunnable(() -> {
+            serverWebExchange.getResponse().getHeaders().setAll(HEADERS);
+            if (!"OPTIONS".equals(serverWebExchange.getRequest().getMethodValue())) {
+                webFilterChain.filter(serverWebExchange);
+            }
+        });
     }
-
-    @Override
-    public void init(FilterConfig filterConfig) {
-    }
-
-    @Override
-    public void destroy() {
-    }
-
 }

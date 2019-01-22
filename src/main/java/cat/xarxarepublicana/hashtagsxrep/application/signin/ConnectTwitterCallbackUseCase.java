@@ -7,7 +7,6 @@ import cat.xarxarepublicana.hashtagsxrep.domain.user.UserRepository;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.security.AuthenticationContext;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.security.AuthenticationUser;
 
-import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 
 public class ConnectTwitterCallbackUseCase {

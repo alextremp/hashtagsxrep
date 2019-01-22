@@ -5,9 +5,7 @@ import cat.xarxarepublicana.hashtagsxrep.domain.notice.NoticeRepository;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.telegram.dto.SendMessageDTO;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.service.StringEscapeService;
 import org.springframework.http.HttpEntity;
-import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.view.freemarker.FreeMarkerConfig;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,13 +16,11 @@ public class TelegramNoticeRepository implements NoticeRepository {
 
     private static final Logger LOG = Logger.getLogger(TelegramNoticeRepository.class.getName());
 
-    private final FreeMarkerConfig freeMarkerConfig;
     private final String apiKey;
     private final String channel;
     private final StringEscapeService stringEscapeService;
 
-    public TelegramNoticeRepository(FreeMarkerConfig freeMarkerConfig, String apiKey, String channel, StringEscapeService stringEscapeService) {
-        this.freeMarkerConfig = freeMarkerConfig;
+    public TelegramNoticeRepository(String apiKey, String channel, StringEscapeService stringEscapeService) {
         this.apiKey = apiKey;
         this.channel = channel;
         this.stringEscapeService = stringEscapeService;
@@ -36,10 +32,12 @@ public class TelegramNoticeRepository implements NoticeRepository {
             Map<String, Object> model = new HashMap<>();
             model.put("notice", notice);
             model.put("stringEscapeService", stringEscapeService);
-            String message = FreeMarkerTemplateUtils.processTemplateIntoString(
-                    freeMarkerConfig.getConfiguration().getTemplate("telegram.ftl"),
-                    model
-            );
+            // TODO V2 : do a telegram notice template without the need of freemarker dependency
+            String message = "";
+//            String message = FreeMarkerTemplateUtils.processTemplateIntoString(
+//                    freeMarkerConfig.getConfiguration().getTemplate("telegram.ftl"),
+//                    model
+//            );
             HttpEntity<SendMessageDTO> request = new HttpEntity<>(new SendMessageDTO(
                     channel,
                     message
