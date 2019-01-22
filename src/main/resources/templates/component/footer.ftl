@@ -12,3 +12,4 @@
         </div>
     </div>
 </footer>
+<#include "menu/menu.ftl">

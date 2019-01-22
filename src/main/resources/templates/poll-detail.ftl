@@ -18,12 +18,6 @@
         <#include "component/poll/detail.ftl">
         <#include "component/invite/detail.ftl">
 
-        <div class="ht-box">
-            <#include "component/poll/page-link.ftl">
-            <#include "component/monitor/page-link.ftl">
-            <#include "component/ranking/page-link.ftl">
-            <#include "component/home/page-link.ftl">
-        </div>
     </div>
 
     <#include "component/poll/delete.ftl">
