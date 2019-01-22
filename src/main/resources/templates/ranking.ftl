@@ -20,12 +20,6 @@
         <#include "component/ranking/score-info.ftl">
         <#include "component/ranking/list.ftl">
 
-        <div class="ht-box">
-            <#include "component/monitor/page-link.ftl">
-            <#include "component/poll/page-link.ftl">
-            <#include "component/home/page-link.ftl">
-        </div>
-
     </div>
     </@security.authorize>
     <#include "component/footer.ftl">

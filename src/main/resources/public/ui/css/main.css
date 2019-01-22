@@ -21,6 +21,10 @@ a, a:visited {
 a:focus, a:hover {
     color: lightgray;
 }
+li {
+    list-style: none;
+    margin-bottom: unset;
+}
 header {
 }
 footer {
@@ -154,7 +158,59 @@ input[type='checkbox'].toggle {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
-
+/* menu */
+.ht-menu-wrapper {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  right: 0px;
+}
+.ht-lbl-menu {
+  display: block;
+  text-align: right;
+  padding: .5rem;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all 0.25s ease-out;
+  background-color: #000000ab;
+  color: white;
+  font-size: 1.2rem;
+  margin: 5px;
+}
+.ht-collapsible-menu {
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height .25s ease-in-out;
+  background-color: #fffffff5;
+  border-radius: 10px;
+  text-align: center;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.toggle:checked + .ht-lbl-menu + .ht-collapsible-menu {
+  max-height: 1200px;
+  min-height: 450px;
+  height: 80vh;
+}
+.ht-lbl-menu .fa-bars,.fa-window-close {
+    font-size: larger;
+}
+.ht-lbl-menu .fa-bars {
+    display: inline-block;
+}
+.ht-lbl-menu .fa-window-close {
+    display: none;
+}
+.toggle:checked + .ht-lbl-menu .fa-bars {
+  display: none;
+}
+.toggle:checked + .ht-lbl-menu .fa-window-close {
+  display: inline-block;
+}
+.ht-menu {
+    margin-top: 40px;
+}
+/****menu*/
 .text-in {
     position: absolute;
     top: 0;
@@ -222,7 +278,7 @@ input[type='checkbox'].toggle {
     margin-right: auto;
 }
 .ht-header {
-    margin-top: 40px;
+    margin-top: 60px;
     min-height: 50px;
     position: relative;
 }

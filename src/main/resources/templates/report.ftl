@@ -16,12 +16,6 @@
         </div>
         <#include "component/report/extraction-data.ftl">
 
-        <div class="ht-box">
-            <#include "component/monitor/page-link.ftl">
-            <#include "component/ranking/page-link.ftl">
-            <#include "component/poll/page-link.ftl">
-            <#include "component/home/page-link.ftl">
-        </div>
     </div>
 
     <#include "component/monitor/delete.ftl">

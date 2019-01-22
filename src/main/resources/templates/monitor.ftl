@@ -19,12 +19,6 @@
         <#include "component/monitor/create-form.ftl">
         <#include "component/monitor/list.ftl">
 
-        <div class="ht-box">
-            <#include "component/poll/page-link.ftl">
-            <#include "component/ranking/page-link.ftl">
-            <#include "component/home/page-link.ftl">
-        </div>
-
     </div>
     </@security.authorize>
     <#include "component/footer.ftl">
