@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-<#include "common/enable-security.ftl">
 <head>
     <#assign pageTitle = "Login | Hashtags per la República">
     <#include "common/head.ftl">

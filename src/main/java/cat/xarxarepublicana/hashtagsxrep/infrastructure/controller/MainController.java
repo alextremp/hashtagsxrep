@@ -17,4 +17,9 @@ public class MainController {
                 .then(Mono.just("index"));
     }
 
+    @GetMapping("/what")
+    public Mono<String> index2() {
+        return index();
+    }
+
 }
