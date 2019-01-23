@@ -1,0 +1,54 @@
+server:
+  port: ${PORT:5000}
+  error.whitelabel.enabled: false
+
+spring:
+  main:
+    banner-mode: "OFF"
+  profiles:
+    active: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DB_URL:jdbc:mysql://localhost:8889/hashtagsxrep}
+    username: ${DB_USER:root}
+    password: ${DB_PASSWORD:root}
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      maximumPoolSize: 10
+      poolName: poll-db
+      minimumIdle: 2
+  freemarker:
+    template-loader-path: classpath:/templates
+    suffix: .ftl
+    settings.template_exception_handler: rethrow
+
+twitter:
+  apiKey: ${OAUTH_TWITTER_CONSUMER_API_KEY:_}
+  apiSecret: ${OAUTH_TWITTER_CONSUMER_API_SECRET:_}
+  oauthCallback: ${OAUTH_CALLBACK:http://localhost:5000/connect/twitter}
+  appKey: ${OAUTH_TWITTER_ACCESS_TOKEN_KEY:_}
+  appSecret: ${OAUTH_TWITTER_ACCESS_TOKEN_SECRET:_}
+
+telegram:
+  publisher:
+    apiKey: ${PUBLISHER_BOT_KEY:_}
+    channel: ${PUBLISHER_BOT_CHANNEL:_}
+
+app:
+  usertoken:
+    cookiename: ${APP_USER_TOKEN_COOKIE:hashtagsxrep-token}
+    secret: ${APP_USER_TOKEN_SECRET:password}
+  monitor:
+    timer.delay: 60000
+    extraction.maxRequests: 30
+  finishedPoll:
+    timer.delay: 300000
+  timeZone: ${TZ:}
+
+logging:
+  level:
+    ROOT: ${PLATFORM_LOG_LEVEL:INFO}
+    cat.xarxarepublicana: ${APP_LOG_LEVEL:DEBUG}
+    com.github.scribejava: ${APP_LOG_LEVEL:DEBUG}
+    com.zaxxer.hikari: ${PLATFORM_LOG_LEVEL:DEBUG}
+    org.springframework.web.client.RestTemplate: ${PLATFORM_LOG_LEVEL:DEBUG}

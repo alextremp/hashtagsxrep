@@ -6,12 +6,7 @@ HEAD COMPONENT: common content for <head> tag
 - pageUrl
 -->
 
-<#if springMacroRequestContext.queryString??>
-    <#assign qs = '?'+springMacroRequestContext.queryString />
-<#else>
-    <#assign qs = '' />
-</#if>
-<#assign url = 'https://hashtagsxrep.herokuapp.com'+springMacroRequestContext.requestUri+qs />
+<#assign url = 'https://hashtagsxrep.herokuapp.com' />
 <#assign defaultTitle = 'Hastags per la República' />
 <#assign defaultDescription = 'Creació i analítica de Hashtags en pro de la República Catalana.' />
 <#assign defaultImage = 'https://hashtagsxrep.herokuapp.com/ui/image/icon/apple-icon-180x180.png' />
