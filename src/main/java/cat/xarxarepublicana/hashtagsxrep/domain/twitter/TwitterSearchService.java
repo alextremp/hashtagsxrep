@@ -1,9 +1,5 @@
 package cat.xarxarepublicana.hashtagsxrep.domain.twitter;
 
-import cat.xarxarepublicana.hashtagsxrep.domain.user.User;
-
-import java.util.Arrays;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static cat.xarxarepublicana.hashtagsxrep.domain.extraction.TwitterExtraction.*;
@@ -20,7 +16,7 @@ public class TwitterSearchService {
         this.twitterRepository = twitterRepository;
     }
 
-    public Integer countTweets(String hashtag, Integer max) {
+    /*public Integer countTweets(String hashtag, Integer max) {
         String queryString = new StringBuffer()
                 .append("count=").append(MAX_TWEETS_PER_QUERY)
                 .append("&q=").append(hashtag)
@@ -45,7 +41,7 @@ public class TwitterSearchService {
             }
         }
         return count;
-    }
+    }*/
 
     public String type(Tweet tweet) {
         if (tweet.getQuotedStatus() != null) {
