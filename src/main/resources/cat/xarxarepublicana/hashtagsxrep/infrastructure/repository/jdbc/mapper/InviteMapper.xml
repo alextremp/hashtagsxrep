@@ -108,7 +108,7 @@
             FROM POLL_INVITE invite
         )
         ORDER BY RAND()
-        LIMIT 5
+        LIMIT 10
     </insert>
 
     <insert id="insertInfluencers">
@@ -122,7 +122,7 @@
         )
         AND user.nickname = taggers_ranking.nickname
         ORDER BY user.followers DESC
-        LIMIT 5
+        LIMIT 10
     </insert>
 
     <delete id="deleteByPollId">
