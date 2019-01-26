@@ -1,10 +1,10 @@
-<b>${stringEscapeService.unescape(notice.title)} a les ${notice.hour}</b>
+<b>${stringEscapeService.unescapeHTML(notice.title)} a les ${notice.hour}</b>
 
 ${notice.hashtag}
 
 <b>TEMA:</b>
 
-${stringEscapeService.unescape(notice.subject)}
+${stringEscapeService.unescapeHTML(notice.subject)}
 
 <b>INSTRUCCIONS:</b>
 
