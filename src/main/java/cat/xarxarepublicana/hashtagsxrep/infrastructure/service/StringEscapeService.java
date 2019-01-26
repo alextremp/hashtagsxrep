@@ -14,6 +14,10 @@ public class StringEscapeService {
         return StringEscapeUtils.escapeJava(string);
     }
 
+    public String unescapeHTML(String string) {
+        return StringEscapeUtils.unescapeHtml4(unescape(string));
+    }
+
     public String unescape(String string) {
         return StringEscapeUtils.unescapeJava(string);
     }
