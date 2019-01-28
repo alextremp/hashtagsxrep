@@ -413,12 +413,15 @@ div.ht-result:nth-child(odd) {
 }
 .ht-proposal {
     font-size: 60%;
-    margin: 25px;
+    margin: 25px 0px 10px 0px;
     padding-bottom: 10px;
     background-color: #fafafa;
     border-radius: 20px;
     border-style: solid;
     border-width: 3px;
+}
+.ht-proposal-cancelled {
+    background-color: #ffc8c8;
 }
 .ht-proposal header {
     font-weight: bold;
@@ -440,8 +443,10 @@ div.ht-result:nth-child(odd) {
     height: 28px;
     line-height: unset;
     background-color: white;
-    float: right;
     margin-right: 20px;
+}
+.ht-proposal-action {
+    float: right;
 }
 .ht-proposal-subject {
     line-height: 1.2;
@@ -456,6 +461,16 @@ div.ht-result:nth-child(odd) {
     text-align: left;
     white-space: pre-line;
     overflow-wrap: break-word;
+}
+.ht-proposal-cancel-reason {
+    line-height: 1.2;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 10px 0px 0px 0px;
+    margin-top: 20px;
+    text-align: left;
+    white-space: pre-line;
+    overflow-wrap: unset;
 }
 .ht-proposal-wbox {
     padding-top: 20px;

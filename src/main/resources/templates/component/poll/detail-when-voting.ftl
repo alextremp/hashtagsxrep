@@ -41,11 +41,20 @@
     <form action="/poll/${loadPollResponse.poll.id}/vote" method="post" class="ht-form">
     <input type="hidden" name="proposalAuthorId" id="proposalAuthorId" value=""/>
         <#list loadPollResponse.pollProposals as proposal>
-            <div class="ht-proposal">
+            <div class="ht-proposal <#if proposal.cancelationReason??>ht-proposal-cancelled</#if>">
                 <header>${proposal.hashtag}</header>
+                <div class="ht-proposal-action">
+                    <#include "moderate-button.ftl"/>
                 <#if !loadPollResponse.userVote?? \and user.canVote(proposal)>
-                    <button type="submit" onclick="document.getElementById('proposalAuthorId').value='${proposal.authorId}'"><i class="fas fa-thumbs-up"></i> #Vota</button>
+                    <button type="submit" onclick="setValue('proposalAuthorId', '${proposal.authorId}')"><i class="fas fa-thumbs-up"></i> #Vota</button>
                 </#if>
+                </div>
+            <#if proposal.cancelationReason??>
+                <div class="ht-proposal-cancel-reason"><b>L'administració de @HashtagsXRep ha cancel·lat aquesta proposta:</b> ${stringEscapeService.unescape(proposal.cancelationReason)}</div>
+                <@security.authorize access="hasRole('ROLE_ADMIN')">
+                <div class="ht-tip">Moderador: ${proposal.moderatorNickname}</div>
+                </@security.authorize>
+            </#if>
             <div class="ht-proposal-subject">${stringEscapeService.unescape(proposal.subject)}</div>
                 <#if user.id == proposal.authorId>
                 <footer>

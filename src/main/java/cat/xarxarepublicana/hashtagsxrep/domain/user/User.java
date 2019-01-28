@@ -121,7 +121,9 @@ public class User {
     }
 
     public boolean canVote(Proposal proposal) {
-        return canVote() && !getId().equals(proposal.getAuthorId());
+        return canVote()
+                && !getId().equals(proposal.getAuthorId())
+                && proposal.getCancelationReason() == null;
     }
 
 }

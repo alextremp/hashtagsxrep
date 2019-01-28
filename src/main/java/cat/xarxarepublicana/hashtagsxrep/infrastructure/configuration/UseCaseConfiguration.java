@@ -114,4 +114,14 @@ public class UseCaseConfiguration {
     public ValidateHashtagUseCase validateHashtagUseCase(TwitterSearchService twitterSearchService, MonitorRepository monitorRepository) {
         return new ValidateHashtagUseCase(twitterSearchService, monitorRepository);
     }
+
+    @Bean
+    public ModerationOpenUseCase moderationOpenUseCase(PollRepository pollRepository) {
+        return new ModerationOpenUseCase(pollRepository);
+    }
+
+    @Bean
+    public ModerationCloseUseCase moderationCloseUseCase(PollRepository pollRepository) {
+        return new ModerationCloseUseCase(pollRepository);
+    }
 }

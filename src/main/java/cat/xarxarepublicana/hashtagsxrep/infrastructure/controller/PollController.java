@@ -4,6 +4,7 @@ import cat.xarxarepublicana.hashtagsxrep.application.Views;
 import cat.xarxarepublicana.hashtagsxrep.application.poll.*;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.security.AuthenticationUser;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.service.StringEscapeService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.annotation.Secured;
@@ -29,9 +30,11 @@ public class PollController {
     private final PollVoteUseCase pollVoteUseCase;
     private final DeletePollUseCase deletePollUseCase;
     private final PollUnvoteUseCase pollUnvoteUseCase;
+    private final ModerationOpenUseCase moderationOpenUseCase;
+    private final ModerationCloseUseCase moderationCloseUseCase;
 
     @Autowired
-    public PollController(StringEscapeService stringEscapeService, CreatePollUseCase createPollUseCase, ListPollUseCase listPollUseCase, LoadPollUseCase loadPollUseCase, PollProposalUseCase pollProposalUseCase, PollVoteUseCase pollVoteUseCase, DeletePollUseCase deletePollUseCase, PollUnvoteUseCase pollUnvoteUseCase) {
+    public PollController(StringEscapeService stringEscapeService, CreatePollUseCase createPollUseCase, ListPollUseCase listPollUseCase, LoadPollUseCase loadPollUseCase, PollProposalUseCase pollProposalUseCase, PollVoteUseCase pollVoteUseCase, DeletePollUseCase deletePollUseCase, PollUnvoteUseCase pollUnvoteUseCase, ModerationOpenUseCase moderationOpenUseCase, ModerationCloseUseCase moderationCloseUseCase) {
         this.stringEscapeService = stringEscapeService;
         this.createPollUseCase = createPollUseCase;
         this.listPollUseCase = listPollUseCase;
@@ -40,6 +43,8 @@ public class PollController {
         this.pollVoteUseCase = pollVoteUseCase;
         this.deletePollUseCase = deletePollUseCase;
         this.pollUnvoteUseCase = pollUnvoteUseCase;
+        this.moderationOpenUseCase = moderationOpenUseCase;
+        this.moderationCloseUseCase = moderationCloseUseCase;
     }
 
     @GetMapping(Views.URL_POLL)
@@ -103,7 +108,11 @@ public class PollController {
                     AuthenticationUser authenticationUser,
             Model model
     ) {
-        PollProposalUseCase.PollProposalResponse pollProposalResponse = pollProposalUseCase.pollProposal(pollId, authenticationUser.getUser(), hashtag, stringEscapeService.escapeHTML(subject));
+        PollProposalUseCase.PollProposalResponse pollProposalResponse = pollProposalUseCase.pollProposal(
+                pollId,
+                authenticationUser.getUser(),
+                StringUtils.trimToNull(hashtag),
+                stringEscapeService.escapeHTML(StringUtils.trimToNull(subject)));
         model.addAttribute("pollProposalResponse", pollProposalResponse);
         return new RedirectView("/poll/" + pollId);
     }
@@ -143,6 +152,44 @@ public class PollController {
     ) {
         deletePollUseCase.deletePoll(pollId, stringEscapeService.escapeHTML(description));
         return new RedirectView(Views.URL_POLL);
+    }
+
+    @GetMapping("/poll/{pollId}/moderate/{proposalAuthorId}")
+    @Secured("ROLE_ADMIN")
+    public String openModeration(
+            @PathVariable("pollId") String pollId,
+            @PathVariable("proposalAuthorId") String proposalAuthorId,
+            Model model
+    ) {
+        ModerationOpenUseCase.ModerationOpenUseCaseResponse moderationOpenUseCaseResponse = moderationOpenUseCase.loadProposal(pollId, proposalAuthorId);
+        model.addAttribute("proposal", moderationOpenUseCaseResponse.getProposal());
+        return "moderate";
+    }
+
+    @PostMapping("/poll/{pollId}/moderate/{proposalAuthorId}")
+    @Secured("ROLE_ADMIN")
+    public String closeModeration(
+            @PathVariable("pollId")
+                    String pollId,
+            @PathVariable("proposalAuthorId")
+                    String proposalAuthorId,
+            @RequestParam("hashtag")
+                    String hashtag,
+            @RequestParam("subject")
+                    String subject,
+            @RequestParam(name = "cancelationReason", required = false)
+                    String cancelationReason,
+            @AuthenticationPrincipal
+                    AuthenticationUser authenticationUser
+    ) {
+        moderationCloseUseCase.closeModeration(
+                pollId,
+                proposalAuthorId,
+                StringUtils.trimToNull(hashtag),
+                stringEscapeService.escapeHTML(StringUtils.trimToNull(subject)),
+                StringUtils.isBlank(cancelationReason) ? null : stringEscapeService.escapeHTML(StringUtils.trimToNull(cancelationReason)),
+                authenticationUser.getUser());
+        return "redirect:/poll/" + pollId;
     }
 
 }

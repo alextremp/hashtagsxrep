@@ -39,4 +39,12 @@ function removeValidation(selector) {
     }, 10000);
 }
 
+function setValue(id, value) {
+    $('#'+id).val(value);
+}
+
+function go(to) {
+    $(window).attr('location', to);
+}
+
 console.log(">> app js");
