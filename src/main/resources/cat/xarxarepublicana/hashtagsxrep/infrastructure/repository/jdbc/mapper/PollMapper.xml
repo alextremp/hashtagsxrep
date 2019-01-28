@@ -28,6 +28,8 @@
             <arg column="nickname" javaType="string" />
             <arg column="hashtag" javaType="string" />
             <arg column="subject" javaType="string" />
+            <arg column="cancelation_reason" javaType="string" />
+            <arg column="moderator_nickname" javaType="string" />
             <arg column="creation_date" javaType="java.time.LocalDateTime" />
             <arg column="vote_count" javaType="integer" />
         </constructor>
@@ -43,8 +45,8 @@
 
     <sql id="sqlProposalJoin">
         SELECT proposal.poll_id, proposal.author_id, user.nickname,
-            proposal.hashtag, proposal.subject, proposal.creation_date,
-            count(vote.proposal_voter_id) as vote_count
+            proposal.hashtag, proposal.subject, proposal.cancelation_reason, proposal.moderator_nickname,
+            proposal.creation_date, count(vote.proposal_voter_id) as vote_count
         FROM POLL_PROPOSAL proposal
             INNER JOIN USER user ON proposal.author_id=user.id
             LEFT JOIN POLL_VOTE vote ON proposal.poll_id=vote.poll_id AND proposal.author_id=vote.proposal_author_id
@@ -101,6 +103,8 @@
         UPDATE POLL_PROPOSAL SET
             hashtag = #{proposal.hashtag},
             subject = #{proposal.subject},
+            cancelation_reason = #{proposal.cancelationReason},
+            moderator_nickname = #{proposal.moderatorNickname},
             creation_date = creation_date
         WHERE poll_id = #{proposal.pollId} AND author_id = #{proposal.authorId}
     </update>

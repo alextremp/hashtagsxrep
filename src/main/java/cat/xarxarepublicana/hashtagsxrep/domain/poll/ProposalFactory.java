@@ -11,6 +11,8 @@ public class ProposalFactory {
                 authorNickname,
                 hashtag,
                 subject,
+                null,
+                null,
                 LocalDateTime.now(),
                 0);
     }
