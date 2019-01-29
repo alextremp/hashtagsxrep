@@ -10,14 +10,14 @@
 <div class="row">
     <div class="twelve columns">
         <label for="subject">Tema</label>
-        <textarea class="u-full-width" id="subject" name="subject" required minlength="20" maxlength="400" rows="4" title="Tema del hashtag, entre 20 i 400 caràcters">${proposal.subject}</textarea>
+        <textarea class="u-full-width" id="subject" name="subject" required minlength="20" maxlength="400" rows="4" title="Tema del hashtag, entre 20 i 400 caràcters">${stringEscapeService.unescape(proposal.subject)}</textarea>
     </div>
 </div>
 <div class="row">
     <div class="twelve columns">
         <label for="cancelationReason">Motiu Cancel·lació</label>
         <div class="ht-tip left">Deixa el motiu de cancel·lació buit si només cal corregir faltes de la propsta. Omplir el motiu implica la cancel·lació de la proposta.</div>
-        <textarea class="u-full-width" id="cancelationReason" name="cancelationReason" minlength="10" maxlength="400" rows="4" title="Motiu de la cancel·lació de la proposta">${proposal.cancelationReason}</textarea>
+        <textarea class="u-full-width" id="cancelationReason" name="cancelationReason" minlength="10" maxlength="400" rows="4" title="Motiu de la cancel·lació de la proposta">${stringEscapeService.unescape(proposal.cancelationReason)!''}</textarea>
     </div>
 </div>
 <div class="row">

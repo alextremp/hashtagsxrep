@@ -503,6 +503,13 @@ div.ht-result:nth-child(odd) {
     margin-right: 20px;
     font-size: 90%;
 }
+.ht-moderate-proposed {
+    margin-top: 80px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #e2e2e2;
+    border-radius: 20px;
+}
 header.ht-user-rank {
     background-color: black;
     border-radius: 15px;

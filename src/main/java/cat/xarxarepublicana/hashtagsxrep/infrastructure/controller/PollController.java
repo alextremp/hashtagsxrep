@@ -163,6 +163,7 @@ public class PollController {
     ) {
         ModerationOpenUseCase.ModerationOpenUseCaseResponse moderationOpenUseCaseResponse = moderationOpenUseCase.loadProposal(pollId, proposalAuthorId);
         model.addAttribute("proposal", moderationOpenUseCaseResponse.getProposal());
+        model.addAttribute("stringEscapeService", stringEscapeService);
         return "moderate";
     }
 
