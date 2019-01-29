@@ -131,14 +131,6 @@
         <include refid="sqlProposalGroupAndOrder"/>
     </select>
 
-    <select id="selectWinnerProposal" resultMap="ProposalResultMap">
-        <include refid="sqlProposalJoin"/>
-        WHERE proposal.poll_id = #{pollId}
-        GROUP BY proposal.poll_id, proposal.author_id
-        ORDER BY vote_count DESC, proposal.creation_date ASC
-        LIMIT 1
-    </select>
-
     <delete id="delete">
         DELETE FROM POLL WHERE id = #{pollId}
     </delete>

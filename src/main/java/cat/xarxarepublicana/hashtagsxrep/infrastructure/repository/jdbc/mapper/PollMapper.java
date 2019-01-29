@@ -33,8 +33,6 @@ public interface PollMapper {
 
     List<Poll> selectFinishedPollsWithNoMonitor();
 
-    Proposal selectWinnerProposal(@Param("pollId") String pollId);
-
     void deleteVotes(@Param("pollId") String pollId);
 
     void deleteProposals(@Param("pollId") String pollId);
