@@ -53,8 +53,8 @@
     </sql>
     <sql id="sqlProposalGroupAndOrder">
         GROUP BY proposal.poll_id, proposal.author_id
-        ORDER BY <if test="_parameter.containsKey('orderVotes') and orderVotes != null and orderVotes == true">vote_count DESC, proposal.creation_date ASC</if>
-                 <if test="!(_parameter.containsKey('orderVotes') and orderVotes != null and orderVotes == true)">RAND()</if>
+        ORDER BY <if test="_parameter.containsKey('orderVotes') and orderVotes != null and orderVotes == true">cancelation_reason IS NOT NULL, vote_count DESC, proposal.creation_date ASC</if>
+                 <if test="!(_parameter.containsKey('orderVotes') and orderVotes != null and orderVotes == true)">cancelation_reason IS NOT NULL, RAND()</if>
     </sql>
 
     <select id='selectOneById' resultMap="PollResultMap">
