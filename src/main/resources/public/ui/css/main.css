@@ -35,6 +35,23 @@ footer {
 span {
     display: inline;
 }
+select {
+    border-color: #bbb;
+    background-color: #fbfbfb;
+    font-weight: 100;
+    font-size: medium;
+    min-height: 38px;
+    height: 38px;
+    padding: 6px 10px;
+    border: 1px solid #D1D1D1;
+    border-radius: 4px;
+    box-shadow: none;
+    box-sizing: border-box;
+    width: 100%;
+}
+select:focus {
+    border-color: black;
+}
 .flex-container {
     height: 100%;
     padding: 0;
@@ -158,7 +175,6 @@ input[type='checkbox'].toggle {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
-/* menu */
 .ht-menu-wrapper {
   width: 100%;
   position: fixed;
@@ -210,7 +226,6 @@ input[type='checkbox'].toggle {
 .ht-menu {
     margin-top: 40px;
 }
-/****menu*/
 .text-in {
     position: absolute;
     top: 0;

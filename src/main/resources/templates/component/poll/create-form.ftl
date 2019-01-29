@@ -55,7 +55,19 @@ Enquesta creada.
                         </label>
                         <input id="endRankingTime" name="endRankingTime" type="datetime-local" required value="${(startProposalsTime?long + 48 * 3600000)?number_to_datetime?string['yyyy-MM-dd\'T\'23:\'59\'']}" class="u-full-width"/>
                     </div>
-                    <div class="six columns ht-submit-row mt20">
+                    <div class="six columns">
+                        <label for="type">
+                            Tipus d'enquesta
+                        </label>
+                        <select id="type" name="type" required>
+                            <option value="public">Pública amb convidats</option>
+                            <option value="private">Privada per admins</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="six columns no-mobile">&nbsp;</div>
+                    <div class="six columns ht-submit-row">
                         <button class="button button-primary" type="submit">
                             <i class="fas fa-plus-circle"></i> #Crea
                         </button>

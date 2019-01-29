@@ -15,8 +15,8 @@ public class CachedInviteRepository implements InviteRepository {
     }
 
     @Override
-    public void inviteToPoll(String pollId) {
-        inviteRepository.inviteToPoll(pollId);
+    public void inviteToPoll(String pollId, String type) {
+        inviteRepository.inviteToPoll(pollId, type);
         inviteGroupCache.invalidate(pollId);
     }
 

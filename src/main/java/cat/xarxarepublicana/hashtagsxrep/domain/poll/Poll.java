@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 public class Poll {
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/LL HH:mm'h'");
+    public static final String PUBLIC_POLL = "public";
 
     private final String id;
     private final String authorId;
