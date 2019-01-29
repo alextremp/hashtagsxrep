@@ -50,3 +50,32 @@
     </div>
 </footer>
 </div>
+
+<@security.authorize access="hasRole('ROLE_ADMIN')">
+<div class="ht-moderate-proposed">
+    <div class="ht-info">
+        <i class="fas fa-skull-crossbones"></i> #Modera
+        <div class="ht-tip">Només visible per administradors</div>
+    </div>
+    <#list loadPollResponse.pollProposals as proposal>
+    <div class="ht-proposal <#if proposal.cancelationReason??>ht-proposal-cancelled</#if>">
+        <header>${proposal.hashtag}</header>
+        <div class="ht-proposal-action">
+            <#include "moderate-button.ftl"/>
+        </div>
+        <#if proposal.cancelationReason??>
+        <div class="ht-proposal-cancel-reason"><b>L'administració de @HashtagsXRep ha cancel·lat aquesta proposta:</b> ${stringEscapeService.unescape(proposal.cancelationReason)}</div>
+        <div class="ht-tip">Moderador: ${proposal.moderatorNickname}</div>
+        </#if>
+        <div class="ht-proposal-subject">${stringEscapeService.unescape(proposal.subject)}</div>
+        <#if user.id == proposal.authorId>
+        <footer>
+            <div class="ht-tip">
+                És la teva proposta.
+            </div>
+        </footer>
+        </#if>
+    </div>
+    </#list>
+</div>
+</@security.authorize>
