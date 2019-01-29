@@ -9,9 +9,15 @@
     <div class="ht-proposal-wbox others">
         <header>Resta de propostes</header>
     </#if>
-    <div class="ht-proposal">
+    <div class="ht-proposal <#if proposal.cancelationReason??>ht-proposal-cancelled</#if>">
         <header>${proposal.hashtag}</header>
         <div class="ht-vote-info"><i class="fas fa-user-tag"></i> @${proposal.authorNickname}&nbsp;&nbsp;<i class="fas fa-thumbs-up"></i>  ${proposal.votes} vots</div>
+        <#if proposal.cancelationReason??>
+            <div class="ht-proposal-cancel-reason"><b>L'administració de @HashtagsXRep ha cancel·lat aquesta proposta:</b> ${stringEscapeService.unescape(proposal.cancelationReason)}</div>
+            <@security.authorize access="hasRole('ROLE_ADMIN')">
+            <div class="ht-tip">Moderador: ${proposal.moderatorNickname}</div>
+            </@security.authorize>
+        </#if>
         <div class="ht-proposal-subject">${stringEscapeService.unescape(proposal.subject)}</div>
         <#if user.id == proposal.authorId>
         <footer>

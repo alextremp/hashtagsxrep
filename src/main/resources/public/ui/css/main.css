@@ -423,6 +423,9 @@ div.ht-result:nth-child(odd) {
 .ht-proposal-cancelled {
     background-color: #ffc8c8;
 }
+.ht-proposal-cancelled .ht-vote-info {
+    background-color: #ffc8c8;
+}
 .ht-proposal header {
     font-weight: bold;
     background-color: black;
