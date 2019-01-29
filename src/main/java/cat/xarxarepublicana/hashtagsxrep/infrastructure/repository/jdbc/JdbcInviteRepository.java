@@ -8,6 +8,8 @@ import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.I
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static cat.xarxarepublicana.hashtagsxrep.domain.poll.Poll.PUBLIC_POLL;
+
 public class JdbcInviteRepository implements InviteRepository {
 
     private final InviteMapper inviteMapper;
@@ -17,12 +19,14 @@ public class JdbcInviteRepository implements InviteRepository {
     }
 
     @Override
-    public void inviteToPoll(String pollId) {
+    public void inviteToPoll(String pollId, String type) {
         inviteMapper.insertAdmins(pollId);
-        inviteMapper.insertTaggers(pollId);
-        inviteMapper.insertInfluencers(pollId);
-        inviteMapper.insertTopRanking(pollId);
-        inviteMapper.insertRandomRanking(pollId);
+        if (PUBLIC_POLL.equals(type)) {
+            inviteMapper.insertTaggers(pollId);
+            inviteMapper.insertInfluencers(pollId);
+            inviteMapper.insertTopRanking(pollId);
+            inviteMapper.insertRandomRanking(pollId);
+        }
     }
 
     @Override
