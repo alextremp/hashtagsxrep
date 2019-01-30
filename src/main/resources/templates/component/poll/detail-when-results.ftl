@@ -5,6 +5,7 @@
     <#if proposal?counter == 1>
     <div class="ht-proposal-wbox winner">
     <header>Proposta Guanyadora</header>
+    <#if loadPollResponse.draw><div class="ht-tip"><i class="fas fa-info-circle"></i> En cas d'empat, guanya la proposta feta per l'usuari millor posicionat al nostre rànquing.</div></#if>
     <#elseif proposal?counter == 2>
     <div class="ht-proposal-wbox others">
         <header>Resta de propostes</header>
