@@ -20,7 +20,7 @@
                         <div class="six columns">
                             <label for="hashtag">Còpia el hashtag del monitor</label>
                             <input class="u-full-width" type="text" placeholder="#ValidacióDeSeguretat" id="hashtag" name="hashtag" required
-                                   pattern="#[A-Za-z0-9àèòÀÈÒáéíóúÁÉÍÓÚñÑïüÏÜçÇ]{1,25}" title="#Hashtag d'entre 1 i 25 caràcters alfanumèrics"/>
+                                   pattern="#[A-Za-z0-9àèòÀÈÒáéíóúÁÉÍÓÚñÑïüÏÜçÇ]{3,21}" title="#Hashtag d'entre 3 i 21 caràcters alfanumèrics"/>
                         </div>
                         <div class="three columns no-mobile">&nbsp;</div>
                     </div>

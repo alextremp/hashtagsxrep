@@ -116,9 +116,13 @@ select:focus {
 .mr5 { margin-right: 5%; }
 .mb20 { margin-bottom: 20px; }
 .mt20 { margin-top: 20px; }
+.ml20 { margin-left: 20px; }
 .m-auto {
     margin-left: auto;
     margin-right: auto;
+}
+.fsS {
+    font-size: .8rem;
 }
 
 input[type='checkbox'].toggle {
