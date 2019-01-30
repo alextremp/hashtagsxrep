@@ -645,6 +645,25 @@ header.ht-user-rank {
 .ht-footer p {
     margin: 2px;
 }
+
+.ht-news-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.ht-news-description {
+    height: 100%;
+    background-color: #0000007d;
+    padding: 10px;
+    position: relative;
+    top: 50px;
+    color: white;
+}
+.ht-news-image {
+    min-height: 250px;
+    width: 100%;
+    background-repeat: round;
+}
+
 /* Larger than mobile */
 @media (min-width: 400px) {
     .ht-poll-clocks {
