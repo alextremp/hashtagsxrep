@@ -92,5 +92,9 @@ public class LoadPollUseCase {
             }
             return count;
         }
+
+        public boolean isDraw() {
+            return pollProposals.size() > 1 && pollProposals.get(0).getVotes() == pollProposals.get(1).getVotes();
+        }
     }
 }

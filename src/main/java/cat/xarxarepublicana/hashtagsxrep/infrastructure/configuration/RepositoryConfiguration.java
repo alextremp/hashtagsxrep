@@ -11,6 +11,7 @@ import cat.xarxarepublicana.hashtagsxrep.domain.poll.PollFactory;
 import cat.xarxarepublicana.hashtagsxrep.domain.poll.PollRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.poll.ProposalFactory;
 import cat.xarxarepublicana.hashtagsxrep.domain.ranking.Ranking;
+import cat.xarxarepublicana.hashtagsxrep.domain.ranking.RankingRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.report.Report;
 import cat.xarxarepublicana.hashtagsxrep.domain.twitter.TwitterRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.User;
@@ -153,8 +154,8 @@ public class RepositoryConfiguration {
     }
 
     @Bean
-    public PollRepository jdbcPollRepository(PollMapper pollMapper, InviteMapper inviteMapper) {
-        return new JdbcPollRepository(pollMapper, inviteMapper);
+    public PollRepository jdbcPollRepository(PollMapper pollMapper, InviteMapper inviteMapper, RankingRepository rankingRepository) {
+        return new JdbcPollRepository(pollMapper, inviteMapper, rankingRepository);
     }
 
     @Bean
