@@ -21,4 +21,30 @@
         </button>
     </div>
 </div>
+<@security.authorize access="hasRole('ROLE_ADMIN')">
+<div class="wrap-collabsible">
+    <input id="poll-form-collapser" class="toggle" type="checkbox"/>
+    <label for="poll-form-collapser" class="lbl-toggle">
+        Proposa sense validar, només en cas de col·laboracions amb hashtag que vingui donat!
+    </label>
+    <div class="collapsible-content">
+        <div class="content-inner">
+            <div class="row">
+                <div class="twelve columns ht-submit-row">
+                    <div class="ht-tip">Només en cas de col·laboracions amb hashtag que vingui donat!</div>
+                    <button class="button button-primary" type="submit" onclick="proposalWithNoValidation()">
+                        <i class="fas fa-plus-circle"></i> #ProposaSenseValidar
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function proposalWithNoValidation() {
+        $("#proposalForm").attr('onsubmit', '');
+    }
+</script>
+</@security.authorize>
 </form>
