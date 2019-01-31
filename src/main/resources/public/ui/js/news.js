@@ -36,7 +36,6 @@ function addNews(parent, json, idx) {
 }
 var currentHtNewsItem = 0;
 function showSlides() {
-    console.log('>> slides');
   var items = $('.ht-news-item');
   items.css('display', 'none');
   currentHtNewsItem = (currentHtNewsItem + 1) % items.length;
