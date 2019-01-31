@@ -647,6 +647,9 @@ header.ht-user-rank {
 }
 
 .ht-news-content {
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
 }
 .ht-news-item {
     display: none;
@@ -687,7 +690,15 @@ header.ht-user-rank {
     text-align: right;
     margin-right: 10px;
 }
-
+.about-text {
+    font-size: medium;
+}
+.about-text a {
+    color: red;
+}
+.italic {
+    font-style: italic;
+}
 /* Larger than mobile */
 @media (min-width: 400px) {
     .ht-poll-clocks {

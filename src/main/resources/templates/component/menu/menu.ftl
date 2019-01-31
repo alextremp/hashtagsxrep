@@ -10,6 +10,7 @@
                     <li><#include "../monitor/page-link.ftl"></li>
                     <li><#include "../ranking/page-link.ftl"></li>
                     <li><#include "../poll/page-link.ftl"></li>
+                    <li><#include "../about/page-link.ftl"></li>
                     <li><#include "../home/page-link.ftl"></li>
                 </ul>
             </div>

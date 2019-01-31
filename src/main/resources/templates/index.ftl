@@ -24,6 +24,7 @@
             <#include "component/monitor/page-link.ftl">
             <#include "component/ranking/page-link.ftl">
             <#include "component/poll/page-link.ftl">
+            <#include "component/about/page-link.ftl">
         </div>
     </div>
     </@security.authorize>
