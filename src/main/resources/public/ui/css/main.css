@@ -645,6 +645,60 @@ header.ht-user-rank {
 .ht-footer p {
     margin: 2px;
 }
+
+.ht-news-content {
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.ht-news-item {
+    display: none;
+    -webkit-animation-name: ht-news-fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: ht-news-fade;
+    animation-duration: 1.5s;
+}
+@-webkit-keyframes ht-news-fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+@keyframes ht-news-fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+.ht-news-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.ht-news-description {
+    height: 200px;
+    background-color: #000000a6;
+    position: relative;
+    color: white;
+    padding: 40px 20px 10px 20px;
+    font-size: 1.3rem;
+}
+.ht-news-image {
+    min-height: 250px;
+    width: 100%;
+    background-repeat: round;
+}
+.ht-news-link {
+    position: relative;
+    bottom: 38px;
+    text-align: right;
+    margin-right: 10px;
+}
+.about-text {
+    font-size: medium;
+}
+.about-text a {
+    color: red;
+}
+.italic {
+    font-style: italic;
+}
 /* Larger than mobile */
 @media (min-width: 400px) {
     .ht-poll-clocks {
