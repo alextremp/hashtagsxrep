@@ -34,6 +34,6 @@
     <#elseif showProposalToVoteList>
         <#include "detail-when-voting.ftl">
     <#elseif showVoteResults>
-    <#include "detail-when-results.ftl">
+        <#include "detail-when-results.ftl">
     </#if>
 </div>
