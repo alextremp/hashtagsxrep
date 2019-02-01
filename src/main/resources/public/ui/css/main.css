@@ -296,6 +296,9 @@ input[type='checkbox'].toggle {
     margin-left: auto;
     margin-right: auto;
 }
+.ht-tip a {
+    color: black;
+}
 .ht-header {
     margin-top: 60px;
     min-height: 50px;

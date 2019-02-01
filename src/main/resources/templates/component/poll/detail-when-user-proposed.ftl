@@ -63,6 +63,7 @@
         <div class="ht-proposal-action">
             <#include "moderate-button.ftl"/>
         </div>
+        <div class="ht-vote-info"><i class="fas fa-user-tag"></i> @${proposal.authorNickname}</div>
         <#if proposal.cancelationReason??>
         <div class="ht-proposal-cancel-reason"><b>L'administració de @HashtagsXRep ha cancel·lat aquesta proposta:</b> ${stringEscapeService.unescape(proposal.cancelationReason)}</div>
         <div class="ht-tip">Moderador: ${proposal.moderatorNickname}</div>
