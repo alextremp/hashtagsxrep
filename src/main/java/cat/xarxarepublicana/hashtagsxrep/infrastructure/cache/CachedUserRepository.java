@@ -5,6 +5,8 @@ import cat.xarxarepublicana.hashtagsxrep.domain.user.UserRepository;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.JdbcUserRepository;
 import com.github.benmanes.caffeine.cache.LoadingCache;
 
+import java.util.List;
+
 public class CachedUserRepository implements UserRepository {
 
     private final LoadingCache<String, User> cache;
@@ -21,6 +23,11 @@ public class CachedUserRepository implements UserRepository {
     }
 
     @Override
+    public User findByNickname(String nickname) {
+        return jdbcUserRepository.findByNickname(nickname);
+    }
+
+    @Override
     public void saveLoggedUser(User user) {
         jdbcUserRepository.saveLoggedUser(user);
         cache.invalidate(user.getId());
@@ -30,5 +37,10 @@ public class CachedUserRepository implements UserRepository {
     public void saveExtractedUser(User user) {
         jdbcUserRepository.saveExtractedUser(user);
         cache.invalidate(user.getId());
+    }
+
+    @Override
+    public List<User> findByGroupId(String groupId) {
+        return jdbcUserRepository.findByGroupId(groupId);
     }
 }

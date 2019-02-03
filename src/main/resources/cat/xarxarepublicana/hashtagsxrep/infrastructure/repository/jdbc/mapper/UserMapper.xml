@@ -30,9 +30,19 @@
         SELECT * FROM USER WHERE id = #{id}
     </select>
 
+    <select id='selectOneByNickname' resultMap="UserResultMap">
+        SELECT * FROM USER WHERE nickname = #{nickname}
+    </select>
+
+    <select id='selectByMembership' resultMap="UserResultMap">
+        SELECT user.* FROM USER user, USER_MEMBERSHIP membership
+        WHERE user.id = membership.user_id
+            and membership.group_id = #{groupId}
+    </select>
+
     <select id="exists" resultType="boolean">
         SELECT exists (
-            SELECT 1 FROM USER WHERE id = ${id}
+            SELECT 1 FROM USER WHERE id = #{id}
         )
     </select>
 

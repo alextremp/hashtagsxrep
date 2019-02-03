@@ -26,6 +26,13 @@
             <#include "component/poll/page-link.ftl">
             <#include "component/about/page-link.ftl">
         </div>
+
+        <@security.authorize access="hasRole('ROLE_ADMIN')">
+        <div class="ht-box">
+            <div class="ht-tip">Només visible per admins.</div>
+            <#include "component/group/page-link.ftl">
+        </div>
+        </@security.authorize>
     </div>
     </@security.authorize>
     <#include "component/footer.ftl">
