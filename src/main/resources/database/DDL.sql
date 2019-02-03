@@ -120,3 +120,74 @@ ALTER TABLE TWITTER_EXTRACTION ADD ranked BOOLEAN DEFAULT FALSE NOT NULL;
 ALTER TABLE POLL_PROPOSAL ADD cancelation_reason VARCHAR(400) NULL;
 ALTER TABLE POLL_PROPOSAL ADD moderator_nickname VARCHAR(20) NULL;
 ALTER TABLE POLL_PROPOSAL MODIFY COLUMN creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER moderator_nickname;
+
+CREATE TABLE USER_GROUP
+(
+    id VARCHAR(20) PRIMARY KEY NOT NULL
+);
+
+insert into USER_GROUP (id) values ('TRAM01');
+insert into USER_GROUP (id) values ('TRAM02');
+insert into USER_GROUP (id) values ('TRAM03');
+insert into USER_GROUP (id) values ('TRAM04');
+insert into USER_GROUP (id) values ('TRAM05');
+insert into USER_GROUP (id) values ('TRAM06');
+insert into USER_GROUP (id) values ('TRAM07');
+insert into USER_GROUP (id) values ('TRAM08');
+insert into USER_GROUP (id) values ('TRAM09');
+insert into USER_GROUP (id) values ('TRAM10');
+insert into USER_GROUP (id) values ('TRAM11');
+insert into USER_GROUP (id) values ('TRAM12');
+insert into USER_GROUP (id) values ('TRAM13');
+insert into USER_GROUP (id) values ('TRAM14');
+insert into USER_GROUP (id) values ('TRAM15');
+insert into USER_GROUP (id) values ('TRAM16');
+insert into USER_GROUP (id) values ('TRAM17');
+insert into USER_GROUP (id) values ('TRAM18');
+insert into USER_GROUP (id) values ('TRAM19');
+insert into USER_GROUP (id) values ('TRAM20');
+insert into USER_GROUP (id) values ('TRAM21');
+insert into USER_GROUP (id) values ('TRAM22');
+insert into USER_GROUP (id) values ('TRAM23');
+insert into USER_GROUP (id) values ('TRAM24');
+insert into USER_GROUP (id) values ('TRAM25');
+insert into USER_GROUP (id) values ('TRAM26');
+insert into USER_GROUP (id) values ('TRAM27');
+insert into USER_GROUP (id) values ('TRAM28');
+insert into USER_GROUP (id) values ('TRAM29');
+insert into USER_GROUP (id) values ('TRAM30');
+insert into USER_GROUP (id) values ('TRAM31');
+insert into USER_GROUP (id) values ('TRAM32');
+insert into USER_GROUP (id) values ('TRAM33');
+insert into USER_GROUP (id) values ('TRAM34');
+insert into USER_GROUP (id) values ('TRAM35');
+insert into USER_GROUP (id) values ('TRAM36');
+insert into USER_GROUP (id) values ('TRAM37');
+insert into USER_GROUP (id) values ('TRAM38');
+insert into USER_GROUP (id) values ('TRAM39');
+insert into USER_GROUP (id) values ('TRAM40');
+insert into USER_GROUP (id) values ('TRAM41');
+insert into USER_GROUP (id) values ('TRAM42');
+insert into USER_GROUP (id) values ('TRAM43');
+insert into USER_GROUP (id) values ('TRAM44');
+insert into USER_GROUP (id) values ('TRAM45');
+insert into USER_GROUP (id) values ('TRAM46');
+insert into USER_GROUP (id) values ('TRAM47');
+insert into USER_GROUP (id) values ('TRAM48');
+insert into USER_GROUP (id) values ('TRAM49');
+insert into USER_GROUP (id) values ('TRAM50');
+insert into USER_GROUP (id) values ('TRAM0 VIP');
+
+CREATE TABLE USER_MEMBERSHIP
+(
+    group_id VARCHAR(20),
+    user_id VARCHAR(40),
+    CONSTRAINT USER_MEMBERSHIP_group_id_user_id_pk PRIMARY KEY (group_id, user_id)
+);
+
+ALTER TABLE USER_MEMBERSHIP
+ADD CONSTRAINT USER_MEMBERSHIP_USER_GROUP_id_fk
+FOREIGN KEY (group_id) REFERENCES USER_GROUP (id);
+ALTER TABLE USER_MEMBERSHIP
+ADD CONSTRAINT USER_MEMBERSHIP_USER_id_fk
+FOREIGN KEY (user_id) REFERENCES USER (id);

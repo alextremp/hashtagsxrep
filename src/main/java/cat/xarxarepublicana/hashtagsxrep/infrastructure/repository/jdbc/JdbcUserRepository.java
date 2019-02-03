@@ -4,6 +4,8 @@ import cat.xarxarepublicana.hashtagsxrep.domain.user.User;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserRepository;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper.UserMapper;
 
+import java.util.List;
+
 public class JdbcUserRepository implements UserRepository {
 
     private final UserMapper userMapper;
@@ -15,6 +17,11 @@ public class JdbcUserRepository implements UserRepository {
     @Override
     public User findById(String id) {
         return userMapper.selectOneById(id);
+    }
+
+    @Override
+    public User findByNickname(String nickname) {
+        return userMapper.selectOneByNickname(nickname);
     }
 
     @Override
@@ -33,5 +40,10 @@ public class JdbcUserRepository implements UserRepository {
         } else {
             userMapper.insert(user);
         }
+    }
+
+    @Override
+    public List<User> findByGroupId(String groupId) {
+        return userMapper.selectByMembership(groupId);
     }
 }
