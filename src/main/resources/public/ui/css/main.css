@@ -703,6 +703,8 @@ header.ht-user-rank {
 }
 .about-text {
     font-size: medium;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 .about-text a {
     color: red;

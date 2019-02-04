@@ -14,7 +14,7 @@
         <div class="ht-info">
             <i class="fas fa-address-card"></i> #QuiSom
         </div>
-        <div class="ht-block left about-text">
+        <div class="ht-box left about-text">
             Els administradors de <a href="https://twitter.com/HashtagsXRep" target="_blank">@HashtagsXRep</a> som un equip de voluntaris que ens vàrem proposar a l'estiu del 2018 defensar intensivament la #RepúblicaCatalana a la xarxa.<br/><br/>
             Creiem que la difusió de <b>missatges pro-república</b>, maximitzant els missatges a favor de Catalunya, així com els que puguin ser perjudicials per l'estat espanyol, i també els que s'originin per convocar accions que al principi poden no comptar amb el suport de partits o entitats, suposen un <b>benefici pel conjunt d'usuaris de la xarxa republicana.</b><br/><br/>
             <span class="italic">"...enlloc de a Twitter, hauríem d'estar al carrer..."</span><br/><br/>
@@ -27,7 +27,7 @@
         <div class="ht-info">
             <i class="fas fa-broadcast-tower"></i> #QuèFem
         </div>
-        <div class="ht-block left about-text">
+        <div class="ht-box left about-text">
             Un dels nostres objectius setmanals és <b>aconseguir fer una tendència</b> (trending topic) a Twitter, els divendres a les 21h mitjançant #hashtags.<br/><br/>
             En funció de l'actualitat de cada setmana, busquem:<br/><br/>
 
@@ -44,11 +44,11 @@
         <div class="ht-info">
             <i class="fas fa-volume-up"></i> #PerQuèFemTendències
         </div>
-        <div class="ht-block left about-text">
+        <div class="ht-box left about-text">
             Aquesta és una mostra dels continguts que han sobrepassat la barrera de Twitter, a partir de #hashtags que hem originat des de <a href="https://twitter.com/DivendresXRep" target="_blank">@DivendresXRep</a>
         </div>
         <div id="news"></div>
-        <div class="ht-block left about-text">
+        <div class="ht-box left about-text">
             Si contemplem Twitter com una eina que serveix per informar-se de manera interactiva, ens adonem que molta gent utilitza la Cerca de Twitter per saber sobre què s'està parlant a la seva zona, gent del seu entorn,... <br/>
             La pantalla de Cerca de Twitter, mostra les 5 primeres tendències, que "representa" que contenen les paraules clau sobre les que està parlant la gent.<br/>
             <b>I aquí és on veiem la importància de fer la tendència els divendres a les 21h:</b><br/>
@@ -61,7 +61,7 @@
         <div class="ht-info">
             <i class="fas fa-users"></i> #Participa
         </div>
-        <div class="ht-block left about-text">
+        <div class="ht-box left about-text">
             Participa als nostres atacs a la xarxa els divendres a les 21h!<br/>
             Des de <a href="https://twitter.com/DivendresXRep" target="_blank">@DivendresXRep</a> us animem a entrar a aquesta web on cada divendres:<br/>
             <i class="fas fa-clock"></i> A partir de les 17h podreu votar la proposta de hashtag a utilitzar.<br/>
