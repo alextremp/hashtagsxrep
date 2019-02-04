@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class MonitorFactory {
 
-    public Monitor createNewMonitor(String authorId, String authorNickname, String twitterQuery, LocalDateTime startDate) {
+    public Monitor createNewMonitor(String authorId, String authorNickname, String twitterQuery, LocalDateTime endDate) {
         return new Monitor(
                 UUID.randomUUID().toString(),
                 authorId,
@@ -13,13 +13,13 @@ public class MonitorFactory {
                 true,
                 twitterQuery,
                 LocalDateTime.now(),
-                startDate,
+                endDate,
                 null,
                 null
         );
     }
 
-    public Monitor createMonitorFromPoll(String pollId, String hashtag, LocalDateTime startDate) {
+    public Monitor createMonitorFromPoll(String pollId, String hashtag) {
         return new Monitor(
                 pollId,
                 "-1",
@@ -27,7 +27,7 @@ public class MonitorFactory {
                 true,
                 hashtag,
                 LocalDateTime.now(),
-                startDate,
+                LocalDateTime.now().plusDays(5),
                 null,
                 null
         );

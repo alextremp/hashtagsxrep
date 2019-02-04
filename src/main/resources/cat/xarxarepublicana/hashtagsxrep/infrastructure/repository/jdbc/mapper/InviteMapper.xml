@@ -48,7 +48,7 @@
                                    m.twitter_query
                                  FROM MONITOR m
                                  WHERE m.author_id = '-1'
-                                 ORDER BY start_date DESC
+                                 ORDER BY creation_date DESC
                                  LIMIT 4) z,
                              (SELECT @r := 5) y
                          ) monitor, TWITTER_EXTRACTION twitter, USER user

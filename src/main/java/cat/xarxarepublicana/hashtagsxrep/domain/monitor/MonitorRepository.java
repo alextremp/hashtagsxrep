@@ -17,5 +17,7 @@ public interface MonitorRepository {
 
     Monitor findByTwitterQuery(String twitterQuery);
 
+    void disable(String id);
+
     void delete(Monitor monitor);
 }

@@ -3,6 +3,7 @@ package cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.jdbc.mapper;
 import cat.xarxarepublicana.hashtagsxrep.domain.monitor.Monitor;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -24,4 +25,7 @@ public interface MonitorMapper {
     Monitor selectOneByTwitterQuery(@Param("twitterQuery") String twitterQuery);
 
     void delete(@Param("monitorId") String monitorId);
+
+    @Update("update MONITOR set active = FALSE where id = #{monitorId}")
+    void disable(@Param("monitorId") String monitorId);
 }

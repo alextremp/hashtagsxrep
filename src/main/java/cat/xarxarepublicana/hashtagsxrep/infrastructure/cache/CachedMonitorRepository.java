@@ -69,6 +69,13 @@ public class CachedMonitorRepository implements MonitorRepository {
     }
 
     @Override
+    public void disable(String id) {
+        monitorRepository.disable(id);
+        monitorCache.invalidate(id);
+        monitorListCache.invalidate(SINGLE_ENTRY_KEY);
+    }
+
+    @Override
     public void delete(Monitor monitor) {
         monitorRepository.delete(monitor);
         monitorCache.invalidate(monitor.getId());

@@ -51,6 +51,11 @@ public class JdbcMonitorRepository implements MonitorRepository {
     }
 
     @Override
+    public void disable(String id) {
+        monitorMapper.disable(id);
+    }
+
+    @Override
     public void delete(Monitor monitor) {
         monitorMapper.delete(monitor.getId());
     }

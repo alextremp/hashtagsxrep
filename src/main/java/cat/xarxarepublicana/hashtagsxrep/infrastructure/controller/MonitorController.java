@@ -35,16 +35,16 @@ public class MonitorController {
 
     @PostMapping("/monitor")
     @Secured("ROLE_ADMIN")
-    public RedirectView createMonitor(
+    public String createMonitor(
             @RequestParam("twitterQuery")
                     String twitterQuery,
-            @RequestParam("startTime")
+            @RequestParam("endTime")
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-                    LocalDateTime startTime,
+                    LocalDateTime endTime,
             @AuthenticationPrincipal
                     AuthenticationUser authenticationUser) {
-        CreateMonitorUseCase.CreateMonitorResponse createMonitorResponse = createMonitorUseCase.createMonitor(authenticationUser.getUser(), twitterQuery, startTime);
-        return new RedirectView(Views.URL_MONITOR);
+        createMonitorUseCase.createMonitor(authenticationUser.getUser(), twitterQuery, endTime);
+        return "redirect:/monitor";
     }
 
     @GetMapping("/monitor")

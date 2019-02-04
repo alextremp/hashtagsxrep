@@ -10,18 +10,18 @@ public class Monitor {
     private final Boolean active;
     private final String twitterQuery;
     private final LocalDateTime creationDate;
-    private final LocalDateTime startDate;
+    private final LocalDateTime endDate;
     private LocalDateTime lastUpdateDate;
     private String nextQueryString;
 
-    public Monitor(String id, String authorId, String authorNickname, Boolean active, String twitterQuery, LocalDateTime creationDate, LocalDateTime startDate, LocalDateTime lastUpdateDate, String nextQueryString) {
+    public Monitor(String id, String authorId, String authorNickname, Boolean active, String twitterQuery, LocalDateTime creationDate, LocalDateTime endDate, LocalDateTime lastUpdateDate, String nextQueryString) {
         this.id = id;
         this.authorId = authorId;
         this.authorNickname = authorNickname;
         this.active = active;
         this.twitterQuery = twitterQuery;
         this.creationDate = creationDate;
-        this.startDate = startDate;
+        this.endDate = endDate;
         this.lastUpdateDate = lastUpdateDate;
         this.nextQueryString = nextQueryString;
     }
@@ -58,8 +58,8 @@ public class Monitor {
         return nextQueryString;
     }
 
-    public LocalDateTime getStartDate() {
-        return startDate;
+    public LocalDateTime getEndDate() {
+        return endDate;
     }
 
     public void updateCursor(String nextQueryString) {
