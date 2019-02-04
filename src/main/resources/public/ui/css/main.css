@@ -364,6 +364,13 @@ input[type='checkbox'].toggle {
 .ht-delete .lbl-toggle {
     margin: 0px;
 }
+.ht-active .button {
+    background-color: #83ff92;
+    color: black;
+}
+.ht-active .button:hover {
+    background-color: #32a740;
+}
 .ht-monitors {
     padding-top: 15px;
     padding-bottom: 10px;
