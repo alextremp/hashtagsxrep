@@ -28,7 +28,7 @@
             <i class="fas fa-broadcast-tower"></i> #QuèFem
         </div>
         <div class="ht-block left about-text">
-            Un dels nostres objectius setmanals és <b>conseguir fer una tendència</b> (trending topic) a Twitter, els divendres a les 21h mitjançant #hashtags.<br/><br/>
+            Un dels nostres objectius setmanals és <b>aconseguir fer una tendència</b> (trending topic) a Twitter, els divendres a les 21h mitjançant #hashtags.<br/><br/>
             En funció de l'actualitat de cada setmana, busquem:<br/><br/>
 
             <i class="fas fa-volume-up"></i> <b>DIFUSIÓ</b> del missatge pro-república.<br/>
@@ -52,7 +52,7 @@
             Si contemplem Twitter com una eina que serveix per informar-se de manera interactiva, ens adonem que molta gent utilitza la Cerca de Twitter per saber sobre què s'està parlant a la seva zona, gent del seu entorn,... <br/>
             La pantalla de Cerca de Twitter, mostra les 5 primeres tendències, que "representa" que contenen les paraules clau sobre les que està parlant la gent.<br/>
             <b>I aquí és on veiem la importància de fer la tendència els divendres a les 21h:</b><br/>
-            Quan un missatge consegueix posicionar-se al Top 5 de tendències, automàticament molta gent que entra a mirar sobre quins temes es parla, comença també a parlar sobre aquests temes. Si dins d'aquests temes hi ha missatges de resistència per la nostra part, a favor de la República Catalana, el fet de ser tendència provoca que s'expandeixi massivament durant uns dies.<br/>
+            Quan un missatge aconsegueix posicionar-se al Top 5 de tendències, automàticament molta gent que entra a mirar sobre quins temes es parla, comença també a parlar sobre aquests temes. Si dins d'aquests temes hi ha missatges de resistència per la nostra part, a favor de la República Catalana, el fet de ser tendència provoca que s'expandeixi massivament durant uns dies.<br/>
             I com heu vist, fins i tot a mitjans de comunicació!
         </div>
     </div>
