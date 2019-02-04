@@ -17,22 +17,8 @@ public class CreateMonitorUseCase {
         this.monitorFactory = monitorFactory;
     }
 
-    public CreateMonitorResponse createMonitor(User author, String twitterQuery, LocalDateTime startTime) {
-        Monitor monitor = monitorFactory.createNewMonitor(author.getId(), author.getNickname(), twitterQuery, startTime);
+    public void createMonitor(User author, String twitterQuery, LocalDateTime endTime) {
+        Monitor monitor = monitorFactory.createNewMonitor(author.getId(), author.getNickname(), twitterQuery, endTime);
         monitorRepository.save(monitor);
-        Monitor byId = monitorRepository.findById(monitor.getId());
-        return new CreateMonitorResponse(monitor);
-    }
-
-    public static class CreateMonitorResponse {
-        private final Monitor monitor;
-
-        public CreateMonitorResponse(Monitor monitor) {
-            this.monitor = monitor;
-        }
-
-        public Monitor getMonitor() {
-            return monitor;
-        }
     }
 }

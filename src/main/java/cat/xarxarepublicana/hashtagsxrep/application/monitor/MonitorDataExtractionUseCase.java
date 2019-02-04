@@ -44,46 +44,51 @@ public class MonitorDataExtractionUseCase {
         SearchTweetsResult searchTweetsResult;
 
         Poll poll;
+        LocalDateTime now;
         for (Monitor monitor : monitorList) {
+            now = LocalDateTime.now();
             LOG.info(">> MONITOR: " + monitor.getId() + " >> " + monitor.getTwitterQuery());
-            if (monitor.getAuthorId().equals("-1")) {
-                poll = pollRepository.findById(monitor.getId());
-                if (poll != null) {
-                    LocalDateTime now = LocalDateTime.now();
-                    ranked = poll.getEndRankingTime() != null && now.isAfter(monitor.getStartDate()) && now.isBefore(poll.getEndRankingTime());
-                }
-            }
-            stopByBlockSize = false;
-            existingDataReached = false;
-            while (!stopByBlockSize && !stopByWindowRequests && !existingDataReached) {
-                queryString = new StringBuffer();
-                if (StringUtils.isNotBlank(monitor.getNextQueryString())) {
-                    queryString.append(monitor.getNextQueryString());
-                } else {
-                    String maxTweetId = monitorRepository.getMaxTweetId(monitor.getId());
-                    queryString.append("count=").append(TwitterRepository.MAX_STATUSES_PER_REQUEST);
-                    queryString.append("&q=").append(monitor.getTwitterQuery());
-                    if (StringUtils.isNotBlank(maxTweetId)) {
-                        queryString.append("&since_id=").append(maxTweetId);
+            if (monitor.getActive() && now.isAfter(monitor.getEndDate())) {
+                monitorRepository.disable(monitor.getId());
+            } else {
+                if (monitor.getAuthorId().equals("-1")) {
+                    poll = pollRepository.findById(monitor.getId());
+                    if (poll != null) {
+                        ranked = poll.getEndRankingTime() != null && now.isAfter(monitor.getCreationDate()) && now.isBefore(poll.getEndRankingTime());
                     }
                 }
-                String query = queryString.toString();
-                LOG.info(">> searchTweets: " + query);
-                searchTweetsResult = twitterRepository.searchTweets(query);
+                stopByBlockSize = false;
+                existingDataReached = false;
+                while (!stopByBlockSize && !stopByWindowRequests && !existingDataReached) {
+                    queryString = new StringBuffer();
+                    if (StringUtils.isNotBlank(monitor.getNextQueryString())) {
+                        queryString.append(monitor.getNextQueryString());
+                    } else {
+                        String maxTweetId = monitorRepository.getMaxTweetId(monitor.getId());
+                        queryString.append("count=").append(TwitterRepository.MAX_STATUSES_PER_REQUEST);
+                        queryString.append("&q=").append(monitor.getTwitterQuery());
+                        if (StringUtils.isNotBlank(maxTweetId)) {
+                            queryString.append("&since_id=").append(maxTweetId);
+                        }
+                    }
+                    String query = queryString.toString();
+                    LOG.info(">> searchTweets: " + query);
+                    searchTweetsResult = twitterRepository.searchTweets(query);
 
-                if (LOG.isLoggable(Level.FINE)) {
-                    LOG.log(Level.FINE, ">> RESULT: " + searchTweetsResult.getStatuses().length + " statuses >> NEXT: " + searchTweetsResult.getSearchMetadata().getNextResults());
-                }
-                existingDataReached = twitterExtractionRepository.save(monitor, searchTweetsResult, ranked);
-                stopByBlockSize = searchTweetsResult.getStatuses().length < TwitterRepository.MAX_STATUSES_PER_REQUEST;
-                if (stopByBlockSize) {
-                    LOG.info(">> STOP :: There are no more statuses yet");
-                }
-                extractionRequestsCounter++;
-                stopByWindowRequests = extractionRequestsCounter >= maxExtractionRequests;
-                if (stopByWindowRequests) {
-                    LOG.info(">> STOP :: Max extraction requests reached");
-                    return;
+                    if (LOG.isLoggable(Level.FINE)) {
+                        LOG.log(Level.FINE, ">> RESULT: " + searchTweetsResult.getStatuses().length + " statuses >> NEXT: " + searchTweetsResult.getSearchMetadata().getNextResults());
+                    }
+                    existingDataReached = twitterExtractionRepository.save(monitor, searchTweetsResult, ranked);
+                    stopByBlockSize = searchTweetsResult.getStatuses().length < TwitterRepository.MAX_STATUSES_PER_REQUEST;
+                    if (stopByBlockSize) {
+                        LOG.info(">> STOP :: There are no more statuses yet");
+                    }
+                    extractionRequestsCounter++;
+                    stopByWindowRequests = extractionRequestsCounter >= maxExtractionRequests;
+                    if (stopByWindowRequests) {
+                        LOG.info(">> STOP :: Max extraction requests reached");
+                        return;
+                    }
                 }
             }
         }

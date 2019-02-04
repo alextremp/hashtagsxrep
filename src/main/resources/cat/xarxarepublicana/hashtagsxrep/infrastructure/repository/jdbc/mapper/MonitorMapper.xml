@@ -13,7 +13,7 @@
             <arg column="active" javaType="boolean" />
             <arg column="twitter_query" javaType="string" />
             <arg column="creation_date" javaType="java.time.LocalDateTime" />
-            <arg column="start_date" javaType="java.time.LocalDateTime" />
+            <arg column="end_date" javaType="java.time.LocalDateTime" />
             <arg column="last_update_date" javaType="java.time.LocalDateTime" />
             <arg column="next_query_string" javaType="string" />
         </constructor>
@@ -21,7 +21,7 @@
 
     <sql id="sqlMonitorUserJoin">
         SELECT m.id, m.author_id, u.nickname, m.active,
-            m.twitter_query, m.creation_date, m.start_date,
+            m.twitter_query, m.creation_date, m.end_date,
             m.last_update_date, m.next_query_string
         FROM MONITOR m, USER u
         WHERE m.author_id = u.id
@@ -42,8 +42,7 @@
     <select id='selectActive' resultMap="MonitorResultMap">
         <include refid="sqlMonitorUserJoin"/>
         AND m.active = TRUE
-        AND m.start_date &lt;= NOW()
-        ORDER BY m.start_date DESC
+        ORDER BY m.creation_date DESC
     </select>
 
     <select id="selectLast" resultMap="MonitorResultMap">
@@ -55,15 +54,15 @@
 
     <insert id='insert'>
         INSERT INTO MONITOR (id, author_id, active, twitter_query,
-            creation_date, start_date, last_update_date, next_query_string)
+            creation_date, end_date, last_update_date, next_query_string)
         VALUES (#{monitor.id}, #{monitor.authorId}, #{monitor.active}, #{monitor.twitterQuery},
-            #{monitor.creationDate}, #{monitor.startDate}, #{monitor.lastUpdateDate}, #{monitor.nextQueryString})
+            #{monitor.creationDate}, #{monitor.endDate}, #{monitor.lastUpdateDate}, #{monitor.nextQueryString})
     </insert>
 
     <update id="updateCursor">
         UPDATE MONITOR SET
             creation_date = creation_date,
-            start_date = start_date,
+            end_date = end_date,
             last_update_date = #{monitor.lastUpdateDate},
             next_query_string = #{monitor.nextQueryString}
         WHERE id = #{monitor.id}

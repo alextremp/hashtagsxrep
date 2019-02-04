@@ -36,7 +36,7 @@ public class FinishPollUseCase {
         for (Poll poll: finishedPollsWithNoMonitor) {
             winnerProposal = pollRepository.findWinnerProposal(poll);
             if (winnerProposal != null) {
-                monitor = monitorFactory.createMonitorFromPoll(poll.getId(), winnerProposal.getHashtag(), poll.getEndVotingTime());
+                monitor = monitorFactory.createMonitorFromPoll(poll.getId(), winnerProposal.getHashtag());
                 LOG.info("Creating new monitor from poll: " + monitor.getId() + " - " + monitor.getTwitterQuery());
                 monitorRepository.save(monitor);
 
