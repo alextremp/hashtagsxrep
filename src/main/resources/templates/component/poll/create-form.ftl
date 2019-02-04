@@ -53,7 +53,7 @@ Enquesta creada.
                         <label for="endRankingTime">
                             Tancament del Rànquing
                         </label>
-                        <input id="endRankingTime" name="endRankingTime" type="datetime-local" required value="${(startProposalsTime?long + 48 * 3600000)?number_to_datetime?string['yyyy-MM-dd\'T\'23:\'59\'']}" class="u-full-width"/>
+                        <input id="endRankingTime" name="endRankingTime" type="datetime-local" required value="${startProposalsTime?string['yyyy-MM-dd\'T\'23:\'59\'']}" class="u-full-width"/>
                     </div>
                     <div class="six columns">
                         <label for="type">

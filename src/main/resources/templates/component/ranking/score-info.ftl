@@ -10,6 +10,7 @@
                 - Només es tenen en compte els últims 4 atacs.<br/>
                 - L'atac més recent multiplica x4, l'anterior x3, ...<br/>
                 - No es puntua en un atac si només s'han fet RT sense haver creat contingut amb tweets, cites o comentaris.<br/>
+                - Només es puntua fins l'hora de tancament del rànquing definit a l'enquesta.<br/>
             </div>
         </div>
     </div>
