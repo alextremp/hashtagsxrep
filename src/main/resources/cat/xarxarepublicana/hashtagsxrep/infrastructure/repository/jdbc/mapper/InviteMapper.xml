@@ -121,6 +121,7 @@
             <include refid="selectNicknamesByPollId"/>
         )
         AND user.nickname = taggers_ranking.nickname
+        AND user.role = 'VIEWER'
         ORDER BY user.followers DESC
         LIMIT 10
     </insert>
