@@ -23,21 +23,31 @@
             <arg column="profile_image_url" javaType="string" />
             <arg column="verified" javaType="boolean" />
             <arg column="locked" javaType="boolean" />
+            <arg column="inGroup" javaType="boolean" />
         </constructor>
     </resultMap>
 
+    <sql id="selectUserData">
+        select user.*, (case when membership.group_id is null then 0 else 1 end) as inGroup
+        from USER user
+        left join USER_MEMBERSHIP membership ON user.id = membership.user_id
+    </sql>
+
     <select id='selectOneById' resultMap="UserResultMap">
-        SELECT * FROM USER WHERE id = #{id}
+        <include refid="selectUserData"/>
+        where user.id = #{id}
     </select>
 
     <select id='selectOneByNickname' resultMap="UserResultMap">
-        SELECT * FROM USER WHERE nickname = #{nickname}
+        <include refid="selectUserData"/>
+        where user.nickname = #{nickname}
     </select>
 
     <select id='selectByMembership' resultMap="UserResultMap">
-        SELECT user.* FROM USER user, USER_MEMBERSHIP membership
-        WHERE user.id = membership.user_id
-            and membership.group_id = #{groupId}
+        select user.*, 1 as inGroup
+        from USER user
+        join USER_MEMBERSHIP membership ON user.id = membership.user_id
+        where usermembership.group_id = #{groupId}
     </select>
 
     <select id="exists" resultType="boolean">

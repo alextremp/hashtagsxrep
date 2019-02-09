@@ -21,11 +21,12 @@ public class User {
     private String profileImageUrl;
     private boolean verified;
     private boolean locked;
+    private boolean inGroup;
 
     public User(String id, String nickname, String name, String token, String secret,
                 String role, LocalDateTime signedInDate, LocalDateTime systemCreationDate, LocalDateTime twitterCreationDate,
                 Integer followers, Integer following, String language, String location,
-                String profileImageUrl, Boolean verified, Boolean locked) {
+                String profileImageUrl, Boolean verified, Boolean locked, Boolean inGroup) {
         this.id = id;
         this.nickname = nickname;
         this.name = name;
@@ -42,6 +43,7 @@ public class User {
         this.profileImageUrl = profileImageUrl;
         this.verified = verified;
         this.locked = locked;
+        this.inGroup = inGroup;
     }
 
     public String getId() {
@@ -106,6 +108,10 @@ public class User {
 
     public LocalDateTime getSignInDate() {
         return signInDate;
+    }
+
+    public boolean isInGroup() {
+        return inGroup;
     }
 
     public void updateSignedInDate(LocalDateTime signInDate) {

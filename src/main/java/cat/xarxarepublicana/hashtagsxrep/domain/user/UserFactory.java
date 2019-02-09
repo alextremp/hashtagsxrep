@@ -25,7 +25,8 @@ public class UserFactory {
                 twitterUser.getLocation(),
                 twitterUser.getProfileImageUrlHttps(),
                 twitterUser.isVerified(),
-                twitterUser.isProtected()
+                twitterUser.isProtected(),
+                false
         );
         return user;
     }
