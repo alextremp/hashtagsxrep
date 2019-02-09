@@ -24,4 +24,6 @@ public interface GroupMapper {
 
     @Delete("delete from USER_MEMBERSHIP where group_id = #{groupId} and user_id = #{userId}")
     void delete(@Param("groupId") String groupId, @Param("userId") String userId);
+
+    Group selectGroupToAddNextUser();
 }

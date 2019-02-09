@@ -10,4 +10,12 @@
         </constructor>
     </resultMap>
 
+    <select id="selectGroupToAddNextUser" resultMap="GroupResultMap">
+        select membership.group_id, count(membership.user_id) as users_count from USER_MEMBERSHIP membership
+        group by membership.group_id
+        having users_count &lt;&gt; 48
+        order by 2 desc
+        limit 1
+    </select>
+
 </mapper>
