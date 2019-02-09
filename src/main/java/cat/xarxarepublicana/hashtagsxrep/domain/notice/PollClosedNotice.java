@@ -1,6 +1,6 @@
 package cat.xarxarepublicana.hashtagsxrep.domain.notice;
 
-public class Notice {
+public class PollClosedNotice {
 
     private final String title;
     private final String hashtag;
@@ -8,7 +8,7 @@ public class Notice {
     private final String pollId;
     private final String hour;
 
-    public Notice(String title, String hashtag, String subject, String pollId, String hour) {
+    public PollClosedNotice(String title, String hashtag, String subject, String pollId, String hour) {
         this.title = title;
         this.hashtag = hashtag;
         this.subject = subject;

@@ -29,6 +29,8 @@ public class Proposal {
     public void update(String hashtag, String subject) {
         this.hashtag = hashtag;
         this.subject = subject;
+        this.cancelationReason = null;
+        this.moderatorNickname = null;
     }
 
     public void update(String hashtag, String subject, String cancelationReason, String moderatorNickname) {

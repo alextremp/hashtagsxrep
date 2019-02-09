@@ -2,5 +2,7 @@ package cat.xarxarepublicana.hashtagsxrep.domain.notice;
 
 public interface NoticeRepository {
 
-    void publish(Notice notice);
+    void publishPollClosedNotice(PollClosedNotice notice);
+
+    void publishProposalSavedNotice(ProposalSavedNotice notice);
 }
