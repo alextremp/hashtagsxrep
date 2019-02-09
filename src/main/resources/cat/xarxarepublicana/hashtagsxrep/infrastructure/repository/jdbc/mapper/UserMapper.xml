@@ -47,7 +47,7 @@
         select user.*, 1 as inGroup
         from USER user
         join USER_MEMBERSHIP membership ON user.id = membership.user_id
-        where usermembership.group_id = #{groupId}
+        where membership.group_id = #{groupId}
     </select>
 
     <select id="exists" resultType="boolean">
