@@ -3,7 +3,7 @@ package cat.xarxarepublicana.hashtagsxrep.application.poll;
 import cat.xarxarepublicana.hashtagsxrep.domain.monitor.Monitor;
 import cat.xarxarepublicana.hashtagsxrep.domain.monitor.MonitorFactory;
 import cat.xarxarepublicana.hashtagsxrep.domain.monitor.MonitorRepository;
-import cat.xarxarepublicana.hashtagsxrep.domain.notice.Notice;
+import cat.xarxarepublicana.hashtagsxrep.domain.notice.PollClosedNotice;
 import cat.xarxarepublicana.hashtagsxrep.domain.notice.NoticeRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.poll.Poll;
 import cat.xarxarepublicana.hashtagsxrep.domain.poll.PollRepository;
@@ -40,13 +40,13 @@ public class FinishPollUseCase {
                 LOG.info("Creating new monitor from poll: " + monitor.getId() + " - " + monitor.getTwitterQuery());
                 monitorRepository.save(monitor);
 
-                Notice notice = new Notice(
+                PollClosedNotice notice = new PollClosedNotice(
                         poll.getDescription(),
                         winnerProposal.getHashtag(),
                         winnerProposal.getSubject(),
                         poll.getId(),
                         StringUtils.leftPad("" + poll.getStartEventTime().getHour(), 2, "0") + ":" +StringUtils.leftPad("" + poll.getStartEventTime().getMinute(), 2, "0") + "h");
-                noticeRepository.publish(notice);
+                noticeRepository.publishPollClosedNotice(notice);
             } else {
                 LOG.warning("Finished poll with no winner proposal, consider to delete it");
             }
