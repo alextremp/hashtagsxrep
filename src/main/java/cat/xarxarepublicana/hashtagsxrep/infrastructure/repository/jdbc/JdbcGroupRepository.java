@@ -38,4 +38,9 @@ public class JdbcGroupRepository implements GroupRepository {
     public void removeUser(Group group, User user) {
         groupMapper.delete(group.getId(), user.getId());
     }
+
+    @Override
+    public Group findGroupToAddNewUser() {
+        return groupMapper.selectGroupToAddNextUser();
+    }
 }

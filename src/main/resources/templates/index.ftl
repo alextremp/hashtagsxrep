@@ -20,6 +20,19 @@
             <@security.authentication property="principal.user.nickname"/>
         </div>
 
+        <#if !user.inGroup>
+        <div class="ht-box">
+            <div class="ht-tip">
+                Afegeix-te a un dels nostres grups de Twitter!
+            </div>
+            <form action="/group/users" method="post">
+            <button class="button button-primary" type="submit">
+                <i class="fas fa-star"></i> #AfegeixTe
+            </button>
+            </form>
+        </div>
+        </#if>
+
         <div class="ht-box">
             <#include "component/monitor/page-link.ftl">
             <#include "component/ranking/page-link.ftl">

@@ -12,4 +12,6 @@ public interface GroupRepository {
     void addUser(Group group, User user);
 
     void removeUser(Group group, User user);
+
+    Group findGroupToAddNewUser();
 }

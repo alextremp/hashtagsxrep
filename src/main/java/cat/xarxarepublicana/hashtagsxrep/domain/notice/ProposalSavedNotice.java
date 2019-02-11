@@ -1,6 +1,6 @@
 package cat.xarxarepublicana.hashtagsxrep.domain.notice;
 
-public class ProposalSavedNotice {
+public class ProposalSavedNotice implements Notice {
 
     private final String authorNickname;
     private final String hashtag;

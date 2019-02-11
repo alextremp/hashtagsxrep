@@ -1,8 +1,6 @@
 package cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.telegram;
 
-import cat.xarxarepublicana.hashtagsxrep.domain.notice.PollClosedNotice;
-import cat.xarxarepublicana.hashtagsxrep.domain.notice.NoticeRepository;
-import cat.xarxarepublicana.hashtagsxrep.domain.notice.ProposalSavedNotice;
+import cat.xarxarepublicana.hashtagsxrep.domain.notice.*;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.repository.telegram.dto.SendMessageDTO;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.service.StringEscapeService;
 import org.springframework.http.HttpEntity;
@@ -32,37 +30,27 @@ public class TelegramNoticeRepository implements NoticeRepository {
     }
 
     @Override
-    public void publishPollClosedNotice(PollClosedNotice notice) {
-        try {
-            Map<String, Object> model = new HashMap<>();
-            model.put("notice", notice);
-            model.put("stringEscapeService", stringEscapeService);
-            String message = FreeMarkerTemplateUtils.processTemplateIntoString(
-                    freeMarkerConfig.getConfiguration().getTemplate("telegram-poll-closed-notice.ftl"),
-                    model
-            );
-            HttpEntity<SendMessageDTO> request = new HttpEntity<>(new SendMessageDTO(
-                    channel,
-                    message
-            ));
-
-            LOG.info("Publishing: " + channel + " >>> " + message);
-            RestTemplate restTemplate = new RestTemplate();
-
-            restTemplate.postForLocation("https://api.telegram.org/bot" + apiKey + "/sendMessage", request, Void.class);
-        } catch (Exception e) {
-            LOG.log(Level.SEVERE, "Error publishing message", e);
-        }
+    public void publishPollClosedNotice(PollClosedNotice pollClosedNotice) {
+        publish(pollClosedNotice, "telegram-poll-closed-notice.ftl");
     }
 
     @Override
-    public void publishProposalSavedNotice(ProposalSavedNotice notice) {
+    public void publishProposalSavedNotice(ProposalSavedNotice proposalSavedNotice) {
+        publish(proposalSavedNotice, "telegram-proposal-saved-notice.ftl");
+    }
+
+    @Override
+    public void publishJoiningUser(JoiningUserNotice joiningUserNotice) {
+        publish(joiningUserNotice, "telegram-joining-user-notice.ftl");
+    }
+
+    private void publish(Notice notice, String template) {
         try {
             Map<String, Object> model = new HashMap<>();
             model.put("notice", notice);
             model.put("stringEscapeService", stringEscapeService);
             String message = FreeMarkerTemplateUtils.processTemplateIntoString(
-                    freeMarkerConfig.getConfiguration().getTemplate("telegram-proposal-saved-notice.ftl"),
+                    freeMarkerConfig.getConfiguration().getTemplate(template),
                     model
             );
             HttpEntity<SendMessageDTO> request = new HttpEntity<>(new SendMessageDTO(

@@ -5,4 +5,6 @@ public interface NoticeRepository {
     void publishPollClosedNotice(PollClosedNotice notice);
 
     void publishProposalSavedNotice(ProposalSavedNotice notice);
+
+    void publishJoiningUser(JoiningUserNotice joiningUserNotice);
 }

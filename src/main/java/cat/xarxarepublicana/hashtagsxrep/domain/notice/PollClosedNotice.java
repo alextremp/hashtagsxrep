@@ -1,6 +1,6 @@
 package cat.xarxarepublicana.hashtagsxrep.domain.notice;
 
-public class PollClosedNotice {
+public class PollClosedNotice implements Notice {
 
     private final String title;
     private final String hashtag;
