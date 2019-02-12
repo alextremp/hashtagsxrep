@@ -34,7 +34,7 @@ public class AuthenticationContext {
         this.secret = secret;
     }
 
-    public void restoreSecurityContext(HttpServletRequest request) {
+    public void restoreSecurityContext(HttpServletRequest request, HttpServletResponse response) {
         if (SecurityContextHolder.getContext().getAuthentication() == null) {
             String authToken = getRequestToken(request);
             if (authToken != null) {
@@ -56,7 +56,7 @@ public class AuthenticationContext {
                             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
                             SecurityContextHolder.getContext().setAuthentication(authentication);
-
+                            put(authenticationUser, response);
                         } else {
                             LOG.warn(String.format(">>> bad user token, username [%s] not related to userId [%s]", username, userId));
                         }
