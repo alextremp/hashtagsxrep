@@ -18,6 +18,9 @@
         <div class="ht-info">
             <i class="fas fa-user-circle"></i>
             <@security.authentication property="principal.user.nickname"/>
+            <div class="ht-box">
+                <#include "component/auth/logout-link.ftl">
+            </div>
         </div>
 
         <div class="ht-box">

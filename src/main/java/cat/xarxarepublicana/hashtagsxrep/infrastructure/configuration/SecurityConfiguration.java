@@ -59,7 +59,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authenticationProvider(authenticationProvider)
                 .formLogin().loginPage(Views.URL_LOGIN).permitAll()
                 .and()
-                .logout().permitAll()
+                .logout().deleteCookies(cookieName).logoutSuccessUrl("/").permitAll()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().csrf().disable();
 
