@@ -1,7 +1,7 @@
 <div class="wrap-collabsible">
     <input id="logout-tip-collapser" class="toggle" type="checkbox"/>
     <label for="logout-tip-collapser" class="lbl-toggle">
-        <i class="fas fa-sign-out-alt"></i> #TancarLaSessió
+        #TancarLaSessió
     </label>
     <div class="collapsible-content">
         <div class="content-inner">
