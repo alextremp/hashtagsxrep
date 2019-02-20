@@ -2,6 +2,7 @@
     <div class="six columns"><#include "add-user-form.ftl"></div>
     <div class="six columns"><#include "remove-user-form.ftl"></div>
 </div>
+<#include "page-link.ftl">
 <div class="ht-box">
     <div class="ht-info">
         <i class="fas fa-users"></i> ${ranking.taggerScoreList?size} participants
