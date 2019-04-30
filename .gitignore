@@ -2,3 +2,5 @@ target
 hashtagsxrep.iml
 .env
 _html
+twitter.properties
+tomcat
