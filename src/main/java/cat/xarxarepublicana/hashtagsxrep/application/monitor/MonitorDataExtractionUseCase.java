@@ -74,20 +74,22 @@ public class MonitorDataExtractionUseCase {
                     String query = queryString.toString();
                     LOG.info(">> searchTweets: " + query);
                     searchTweetsResult = twitterRepository.searchTweets(query);
-
-                    if (LOG.isLoggable(Level.FINE)) {
-                        LOG.log(Level.FINE, ">> RESULT: " + searchTweetsResult.getStatuses().length + " statuses >> NEXT: " + searchTweetsResult.getSearchMetadata().getNextResults());
-                    }
-                    existingDataReached = twitterExtractionRepository.save(monitor, searchTweetsResult, ranked);
-                    stopByBlockSize = searchTweetsResult.getStatuses().length < TwitterRepository.MAX_STATUSES_PER_REQUEST;
-                    if (stopByBlockSize) {
-                        LOG.info(">> STOP :: There are no more statuses yet");
-                    }
                     extractionRequestsCounter++;
-                    stopByWindowRequests = extractionRequestsCounter >= maxExtractionRequests;
-                    if (stopByWindowRequests) {
-                        LOG.info(">> STOP :: Max extraction requests reached");
-                        return;
+                    if (searchTweetsResult.getStatuses() != null) {
+                        LOG.log(Level.FINE, ">> RESULT: " + searchTweetsResult.getStatuses().length + " statuses >> NEXT: " + searchTweetsResult.getSearchMetadata().getNextResults());
+                        existingDataReached = twitterExtractionRepository.save(monitor, searchTweetsResult, ranked);
+                        stopByBlockSize = searchTweetsResult.getStatuses().length < TwitterRepository.MAX_STATUSES_PER_REQUEST;
+                        if (stopByBlockSize) {
+                            LOG.info(">> STOP :: There are no more statuses yet");
+                        }
+                        stopByWindowRequests = extractionRequestsCounter >= maxExtractionRequests;
+                        if (stopByWindowRequests) {
+                            LOG.info(">> STOP :: Max extraction requests reached");
+                            return;
+                        }
+                    } else {
+                        LOG.warning(">> search result is null");
+                        stopByBlockSize = true;
                     }
                 }
             }

@@ -45,7 +45,7 @@ public class TwitterRepositoryImpl implements TwitterRepository {
             service.signRequest(accessToken, request);
             Response response = service.execute(request);
             TwitterUser twitterUser = objectMapper.readValue(response.getStream(), TwitterUser.class);
-            User user = userFactory.createFromTwitterLoggedUser(twitterUser, oauthToken, oauthVerifier);
+            User user = userFactory.createFromTwitterLoggedUser(twitterUser, accessToken.getToken(), accessToken.getTokenSecret());
             return user;
         } catch (Exception e) {
             throw new TwitterException("Error verifying user", e);
