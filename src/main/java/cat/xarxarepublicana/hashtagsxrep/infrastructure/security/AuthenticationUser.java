@@ -60,4 +60,7 @@ public class AuthenticationUser implements UserDetails {
         return true;
     }
 
+    public String getPublicToken() {
+        return getUser().getToken();
+    }
 }
