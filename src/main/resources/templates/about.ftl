@@ -77,7 +77,7 @@
     </div>
 
     <@security.authorize access="! isAuthenticated()">
-        <#include "component/user/login-with-twitter.ftl">
+        <#include "migration.ftl">
     </@security.authorize>
     <#include "component/footer.ftl">
 </div>

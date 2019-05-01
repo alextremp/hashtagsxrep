@@ -10,7 +10,7 @@
     <#include "component/header.ftl">
 
     <@security.authorize access="! isAuthenticated()">
-        <#include "component/user/login-with-twitter.ftl">
+        <#include "migration.ftl">
     </@security.authorize>
 
     <@security.authorize access="isAuthenticated()">
