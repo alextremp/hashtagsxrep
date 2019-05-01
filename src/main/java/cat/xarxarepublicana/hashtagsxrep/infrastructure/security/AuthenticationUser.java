@@ -25,6 +25,10 @@ public class AuthenticationUser implements UserDetails {
         return getUser().getId();
     }
 
+    public String getPublicToken() {
+        return getUser().getToken();
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;

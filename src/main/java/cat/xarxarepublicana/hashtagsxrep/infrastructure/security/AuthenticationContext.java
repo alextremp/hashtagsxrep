@@ -23,6 +23,7 @@ public class AuthenticationContext {
     private static final String COOKIE_LOGOUT = "_"; //support for browser versions not deleting the cookie
 
     private static final String USER_ID_CLAIM = "userId";
+    private static final String USER_TOKEN_CLAIM = "userToken";
 
     private UserDetailsService userDetailsService;
     private String cookieName;
@@ -42,6 +43,7 @@ public class AuthenticationContext {
                 String username = tokenClaims.getSubject();
                 if (username != null) {
                     String userId = tokenClaims.get(USER_ID_CLAIM, String.class);
+                    String userToken = tokenClaims.get(USER_TOKEN_CLAIM, String.class);
                     AuthenticationUser authenticationUser = null;
 
                     try {
@@ -50,8 +52,8 @@ public class AuthenticationContext {
                         LOG.warn(String.format(">>> bad user token, username [%s] not found. id [%s]", username, userId));
                     }
 
-                    if (authenticationUser != null) {
-                        if (username.equals(authenticationUser.getUsername())) {
+                    if (authenticationUser != null && username != null && userToken != null) {
+                        if (username.equals(authenticationUser.getUsername()) && userToken.equals(authenticationUser.getPublicToken())) {
                             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(authenticationUser, null, authenticationUser.getAuthorities());
                             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
@@ -100,6 +102,7 @@ public class AuthenticationContext {
     private String generateToken(AuthenticationUser authenticationUser) {
         Claims claims = Jwts.claims().setSubject(authenticationUser.getUsername());
         claims.put(USER_ID_CLAIM, authenticationUser.getId());
+        claims.put(USER_TOKEN_CLAIM, authenticationUser.getPublicToken());
 
         return Jwts.builder()
                 .setClaims(claims)

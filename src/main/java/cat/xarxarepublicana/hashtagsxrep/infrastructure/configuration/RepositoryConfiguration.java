@@ -186,6 +186,7 @@ public class RepositoryConfiguration {
             @Value("${app.db.password}") String password,
             @Value("${app.db.url}") String url) {
         HikariConfig config = new HikariConfig();
+        config.setDriverClassName("org.mariadb.jdbc.Driver");
         config.setJdbcUrl(url);
         config.setUsername(user);
         config.setPassword(password);
