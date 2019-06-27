@@ -19,10 +19,10 @@ ${stringEscapeService.unescapeHTML(notice.subject)}
 &#x26a0; Comenteu tweets dels usuaris que seguiu afegint el hashtag! Així acabarem sent més!
 
 &#x2139; El hashtag ha estat escollit a aquesta enquesta:
-https://hashtagsxrep.herokuapp.com/poll/${notice.pollId}
+https://hashtags.cat/poll/${notice.pollId}
 
 &#x2139; Pots seguir l'evolució del hashtag aquí:
-https://hashtagsxrep.herokuapp.com/report/${notice.hashtag?replace('#', '')}
+https://hashtags.cat/report/${notice.hashtag?replace('#', '')}
 
 &#x2139; RECORDA: a les ${notice.hour} comencem!!*!!
 
