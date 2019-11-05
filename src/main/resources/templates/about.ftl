@@ -18,7 +18,7 @@
             Els administradors de <a href="https://twitter.com/HashtagsXRep" target="_blank">@HashtagsXRep</a> som un equip de voluntaris que ens vàrem proposar a l'estiu del 2018 defensar intensivament la #RepúblicaCatalana a la xarxa.<br/><br/>
             Creiem que la difusió de <b>missatges pro-república</b>, maximitzant els missatges a favor de Catalunya, així com els que puguin ser perjudicials per l'estat espanyol, i també els que s'originin per convocar accions que al principi poden no comptar amb el suport de partits o entitats, suposen un <b>benefici pel conjunt d'usuaris de la xarxa republicana.</b><br/><br/>
             <span class="italic">"...enlloc de a Twitter, hauríem d'estar al carrer..."</span><br/><br/>
-            <i class="fas fa-info-circle"></i> L'iniciativa <a href="https://twitter.com/DivendresXRep" target="_blank">@DivendresXRep</a> des de la qual escollim un #hashtag temàtic cada divendres a les 21h va sorgir pensant amb les concentracions anti-feixistes del setembre 2018 a la Plaça de Sant Jaume (BCN), per informar i animar a tothom, nosaltres inclosos, a ser-hi presents per omplir la plaça per tancar l'accés als manifestants espanyols.<br/><br/>
+            <i class="fas fa-info-circle"></i> L'iniciativa <a href="https://twitter.com/HashtagsxRep" target="_blank">@HashtagsXRep</a> des de la qual escollim un #hashtag temàtic cada divendres a les 21h va sorgir pensant amb les concentracions anti-feixistes del setembre 2018 a la Plaça de Sant Jaume (BCN), per informar i animar a tothom, nosaltres inclosos, a ser-hi presents per omplir la plaça per tancar l'accés als manifestants espanyols.<br/><br/>
             <b>La #RepúblicaCatalana cal defensar-la a tots els àmbits</b>, tant al carrer com a la xarxa!
         </div>
     </div>
@@ -45,7 +45,7 @@
             <i class="fas fa-volume-up"></i> #PerQuèFemTendències
         </div>
         <div class="ht-box left about-text">
-            Aquesta és una mostra dels continguts que han sobrepassat la barrera de Twitter, a partir de #hashtags que hem originat des de <a href="https://twitter.com/DivendresXRep" target="_blank">@DivendresXRep</a>
+            Aquesta és una mostra dels continguts que han sobrepassat la barrera de Twitter, a partir de #hashtags que hem originat des de <a href="https://twitter.com/HashtagsXRep" target="_blank">@HashtagsXRep</a>
         </div>
         <div id="news"></div>
         <div class="ht-box left about-text">
@@ -63,14 +63,13 @@
         </div>
         <div class="ht-box left about-text">
             Participa als nostres atacs a la xarxa els divendres a les 21h!<br/>
-            Des de <a href="https://twitter.com/DivendresXRep" target="_blank">@DivendresXRep</a> us animem a entrar a aquesta web on cada divendres:<br/>
+            Des de <a href="https://twitter.com/HashtagsXRep" target="_blank">@HashtagsXRep</a> us animem a entrar a aquesta web on cada divendres:<br/>
             <i class="fas fa-clock"></i> A partir de les 17h podreu votar la proposta de hashtag a utilitzar.<br/>
             <i class="fas fa-clock"></i> A partir de les 20h podreu consultar la proposta guanyadora per començar a pensar els tweets a publicar.<br/>
             <i class="fas fa-clock"></i> A partir de les 21h ataquem la xarxa!<br/><br/>
 
             <b>#HashtagsXRep sou tots vosaltres!</b><br/><br/>
 
-            <a href="https://twitter.com/DivendresXRep" target="_blank"><i class="fab fa-twitter"></i> @DivendresXRep a Twitter</a><br/>
             <a href="https://twitter.com/HashtagsXRep" target="_blank"><i class="fab fa-twitter"></i> @HashtagsXRep a Twitter</a><br/>
             <a href="https://t.me/HashtagsXRep" target="_blank"><i class="fab fa-telegram"></i> #HashtagsXRep a Telegram</a><br/>
         </div>
