@@ -21,6 +21,10 @@ import java.util.logging.Logger;
 
 public class SearchTweetsMain {
 
+    static {
+        System.setProperty("java.util.logging.config.file", "logging.properties");
+    }
+
     private static final Logger LOG = Logger.getLogger(SearchTweetsMain.class.getName());
 
     private static Properties P;
@@ -56,7 +60,7 @@ public class SearchTweetsMain {
                 maxId = null;
             }
 
-            if (result.getStatuses() != null) {
+            if (result.getStatuses() != null && result.getStatuses().length > 0) {
                 if (sinceId == null && calls == 1) {
                     sinceId = result.getStatuses()[0].getIdStr();
                 }
@@ -84,7 +88,7 @@ public class SearchTweetsMain {
         P = new Properties();
         P.load(new FileReader(new File("twitter.properties")));
         SearchTweetsMain searchTweetsMain = new SearchTweetsMain(createTwitterRepository());
-        searchTweetsMain.find("#conquis16");
+        searchTweetsMain.find("elecciones");
     }
 
     private static TwitterRepository createTwitterRepository() {
