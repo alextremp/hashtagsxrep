@@ -71,7 +71,9 @@
             <b>#HashtagsXRep sou tots vosaltres!</b><br/><br/>
 
             <a href="https://twitter.com/HashtagsXRep" target="_blank"><i class="fab fa-twitter"></i> @HashtagsXRep a Twitter</a><br/>
-            <a href="https://t.me/HashtagsXRep" target="_blank"><i class="fab fa-telegram"></i> #HashtagsXRep a Telegram</a><br/>
+            <a href="https://t.me/HashtagsXRep" target="_blank"><i class="fab fa-telegram"></i> @HashtagsXRep a Telegram</a><br/>
+            <a href="https://www.facebook.com/HashtagsXRep" target="_blank"><i class="fab fa-facebook"></i> #HashtagsXRep a Facebook</a><br/>
+            <a href="https://www.instagram.com/hashtagsxrep/" target="_blank"><i class="fab fa-instagram"></i> #HashtagsXRep a Facebook</a><br/>
         </div>
     </div>
 
