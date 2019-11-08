@@ -13,6 +13,7 @@
     <div class="ht-block ht-white-block center">
         <div class="ht-info">
             <i class="fas fa-chart-line"></i> ${monitor.twitterQuery}
+            <div class="ht-tip">${monitor.formattedCreationDate}</div>
         </div>
         <#include "component/report/extraction-data.ftl">
 

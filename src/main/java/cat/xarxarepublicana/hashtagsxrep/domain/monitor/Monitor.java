@@ -1,8 +1,11 @@
 package cat.xarxarepublicana.hashtagsxrep.domain.monitor;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Monitor {
+
+    private static final DateTimeFormatter DDMMYYYY_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private final String id;
     private final String authorId;
@@ -65,5 +68,9 @@ public class Monitor {
     public void updateCursor(String nextQueryString) {
         this.nextQueryString = nextQueryString;
         this.lastUpdateDate = LocalDateTime.now();
+    }
+
+    public String getFormattedCreationDate() {
+        return creationDate != null ? DDMMYYYY_FORMATTER.format(creationDate) : "";
     }
 }
