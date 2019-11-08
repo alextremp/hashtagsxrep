@@ -1,0 +1,16 @@
+version: '3.4'
+
+services:
+
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'hashtagsxrep'
+      MYSQL_USER: 'htags'
+      MYSQL_PASSWORD: 'htags'
+      MYSQL_ROOT_PASSWORD: 'root'
+    ports:
+      - '8889:3306'
+    expose:
+      - '8889'
