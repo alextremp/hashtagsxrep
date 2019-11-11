@@ -5,7 +5,9 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 import java.util.TimeZone;
+import org.springframework.context.annotation.Profile;
 
+@Profile("!integration-test")
 public class TomcatApplicationConfiguration extends SpringBootServletInitializer {
 
     @Override
