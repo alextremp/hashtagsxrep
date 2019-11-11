@@ -15,7 +15,7 @@ public class FinishedPollTimer {
         this.finishPollUseCase = finishPollUseCase;
     }
 
-    @Scheduled(fixedDelayString = "${app.finishedPoll.timer.delay}")
+    @Scheduled(fixedDelayString = "${app.finishedPoll.timer.delay}", initialDelay = 60000)
     public void onTime() {
         LOG.info(">> onTime >> Finished Poll Timer :: START");
         finishPollUseCase.createMonitorFromPoll();

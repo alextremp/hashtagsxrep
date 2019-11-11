@@ -195,3 +195,4 @@ FOREIGN KEY (user_id) REFERENCES USER (id);
 ALTER TABLE MONITOR CHANGE start_date end_date TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';
 
 alter table USER modify name varchar(2000) null;
+INSERT INTO USER (id, nickname, name, token, secret, role, sign_in_date, system_creation_date, twitter_creation_date, followers, following, language, location, profile_image_url, verified, locked) VALUES ('-1', 'auto', 'hashtagsxrep web', 'n/a', 'n/a', 'ADMIN', '2019-11-10 01:27:57', '2019-11-10 01:26:52', '2015-11-15 19:50:20', 0, 0, null, null, null, null, null);

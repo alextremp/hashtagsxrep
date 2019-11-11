@@ -1,6 +1,5 @@
 package cat.xarxarepublicana.hashtagsxrep.acceptance;
 
-import cat.xarxarepublicana.hashtagsxrep.AbstractIntegrationTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 

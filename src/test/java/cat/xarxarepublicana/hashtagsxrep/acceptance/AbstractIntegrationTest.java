@@ -1,6 +1,7 @@
-package cat.xarxarepublicana.hashtagsxrep;
+package cat.xarxarepublicana.hashtagsxrep.acceptance;
 
-import cat.xarxarepublicana.hashtagsxrep.configuration.IntegrationTestConfiguration;
+import cat.xarxarepublicana.hashtagsxrep.HashtagsXRepTestApplication;
+import cat.xarxarepublicana.hashtagsxrep.helper.InitDbHelper;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -26,7 +27,7 @@ import static org.hamcrest.Matchers.equalTo;
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("integration-test")
 @SpringBootTest(
-    classes = {HashtagsXRepTestApplication.class, IntegrationTestConfiguration.class},
+    classes = {HashtagsXRepTestApplication.class},
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(initializers = {AbstractIntegrationTest.Initializer.class})
 public abstract class AbstractIntegrationTest {
@@ -66,9 +67,13 @@ public abstract class AbstractIntegrationTest {
   @Value("${local.server.port}")
   private Integer port;
 
+  @Autowired
+  private InitDbHelper initDbHelper;
+
   @BeforeEach
   public void setUp() {
     address = "http://localhost:" + port;
+    initDbHelper.initDb();
   }
 
   protected Response get(String relativePath) {

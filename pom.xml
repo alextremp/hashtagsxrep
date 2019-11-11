@@ -86,6 +86,13 @@
 		</dependency>
 
 
+		<!-- project reactor -->
+		<dependency>
+			<groupId>io.projectreactor</groupId>
+			<artifactId>reactor-core</artifactId>
+			<version>3.2.6.RELEASE</version>
+		</dependency>
+
 		<!-- Utilities -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -135,9 +142,18 @@
 			<version>4.1.2</version>
 			<scope>test</scope>
 		</dependency>
-
-
-
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.6</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.sourceforge.htmlunit</groupId>
+			<artifactId>htmlunit</artifactId>
+			<version>2.36.0</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>

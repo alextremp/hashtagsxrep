@@ -15,7 +15,7 @@ public class MonitorTimer {
         this.monitorDataExtractionUseCase = monitorDataExtractionUseCase;
     }
 
-    @Scheduled(fixedDelayString = "${app.monitor.timer.delay}")
+    @Scheduled(fixedDelayString = "${app.monitor.timer.delay}", initialDelay = 60000)
     public void onTime() {
         LOG.info(">> onTime >> Monitor Timer :: START");
         monitorDataExtractionUseCase.extractData();
