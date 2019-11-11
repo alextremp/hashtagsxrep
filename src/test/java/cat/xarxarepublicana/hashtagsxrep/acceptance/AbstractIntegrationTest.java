@@ -2,11 +2,13 @@ package cat.xarxarepublicana.hashtagsxrep.acceptance;
 
 import cat.xarxarepublicana.hashtagsxrep.HashtagsXRepTestApplication;
 import cat.xarxarepublicana.hashtagsxrep.helper.InitDbHelper;
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
-import io.restassured.response.Response;
-import io.restassured.response.ValidatableResponse;
-import org.hamcrest.Matcher;
+import cat.xarxarepublicana.hashtagsxrep.infrastructure.security.AuthCookieService;
+import cat.xarxarepublicana.hashtagsxrep.infrastructure.security.AuthToken;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.WebRequest;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import java.net.URL;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +18,10 @@ import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.testcontainers.containers.MariaDBContainer;
-
-import static org.hamcrest.Matchers.equalTo;
 
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("integration-test")
@@ -60,70 +59,53 @@ public abstract class AbstractIntegrationTest {
     }
   }
 
+  private static final String TEST_AUTH_TOKEN =
+      "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbGV4dHJlbXAiLCJ1c2VySWQiOiI0MTk1OTU3OTM1IiwidXNlclRva2VuIjoiNDE5NTk1NzkzNS14eHh4eHhfaW52ZW50X3Rva2VuIn0.Mfh_4HrDTnTqC_SmsqEegewfNlUcRWctD7GuwfOufraH6msWDL23j9Tw0LTgmt76RRYTuwgT7uHIAkUTjeRBVQ";
+
   private String address;
+  private WebClient webClient;
 
   @Autowired
   private TestRestTemplate restTemplate;
   @Value("${local.server.port}")
   private Integer port;
-
   @Autowired
   private InitDbHelper initDbHelper;
+  @Autowired
+  private AuthCookieService authCookieService;
+
+  @Value("${app.usertoken.cookiename}")
+  private String cookieName;
 
   @BeforeEach
   public void setUp() {
     address = "http://localhost:" + port;
+    webClient = new WebClient();
     initDbHelper.initDb();
   }
 
-  protected Response get(String relativePath) {
-    return get(relativePath, HttpStatus.OK);
-  }
-
-  protected <T> T get(String relativePath, Class<T> expectedResponseClass) {
-    return extract(get(relativePath, HttpStatus.OK), expectedResponseClass);
-  }
-
-  protected Response get(String relativePath, HttpStatus expectedStatus) {
-    return get(relativePath, equalTo(expectedStatus.value()));
-  }
-
-  protected Response get(String relativePath, Matcher<Integer> statusMatcher) {
-    return validatableGet(relativePath)
-        .statusCode(statusMatcher)
-        .extract()
-        .response();
-  }
-
-  protected ValidatableResponse validatableGet(String relativePath) {
-    return RestAssured.get(address + relativePath)
-        .then()
-        .contentType(ContentType.JSON);
-  }
-
-  protected Response post(String relativePath, String body) {
-    return RestAssured
-        .given()
-        .body(body)
-        .post(address + relativePath)
-        .then()
-        .extract()
-        .response();
-  }
-
-  private <T> T extract(Response response, Class<T> expectedResponseClass) {
-    T expectedResponse = response.as(expectedResponseClass);
-    if (expectedResponse == null) {
-      String stringResponse = response.asString();
-      if (stringResponse != null) {
-        throw new RuntimeException("Expecting: "
-                                       + expectedResponseClass.getName()
-                                       + " but received unknown response (status code: " + response.statusCode() + "): "
-                                       + stringResponse);
-      } else {
-        throw new RuntimeException("Expecting: " + expectedResponseClass.getName() + " but received null");
-      }
+  @AfterEach
+  public void tearDown() {
+    if (webClient != null) {
+      webClient.close();
     }
-    return expectedResponse;
+  }
+
+  protected HtmlPage page(String path) {
+    return page(path, true);
+  }
+
+  protected HtmlPage page(String path, boolean authenticated) {
+    try {
+      WebRequest request = new WebRequest(new URL(address + path));
+      request.setAdditionalHeader("Cookie", cookieName + "=" + testToken());
+      return webClient.getPage(request);
+    } catch (Exception e) {
+      throw new RuntimeException("Error loading: " + path, e);
+    }
+  }
+
+  private String testToken() {
+    return authCookieService.serialize(new AuthToken("4195957935", "alextremp", "4195957935-xxxxxx_invent_token"));
   }
 }

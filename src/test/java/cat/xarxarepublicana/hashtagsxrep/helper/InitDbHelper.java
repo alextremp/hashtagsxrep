@@ -30,7 +30,7 @@ public class InitDbHelper {
       ScriptRunner scriptRunner = new ScriptRunner(connection);
       scriptRunner.setAutoCommit(true);
       scriptRunner.setStopOnError(true);
-      scriptRunner.setLogWriter(new PrintWriter(System.out));
+      scriptRunner.setLogWriter(null);
       scriptRunner.runScript(reader("DROP SCHEMA IF EXISTS hashtagsxrep;"));
       scriptRunner.runScript(reader("CREATE SCHEMA hashtagsxrep;"));
       scriptRunner.runScript(reader("USE hashtagsxrep;"));
