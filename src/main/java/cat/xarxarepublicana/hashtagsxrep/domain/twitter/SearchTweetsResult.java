@@ -1,7 +1,5 @@
 package cat.xarxarepublicana.hashtagsxrep.domain.twitter;
 
-import cat.xarxarepublicana.hashtagsxrep.domain.twitter.SearchMetadata;
-import cat.xarxarepublicana.hashtagsxrep.domain.twitter.Tweet;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -10,22 +8,22 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class SearchTweetsResult {
 
-    private Tweet[] statuses = new Tweet[0];
-    private SearchMetadata searchMetadata = new SearchMetadata();
+  private Tweet[] statuses = new Tweet[0];
+  private SearchMetadata searchMetadata = new SearchMetadata();
 
-    public Tweet[] getStatuses() {
-        return statuses;
-    }
+  public Tweet[] getStatuses() {
+    return statuses;
+  }
 
-    public void setStatuses(Tweet[] statuses) {
-        this.statuses = statuses;
-    }
+  public void setStatuses(Tweet[] statuses) {
+    this.statuses = statuses;
+  }
 
-    public SearchMetadata getSearchMetadata() {
-        return searchMetadata;
-    }
+  public SearchMetadata getSearchMetadata() {
+    return searchMetadata;
+  }
 
-    public void setSearchMetadata(SearchMetadata searchMetadata) {
-        this.searchMetadata = searchMetadata;
-    }
+  public void setSearchMetadata(SearchMetadata searchMetadata) {
+    this.searchMetadata = searchMetadata;
+  }
 }

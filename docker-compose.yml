@@ -2,15 +2,18 @@ version: '3.4'
 
 services:
 
-  mysql:
-    image: mysql:5.7
-    restart: always
+  mariadb:
+    image: mariadb:10.2
     environment:
-      MYSQL_DATABASE: 'hashtagsxrep'
-      MYSQL_USER: 'htags'
-      MYSQL_PASSWORD: 'htags'
-      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: hashtagsxrep
+      MYSQL_USER: htags
+      MYSQL_PASSWORD: htags
+      TZ: "Europe/Madrid"
     ports:
       - '8889:3306'
     expose:
       - '8889'
+    restart: on-failure
+    volumes:
+      - ${PWD}/mariadb:/var/lib/mysql

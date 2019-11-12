@@ -12,22 +12,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class RankingController {
 
-    private final GetTaggersRankingUseCase getTaggersRankingUseCase;
+  private final GetTaggersRankingUseCase getTaggersRankingUseCase;
 
-    @Autowired
-    public RankingController(GetTaggersRankingUseCase getTaggersRankingUseCase) {
-        this.getTaggersRankingUseCase = getTaggersRankingUseCase;
-    }
+  @Autowired
+  public RankingController(GetTaggersRankingUseCase getTaggersRankingUseCase) {
+    this.getTaggersRankingUseCase = getTaggersRankingUseCase;
+  }
 
-    @GetMapping(Views.URL_RANKING)
-    public String ranking(
-            Model model,
-            @AuthenticationPrincipal
-                    AuthenticationUser authenticationUser
-    ) {
-        GetTaggersRankingUseCase.GetTaggersRankingResponse getTaggersRankingResponse = getTaggersRankingUseCase.getTaggersRanking(authenticationUser.getUser());
-        model.addAttribute("getTaggersRankingResponse", getTaggersRankingResponse);
-        model.addAttribute("user", authenticationUser.getUser());
-        return Views.VIEW_RANKING;
-    }
+  @GetMapping(Views.URL_RANKING)
+  public String ranking(
+      Model model,
+      @AuthenticationPrincipal
+          AuthenticationUser authenticationUser
+  ) {
+    GetTaggersRankingUseCase.GetTaggersRankingResponse getTaggersRankingResponse =
+        getTaggersRankingUseCase.getTaggersRanking(authenticationUser.getUser());
+    model.addAttribute("getTaggersRankingResponse", getTaggersRankingResponse);
+    model.addAttribute("user", authenticationUser.getUser());
+    return Views.VIEW_RANKING;
+  }
 }

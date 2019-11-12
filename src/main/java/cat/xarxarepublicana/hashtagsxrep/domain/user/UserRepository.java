@@ -4,13 +4,13 @@ import java.util.List;
 
 public interface UserRepository {
 
-    User findById(String id);
+  User findById(String id);
 
-    User findByNickname(String nickname);
+  User findByNickname(String nickname);
 
-    void saveLoggedUser(User user);
+  void saveLoggedUser(User user);
 
-    void saveExtractedUser(User user);
+  void saveExtractedUser(User user);
 
-    List<User> findByGroupId(String groupId);
+  List<User> findByGroupId(String groupId);
 }

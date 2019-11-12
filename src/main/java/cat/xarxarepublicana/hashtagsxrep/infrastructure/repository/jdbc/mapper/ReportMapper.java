@@ -9,15 +9,15 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface ReportMapper {
 
-    InteractorResume selectInteractorResume(@Param("monitorId") String monitorId);
+  InteractorResume selectInteractorResume(@Param("monitorId") String monitorId);
 
-    TweetedContentResume selectTweetedContentResume(@Param("monitorId") String monitorId);
+  TweetedContentResume selectTweetedContentResume(@Param("monitorId") String monitorId);
 
-    Integer selectTaggersCount(@Param("monitorId") String monitorId);
+  Integer selectTaggersCount(@Param("monitorId") String monitorId);
 
-    UserContentResume selectUserContentResume(@Param("monitorId") String monitorId);
+  UserContentResume selectUserContentResume(@Param("monitorId") String monitorId);
 
-    Integer selectMaxImpressions(@Param("monitorId") String monitorId);
+  Integer selectMaxImpressions(@Param("monitorId") String monitorId);
 
-    Integer selectMaxAudience(@Param("monitorId") String monitorId);
+  Integer selectMaxAudience(@Param("monitorId") String monitorId);
 }

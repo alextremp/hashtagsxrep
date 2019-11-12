@@ -8,19 +8,18 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 public class AuthenticationUserService implements UserDetailsService {
 
-    private UserRepository userRepository;
+  private UserRepository userRepository;
 
-    public AuthenticationUserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+  public AuthenticationUserService(UserRepository userRepository) {
+    this.userRepository = userRepository;
+  }
+
+  @Override
+  public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
+    User user = userRepository.findById(id);
+    if (user == null) {
+      throw new UsernameNotFoundException("Not found: " + id);
     }
-
-    @Override
-    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        User user = userRepository.findById(id);
-        if (user == null) {
-            throw new UsernameNotFoundException("Not found: " + id);
-        }
-        return new AuthenticationUser(user);
-    }
-
+    return new AuthenticationUser(user);
+  }
 }

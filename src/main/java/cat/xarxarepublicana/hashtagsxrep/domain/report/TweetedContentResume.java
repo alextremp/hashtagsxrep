@@ -2,35 +2,35 @@ package cat.xarxarepublicana.hashtagsxrep.domain.report;
 
 public class TweetedContentResume {
 
-    private final Integer tweets;
-    private final Integer quotes;
-    private final Integer comments;
-    private final Integer retweets;
+  private final Integer tweets;
+  private final Integer quotes;
+  private final Integer comments;
+  private final Integer retweets;
 
-    public TweetedContentResume(Integer tweets, Integer quotes, Integer comments, Integer retweets) {
-        this.tweets = tweets;
-        this.quotes = quotes;
-        this.comments = comments;
-        this.retweets = retweets;
-    }
+  public TweetedContentResume(Integer tweets, Integer quotes, Integer comments, Integer retweets) {
+    this.tweets = tweets;
+    this.quotes = quotes;
+    this.comments = comments;
+    this.retweets = retweets;
+  }
 
-    public Integer getTweets() {
-        return tweets;
-    }
+  public Integer getTweets() {
+    return tweets;
+  }
 
-    public Integer getQuotes() {
-        return quotes;
-    }
+  public Integer getQuotes() {
+    return quotes;
+  }
 
-    public Integer getComments() {
-        return comments;
-    }
+  public Integer getComments() {
+    return comments;
+  }
 
-    public Integer getRetweets() {
-        return retweets;
-    }
+  public Integer getRetweets() {
+    return retweets;
+  }
 
-    public Integer getContentCount() {
-        return getTweets() + getQuotes() + getComments() + getRetweets();
-    }
+  public Integer getContentCount() {
+    return getTweets() + getQuotes() + getComments() + getRetweets();
+  }
 }

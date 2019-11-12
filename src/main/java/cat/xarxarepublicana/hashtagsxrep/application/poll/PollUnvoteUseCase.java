@@ -5,14 +5,13 @@ import cat.xarxarepublicana.hashtagsxrep.domain.user.User;
 
 public class PollUnvoteUseCase {
 
-    private final PollRepository pollRepository;
+  private final PollRepository pollRepository;
 
-    public PollUnvoteUseCase(PollRepository pollRepository) {
-        this.pollRepository = pollRepository;
-    }
+  public PollUnvoteUseCase(PollRepository pollRepository) {
+    this.pollRepository = pollRepository;
+  }
 
-    public void pollUnvote(String pollId, User user) {
-        pollRepository.deleteVote(pollId, user.getId());
-    }
-
+  public void pollUnvote(String pollId, User user) {
+    pollRepository.deleteVote(pollId, user.getId());
+  }
 }
