@@ -9,3 +9,4 @@ mariadb
 deploy.sh
 .gradle
 build
+war.sh

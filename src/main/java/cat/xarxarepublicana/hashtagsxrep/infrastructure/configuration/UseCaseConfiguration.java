@@ -18,7 +18,7 @@ import cat.xarxarepublicana.hashtagsxrep.application.poll.ValidateHashtagUseCase
 import cat.xarxarepublicana.hashtagsxrep.application.ranking.GetTaggersRankingUseCase;
 import cat.xarxarepublicana.hashtagsxrep.application.report.GetTwitterQueryReportUseCase;
 import cat.xarxarepublicana.hashtagsxrep.application.signin.ConnectTwitterCallbackUseCase;
-import cat.xarxarepublicana.hashtagsxrep.application.signin.SignInWithTwitterUse;
+import cat.xarxarepublicana.hashtagsxrep.application.signin.SignInWithTwitterUseCase;
 import cat.xarxarepublicana.hashtagsxrep.domain.extraction.TwitterExtractionRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.invite.InviteRepository;
 import cat.xarxarepublicana.hashtagsxrep.domain.monitor.MonitorFactory;
@@ -49,8 +49,8 @@ public class UseCaseConfiguration {
   }
 
   @Bean
-  public SignInWithTwitterUse signInWithTwitterUse(TwitterRepository twitterRepository) {
-    return new SignInWithTwitterUse(twitterRepository);
+  public SignInWithTwitterUseCase signInWithTwitterUse(TwitterRepository twitterRepository) {
+    return new SignInWithTwitterUseCase(twitterRepository);
   }
 
   @Bean

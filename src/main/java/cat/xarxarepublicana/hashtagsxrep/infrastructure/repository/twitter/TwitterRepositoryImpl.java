@@ -19,6 +19,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.lang3.StringUtils;
+import reactor.core.publisher.Mono;
 
 public class TwitterRepositoryImpl implements TwitterRepository {
 
@@ -88,13 +89,10 @@ public class TwitterRepositoryImpl implements TwitterRepository {
   }
 
   @Override
-  public String getAuthorizationUrl() {
-    try {
-      final OAuth1RequestToken requestToken = service.getRequestToken();
-      return service.getAuthorizationUrl(requestToken);
-    } catch (IOException | InterruptedException | ExecutionException e) {
-      throw new TwitterException("Error requesting token", e);
-    }
+  public Mono<String> getAuthorizationUrl() {
+    return Mono.fromCallable(() -> service.getRequestToken())
+        .map(service::getAuthorizationUrl)
+        .onErrorMap(throwable -> new TwitterException("Error requesting token", throwable));
   }
 
   private void setQueryString(OAuthRequest request, String queryString) {

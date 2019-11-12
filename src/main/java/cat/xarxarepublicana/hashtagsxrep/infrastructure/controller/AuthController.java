@@ -2,10 +2,9 @@ package cat.xarxarepublicana.hashtagsxrep.infrastructure.controller;
 
 import cat.xarxarepublicana.hashtagsxrep.application.Views;
 import cat.xarxarepublicana.hashtagsxrep.application.signin.ConnectTwitterCallbackUseCase;
-import cat.xarxarepublicana.hashtagsxrep.application.signin.SignInWithTwitterUse;
+import cat.xarxarepublicana.hashtagsxrep.application.signin.SignInWithTwitterUseCase;
 import cat.xarxarepublicana.hashtagsxrep.application.signin.io.ConnectTwitterCallbackRequest;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.security.AuthCookieService;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,26 +16,24 @@ import reactor.core.publisher.Mono;
 @Controller
 public class AuthController {
 
-  private static final Logger LOG = Logger.getLogger(AuthController.class.getName());
-
   private final AuthCookieService authCookieService;
-  private final SignInWithTwitterUse signInWithTwitterUse;
+  private final SignInWithTwitterUseCase signInWithTwitterUseCase;
   private final ConnectTwitterCallbackUseCase connectTwitterCallbackUseCase;
 
   @Autowired
   public AuthController(
       AuthCookieService authCookieService,
-      SignInWithTwitterUse signInWithTwitterUse,
+      SignInWithTwitterUseCase signInWithTwitterUseCase,
       ConnectTwitterCallbackUseCase connectTwitterCallbackUseCase) {
     this.authCookieService = authCookieService;
-    this.signInWithTwitterUse = signInWithTwitterUse;
+    this.signInWithTwitterUseCase = signInWithTwitterUseCase;
     this.connectTwitterCallbackUseCase = connectTwitterCallbackUseCase;
   }
 
   @GetMapping(Views.URL_LOGIN_TWITTER)
-  public RedirectView loginTwitter() throws Exception {
-    SignInWithTwitterUse.SignInWithTwitterResponse signInWithTwitterResponse = signInWithTwitterUse.signInWithTwitter();
-    return new RedirectView(signInWithTwitterResponse.getRedirectTo());
+  public Mono<RedirectView> loginTwitter() {
+    return signInWithTwitterUseCase.signInWithTwitter()
+        .map(useCaseResponse -> new RedirectView(useCaseResponse.getSigninUrl()));
   }
 
   @GetMapping(Views.URL_CONNECT_TWITTER)
