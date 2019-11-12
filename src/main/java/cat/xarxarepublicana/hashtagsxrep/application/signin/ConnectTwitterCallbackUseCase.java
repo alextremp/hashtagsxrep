@@ -1,13 +1,15 @@
 package cat.xarxarepublicana.hashtagsxrep.application.signin;
 
-import cat.xarxarepublicana.hashtagsxrep.application.Views;
+import cat.xarxarepublicana.hashtagsxrep.application.signin.io.ConnectTwitterCallbackRequest;
+import cat.xarxarepublicana.hashtagsxrep.application.signin.io.ConnectTwitterCallbackResponse;
+import cat.xarxarepublicana.hashtagsxrep.domain.core.error.LoginDeniedError;
 import cat.xarxarepublicana.hashtagsxrep.domain.twitter.TwitterRepository;
-import cat.xarxarepublicana.hashtagsxrep.domain.user.User;
 import cat.xarxarepublicana.hashtagsxrep.domain.user.UserRepository;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.security.AuthCookieService;
 import cat.xarxarepublicana.hashtagsxrep.infrastructure.security.AuthToken;
 import java.time.LocalDateTime;
-import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.lang3.StringUtils;
+import reactor.core.publisher.Mono;
 
 public class ConnectTwitterCallbackUseCase {
 
@@ -24,28 +26,21 @@ public class ConnectTwitterCallbackUseCase {
     this.authCookieService = authCookieService;
   }
 
-  public ConnectResponse connect(HttpServletResponse response, String oauthToken, String oauthVerifier, String denied) {
-    if (denied != null) {
-      return new ConnectResponse(Views.URL_LOGIN);
-    }
-    User user = twitterRepository.verifyCredentials(oauthToken, oauthVerifier);
-    user.updateSignedInDate(LocalDateTime.now());
-    userRepository.saveLoggedUser(user);
-
-    AuthToken authToken = new AuthToken(user.getId(), user.getNickname(), user.getToken());
-    authCookieService.putAuthToken(authToken, response);
-    return new ConnectResponse(Views.URL_INDEX);
+  public Mono<ConnectTwitterCallbackResponse> execute(ConnectTwitterCallbackRequest request) {
+    return Mono.fromCallable(() -> StringUtils.isEmpty(request.getDenied()))
+        .flatMap(allowed -> allowed
+            ? authenticationToken(request.getOauthToken(), request.getOauthVerifier())
+            : Mono.error(new LoginDeniedError(request.getDenied())))
+        .map(authCookieService::serialize)
+        .map(serializedToken -> new ConnectTwitterCallbackResponse().setAuthenticationToken(serializedToken));
   }
 
-  public static class ConnectResponse {
-    private final String redirectTo;
-
-    public ConnectResponse(String redirectTo) {
-      this.redirectTo = redirectTo;
-    }
-
-    public String getRedirectTo() {
-      return redirectTo;
-    }
+  private Mono<AuthToken> authenticationToken(String oauthToken, String oauthVerifier) {
+    return Mono.fromCallable(() -> twitterRepository.verifyCredentials(oauthToken, oauthVerifier))
+        .doOnNext(user -> {
+          user.updateSignedInDate(LocalDateTime.now());
+          userRepository.saveLoggedUser(user);
+        })
+        .map(user -> new AuthToken(user.getId(), user.getNickname(), user.getToken()));
   }
 }

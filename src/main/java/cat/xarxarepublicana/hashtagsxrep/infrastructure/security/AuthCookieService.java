@@ -38,8 +38,12 @@ public class AuthCookieService {
     return null;
   }
 
-  public void putAuthToken(AuthToken authToken, HttpServletResponse response) {
-    String token = serialize(authToken);
+  public void putAuthToken(AuthToken token, HttpServletResponse response) {
+    String serialized = serialize(token);
+    putAuthToken(serialized, response);
+  }
+
+  public void putAuthToken(String token, HttpServletResponse response) {
     Cookie apiCookie = new Cookie(cookieName, token);
     apiCookie.setHttpOnly(true);
     apiCookie.setMaxAge(COOKIE_MAX_AGE);
