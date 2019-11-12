@@ -6,16 +6,16 @@ import com.github.benmanes.caffeine.cache.LoadingCache;
 
 public class CachedReportRepository implements ReportRepository {
 
-    private final ReportRepository reportRepository;
-    private final LoadingCache<String, Report> reportCache;
+  private final ReportRepository reportRepository;
+  private final LoadingCache<String, Report> reportCache;
 
-    public CachedReportRepository(ReportRepository reportRepository, LoadingCache<String, Report> reportCache) {
-        this.reportRepository = reportRepository;
-        this.reportCache = reportCache;
-    }
+  public CachedReportRepository(ReportRepository reportRepository, LoadingCache<String, Report> reportCache) {
+    this.reportRepository = reportRepository;
+    this.reportCache = reportCache;
+  }
 
-    @Override
-    public Report loadReport(String monitorId) {
-        return reportCache.get(monitorId);
-    }
+  @Override
+  public Report loadReport(String monitorId) {
+    return reportCache.get(monitorId);
+  }
 }

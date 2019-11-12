@@ -7,3 +7,5 @@ tomcat
 mariadb
 mariadb
 deploy.sh
+.gradle
+build

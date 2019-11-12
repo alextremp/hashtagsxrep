@@ -1,6 +1,5 @@
 package cat.xarxarepublicana.hashtagsxrep.helper;
 
-import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.StringReader;
 import java.sql.Connection;

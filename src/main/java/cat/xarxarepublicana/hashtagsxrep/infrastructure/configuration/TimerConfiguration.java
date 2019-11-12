@@ -12,13 +12,13 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class TimerConfiguration {
 
-    @Bean
-    public MonitorTimer monitorTimer(MonitorDataExtractionUseCase monitorDataExtractionUseCase) {
-        return new MonitorTimer(monitorDataExtractionUseCase);
-    }
+  @Bean
+  public MonitorTimer monitorTimer(MonitorDataExtractionUseCase monitorDataExtractionUseCase) {
+    return new MonitorTimer(monitorDataExtractionUseCase);
+  }
 
-    @Bean
-    public FinishedPollTimer finishedPollTimer(FinishPollUseCase finishPollUseCase) {
-        return new FinishedPollTimer(finishPollUseCase);
-    }
+  @Bean
+  public FinishedPollTimer finishedPollTimer(FinishPollUseCase finishPollUseCase) {
+    return new FinishedPollTimer(finishPollUseCase);
+  }
 }

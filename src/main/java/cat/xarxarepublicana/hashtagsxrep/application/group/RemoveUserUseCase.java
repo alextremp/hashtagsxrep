@@ -10,19 +10,19 @@ import org.springframework.stereotype.Component;
 @Component
 public class RemoveUserUseCase {
 
-    private final GroupRepository groupRepository;
-    private final UserRepository userRepository;
+  private final GroupRepository groupRepository;
+  private final UserRepository userRepository;
 
-    public RemoveUserUseCase(GroupRepository groupRepository, UserRepository userRepository) {
-        this.groupRepository = groupRepository;
-        this.userRepository = userRepository;
-    }
+  public RemoveUserUseCase(GroupRepository groupRepository, UserRepository userRepository) {
+    this.groupRepository = groupRepository;
+    this.userRepository = userRepository;
+  }
 
-    public void remove(String groupId, String nickname) {
-        Group group = groupRepository.findById(groupId);
-        User user = userRepository.findByNickname(StringUtils.removeStart(nickname, "@"));
-        if (group != null && user != null) {
-            groupRepository.removeUser(group, user);
-        }
+  public void remove(String groupId, String nickname) {
+    Group group = groupRepository.findById(groupId);
+    User user = userRepository.findByNickname(StringUtils.removeStart(nickname, "@"));
+    if (group != null && user != null) {
+      groupRepository.removeUser(group, user);
     }
+  }
 }

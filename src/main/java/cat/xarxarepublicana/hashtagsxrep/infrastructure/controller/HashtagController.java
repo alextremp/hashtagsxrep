@@ -10,19 +10,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HashtagController {
 
-    private final ValidateHashtagUseCase validateHashtagUseCase;
+  private final ValidateHashtagUseCase validateHashtagUseCase;
 
-    @Autowired
-    public HashtagController(ValidateHashtagUseCase validateHashtagUseCase) {
-        this.validateHashtagUseCase = validateHashtagUseCase;
-    }
+  @Autowired
+  public HashtagController(ValidateHashtagUseCase validateHashtagUseCase) {
+    this.validateHashtagUseCase = validateHashtagUseCase;
+  }
 
-    @GetMapping("/hashtag/{hashtag}/count")
-    public HashtagCountResponse hashtagCount(
-            @PathVariable("hashtag") String hashtag
-    ) {
-        String error = validateHashtagUseCase.validate("#" + hashtag);
-        return error == null ? new HashtagCountResponse(true, null) : new HashtagCountResponse(false, error);
-    }
-
+  @GetMapping("/hashtag/{hashtag}/count")
+  public HashtagCountResponse hashtagCount(
+      @PathVariable("hashtag") String hashtag
+  ) {
+    String error = validateHashtagUseCase.validate("#" + hashtag);
+    return error == null ? new HashtagCountResponse(true, null) : new HashtagCountResponse(false, error);
+  }
 }

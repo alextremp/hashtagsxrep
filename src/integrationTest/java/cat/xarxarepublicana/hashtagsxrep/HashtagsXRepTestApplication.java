@@ -8,11 +8,11 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 @SpringBootApplication
 public class HashtagsXRepTestApplication {
 
-    public HashtagsXRepTestApplication(FreeMarkerConfigurer freeMarkerConfigurer) {
-        freeMarkerConfigurer.getTaglibFactory().setClasspathTlds(Collections.singletonList("/META-INF/security.tld"));
-    }
+  public HashtagsXRepTestApplication(FreeMarkerConfigurer freeMarkerConfigurer) {
+    freeMarkerConfigurer.getTaglibFactory().setClasspathTlds(Collections.singletonList("/META-INF/security.tld"));
+  }
 
-    public static void main(String[] args) {
-        SpringApplication.run(HashtagsXRepTestApplication.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(HashtagsXRepTestApplication.class, args);
+  }
 }

@@ -3,21 +3,21 @@ package cat.xarxarepublicana.hashtagsxrep.domain.monitor;
 import java.util.List;
 
 public interface MonitorRepository {
-    void save(Monitor monitor);
+  void save(Monitor monitor);
 
-    void updateCursor(Monitor monitor, String nextQueryString);
+  void updateCursor(Monitor monitor, String nextQueryString);
 
-    Monitor findById(String id);
+  Monitor findById(String id);
 
-    List<Monitor> getActiveMonitors();
+  List<Monitor> getActiveMonitors();
 
-    String getMaxTweetId(String monitorId);
+  String getMaxTweetId(String monitorId);
 
-    List<Monitor> getLastMonitors();
+  List<Monitor> getLastMonitors();
 
-    Monitor findByTwitterQuery(String twitterQuery);
+  Monitor findByTwitterQuery(String twitterQuery);
 
-    void disable(String id);
+  void disable(String id);
 
-    void delete(Monitor monitor);
+  void delete(Monitor monitor);
 }

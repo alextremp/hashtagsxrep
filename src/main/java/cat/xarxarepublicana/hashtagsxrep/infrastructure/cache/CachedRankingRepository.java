@@ -9,21 +9,21 @@ import static cat.xarxarepublicana.hashtagsxrep.infrastructure.cache.CacheConsta
 
 public class CachedRankingRepository implements RankingRepository {
 
-    private final RankingRepository rankingRepository;
-    private final LoadingCache<String, Ranking> rankingCache;
+  private final RankingRepository rankingRepository;
+  private final LoadingCache<String, Ranking> rankingCache;
 
-    public CachedRankingRepository(RankingRepository rankingRepository, LoadingCache<String, Ranking> rankingCache) {
-        this.rankingRepository = rankingRepository;
-        this.rankingCache = rankingCache;
-    }
+  public CachedRankingRepository(RankingRepository rankingRepository, LoadingCache<String, Ranking> rankingCache) {
+    this.rankingRepository = rankingRepository;
+    this.rankingCache = rankingCache;
+  }
 
-    @Override
-    public Ranking loadRanking() {
-        return rankingCache.get(SINGLE_ENTRY_KEY);
-    }
+  @Override
+  public Ranking loadRanking() {
+    return rankingCache.get(SINGLE_ENTRY_KEY);
+  }
 
-    @Override
-    public UserRank loadUserRank(String nickname) {
-        return rankingRepository.loadUserRank(nickname);
-    }
+  @Override
+  public UserRank loadUserRank(String nickname) {
+    return rankingRepository.loadUserRank(nickname);
+  }
 }

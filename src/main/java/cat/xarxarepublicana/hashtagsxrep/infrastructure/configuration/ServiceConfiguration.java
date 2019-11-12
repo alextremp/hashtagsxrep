@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ServiceConfiguration {
 
-    @Bean
-    public TwitterSearchService twitterSearchService(TwitterRepository twitterRepository) {
-        return new TwitterSearchService(twitterRepository);
-    }
+  @Bean
+  public TwitterSearchService twitterSearchService(TwitterRepository twitterRepository) {
+    return new TwitterSearchService(twitterRepository);
+  }
 }

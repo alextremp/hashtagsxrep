@@ -2,7 +2,7 @@ package cat.xarxarepublicana.hashtagsxrep.domain.ranking;
 
 public interface RankingRepository {
 
-    Ranking loadRanking();
+  Ranking loadRanking();
 
-    UserRank loadUserRank(String nickname);
+  UserRank loadUserRank(String nickname);
 }

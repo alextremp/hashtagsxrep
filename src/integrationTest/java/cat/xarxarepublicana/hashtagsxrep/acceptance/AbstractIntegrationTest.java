@@ -7,6 +7,7 @@ import cat.xarxarepublicana.hashtagsxrep.infrastructure.security.AuthToken;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.WebRequest;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import java.io.IOException;
 import java.net.URL;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -48,23 +49,8 @@ public abstract class AbstractIntegrationTest {
     DB_CONTAINER.start();
   }
 
-  static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
-    @Override
-    public void initialize(ConfigurableApplicationContext configurableApplicationContext) {
-      TestPropertyValues.of(
-          "app.db.url=" + DB_CONTAINER.getJdbcUrl(),
-          "app.db.user=" + DB_CONTAINER.getUsername(),
-          "app.db.password=" + DB_CONTAINER.getPassword())
-          .applyTo(configurableApplicationContext.getEnvironment());
-    }
-  }
-
-  private static final String TEST_AUTH_TOKEN =
-      "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbGV4dHJlbXAiLCJ1c2VySWQiOiI0MTk1OTU3OTM1IiwidXNlclRva2VuIjoiNDE5NTk1NzkzNS14eHh4eHhfaW52ZW50X3Rva2VuIn0.Mfh_4HrDTnTqC_SmsqEegewfNlUcRWctD7GuwfOufraH6msWDL23j9Tw0LTgmt76RRYTuwgT7uHIAkUTjeRBVQ";
-
   private String address;
   private WebClient webClient;
-
   @Autowired
   private TestRestTemplate restTemplate;
   @Value("${local.server.port}")
@@ -73,7 +59,6 @@ public abstract class AbstractIntegrationTest {
   private InitDbHelper initDbHelper;
   @Autowired
   private AuthCookieService authCookieService;
-
   @Value("${app.usertoken.cookiename}")
   private String cookieName;
 
@@ -100,12 +85,23 @@ public abstract class AbstractIntegrationTest {
       WebRequest request = new WebRequest(new URL(address + path));
       request.setAdditionalHeader("Cookie", cookieName + "=" + testToken());
       return webClient.getPage(request);
-    } catch (Exception e) {
+    } catch (IOException e) {
       throw new RuntimeException("Error loading: " + path, e);
     }
   }
 
   private String testToken() {
     return authCookieService.serialize(new AuthToken("4195957935", "alextremp", "4195957935-xxxxxx_invent_token"));
+  }
+
+  static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+    @Override
+    public void initialize(ConfigurableApplicationContext configurableApplicationContext) {
+      TestPropertyValues.of(
+          "app.db.url=" + DB_CONTAINER.getJdbcUrl(),
+          "app.db.user=" + DB_CONTAINER.getUsername(),
+          "app.db.password=" + DB_CONTAINER.getPassword())
+          .applyTo(configurableApplicationContext.getEnvironment());
+    }
   }
 }

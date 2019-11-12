@@ -13,26 +13,27 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class ReportController {
 
-    private final GetTwitterQueryReportUseCase getTwitterQueryReportUseCase;
+  private final GetTwitterQueryReportUseCase getTwitterQueryReportUseCase;
 
-    @Autowired
-    public ReportController(GetTwitterQueryReportUseCase getTwitterQueryReportUseCase) {
-        this.getTwitterQueryReportUseCase = getTwitterQueryReportUseCase;
-    }
+  @Autowired
+  public ReportController(GetTwitterQueryReportUseCase getTwitterQueryReportUseCase) {
+    this.getTwitterQueryReportUseCase = getTwitterQueryReportUseCase;
+  }
 
-    @GetMapping("/report/{twitterQuery}")
-    public String twitterQueryReport(
-            @PathVariable("twitterQuery")
-                    String twitterQueryWithoutHashtag,
-            @AuthenticationPrincipal
-                    AuthenticationUser authenticationUser,
-            Model model
-    ) {
-        String twitterQuery = "#" + twitterQueryWithoutHashtag;
-        GetTwitterQueryReportUseCase.GetTwitterQueryReport getTwitterQueryReport = getTwitterQueryReportUseCase.getTwitterQueryReport(twitterQuery);
-        model.addAttribute("report", getTwitterQueryReport.getReport());
-        model.addAttribute("monitor", getTwitterQueryReport.getMonitor());
-        model.addAttribute("user", authenticationUser.getUser());
-        return Views.VIEW_REPORT;
-    }
+  @GetMapping("/report/{twitterQuery}")
+  public String twitterQueryReport(
+      @PathVariable("twitterQuery")
+          String twitterQueryWithoutHashtag,
+      @AuthenticationPrincipal
+          AuthenticationUser authenticationUser,
+      Model model
+  ) {
+    String twitterQuery = "#" + twitterQueryWithoutHashtag;
+    GetTwitterQueryReportUseCase.GetTwitterQueryReport getTwitterQueryReport =
+        getTwitterQueryReportUseCase.getTwitterQueryReport(twitterQuery);
+    model.addAttribute("report", getTwitterQueryReport.getReport());
+    model.addAttribute("monitor", getTwitterQueryReport.getMonitor());
+    model.addAttribute("user", authenticationUser.getUser());
+    return Views.VIEW_REPORT;
+  }
 }
